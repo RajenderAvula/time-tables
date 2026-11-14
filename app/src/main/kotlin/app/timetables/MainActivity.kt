@@ -7,6 +7,13 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.app.AlarmManager
+import android.app.NotificationManager
+import android.os.PowerManager
+import android.provider.Settings
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.NotificationManagerCompat
+import org.json.JSONArray
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -133,8 +140,18 @@ class MainActivity : AppCompatActivity() {
             ): Boolean {
                 val u = request.url
                 if (u.host == WebViewAssetLoader.DEFAULT_DOMAIN) return false
+                val scheme = u.scheme ?: ""
                 try {
-                    startActivity(Intent(Intent.ACTION_VIEW, u)) // http(s), tel:, sms:, mailto:, geo:
+                    when (scheme) {
+                        // web pages and Google searches open inside the app
+                        "http", "https" -> openInApp(u.toString())
+                        "intent" -> startActivity(
+                            Intent.parseUri(u.toString(), Intent.URI_INTENT_SCHEME).apply {
+                                addCategory(Intent.CATEGORY_BROWSABLE); component = null; selector = null
+                            }
+                        )
+                        else -> startActivity(Intent(Intent.ACTION_VIEW, u)) // tel:, sms:, mailto:, geo:, app schemes
+                    }
                 } catch (e: Exception) {
                     Toast.makeText(this@MainActivity, "No app can open this link", Toast.LENGTH_SHORT).show()
                 }
@@ -198,12 +215,31 @@ class MainActivity : AppCompatActivity() {
         })
 
         Scheduler.ensureChannel(this)
+        Scheduler.ensureRingChannel(this)
+        showOverLock(intent)
         if (Build.VERSION.SDK_INT >= 33) ask(listOf(Manifest.permission.POST_NOTIFICATIONS)) { }
 
         if (savedInstanceState == null) {
             web.loadUrl("https://${WebViewAssetLoader.DEFAULT_DOMAIN}/assets/index.html")
         } else {
             web.restoreState(savedInstanceState)
+        }
+    }
+
+    private fun openInApp(url: String) {
+        startActivity(Intent(this, BrowserActivity::class.java).putExtra("url", url))
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        showOverLock(intent)
+    }
+
+    /** An alarm that opens the app wakes the screen and shows over the lock screen. */
+    private fun showOverLock(i: Intent?) {
+        if (i?.getBooleanExtra("ring", false) == true) {
+            if (Build.VERSION.SDK_INT >= 27) { setShowWhenLocked(true); setTurnScreenOn(true) }
         }
     }
 
@@ -217,12 +253,16 @@ class MainActivity : AppCompatActivity() {
         AppState.foreground = true
         web.onResume()
         // anything the phone was going to ring is handled by the page now
-        getSystemService(android.app.NotificationManager::class.java).cancelAll()
+        Scheduler.stopRinging(this)
+        getSystemService(NotificationManager::class.java).cancelAll()
+        Scheduler.scheduleNext(this)
+        Geo.register(this)
+        web.evaluateJavascript("window.nativeGeoHits&&window.nativeGeoHits();window.nativeDone&&window.nativeDone()", null)
     }
 
     override fun onPause() {
         AppState.foreground = false
-        web.evaluateJavascript("window.nativeSyncNow&&window.nativeSyncNow()", null)
+        web.evaluateJavascript("window.nativeSyncNow&&window.nativeSyncNow(true)", null)
         web.onPause()
         super.onPause()
     }
@@ -240,6 +280,27 @@ class MainActivity : AppCompatActivity() {
         if (missing.isEmpty()) { done(perms.associateWith { true }); return }
         permResult = done
         permLauncher.launch(missing.toTypedArray())
+    }
+
+    private var geoAsked = false
+
+    /** Location alarms need location, and "all the time" so they work with the app closed. */
+    private fun ensureGeoPerms() {
+        ask(listOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) { ok ->
+            if (!ok.values.any { it }) return@ask
+            Geo.register(applicationContext)
+            if (Build.VERSION.SDK_INT >= 29 && !Geo.hasBackground(this) && !geoAsked) {
+                geoAsked = true
+                AlertDialog.Builder(this)
+                    .setTitle("Allow location all the time")
+                    .setMessage("So location alarms ring when the app is closed, choose “Allow all the time” on the next screen.")
+                    .setPositiveButton("Continue") { _, _ ->
+                        ask(listOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) { Geo.register(applicationContext) }
+                    }
+                    .setNegativeButton("Not now", null)
+                    .show()
+            }
+        }
     }
 
     /* ---------------- speech recognition (backs window.SpeechRecognition in the page) ---------------- */
@@ -411,6 +472,94 @@ class MainActivity : AppCompatActivity() {
         fun notify(title: String, body: String) {
             Scheduler.show(applicationContext, "n" + System.nanoTime(), title, body, false)
         }
+
+        // ----- location alarms that work when the app is closed -----
+        @JavascriptInterface
+        fun setGeofences(json: String) {
+            Geo.replaceAll(applicationContext, json)
+            if (json.length > 2 && AppState.foreground) runOnUiThread { ensureGeoPerms() }
+        }
+
+        @JavascriptInterface
+        fun takeGeoHits(): String = Geo.takeHits(applicationContext)
+
+        // ----- installed apps and the in-app browser -----
+        @JavascriptInterface
+        fun listApps(): String {
+            val pm = packageManager
+            val i = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
+            val a = JSONArray()
+            pm.queryIntentActivities(i, 0)
+                .map { it.loadLabel(pm).toString() to it.activityInfo.packageName }
+                .filter { it.second != packageName }
+                .distinctBy { it.second }
+                .sortedBy { it.first.lowercase() }
+                .forEach { a.put(JSONObject().put("name", it.first).put("pkg", it.second)) }
+            return a.toString()
+        }
+
+        @JavascriptInterface
+        fun launchPkg(pkg: String): Boolean {
+            val li = packageManager.getLaunchIntentForPackage(pkg) ?: return false
+            runOnUiThread { try { startActivity(li) } catch (e: Exception) { } }
+            return true
+        }
+
+        @JavascriptInterface
+        fun openInApp(url: String) {
+            runOnUiThread { this@MainActivity.openInApp(url) }
+        }
+
+        // ----- is the phone set up so alarms ring? -----
+        @JavascriptInterface
+        fun alarmStatus(): String {
+            val nm = getSystemService(NotificationManager::class.java)
+            val pm = getSystemService(PowerManager::class.java)
+            val o = JSONObject()
+            o.put("notif", NotificationManagerCompat.from(applicationContext).areNotificationsEnabled())
+            o.put("fullScreen", Build.VERSION.SDK_INT < 34 || nm.canUseFullScreenIntent())
+            o.put("battery", pm.isIgnoringBatteryOptimizations(packageName))
+            o.put("location", Geo.hasPermission(applicationContext))
+            o.put("bgLocation", Geo.hasBackground(applicationContext))
+            return o.toString()
+        }
+
+        @JavascriptInterface
+        fun fixAlarm(which: String) {
+            runOnUiThread {
+                try {
+                    val pkg = Uri.parse("package:$packageName")
+                    val i = when (which) {
+                        "notif" -> Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                            .putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+                        "fullScreen" -> if (Build.VERSION.SDK_INT >= 34)
+                            Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT, pkg)
+                        else Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, pkg)
+                        "battery" -> Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, pkg)
+                        else -> Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, pkg)
+                    }
+                    startActivity(i)
+                } catch (e: Exception) {
+                    try { startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName"))) } catch (x: Exception) { }
+                }
+            }
+        }
+
+        // ----- scheduled calls / messages / apps -----
+        @JavascriptInterface
+        fun runAction(json: String) {
+            runOnUiThread {
+                try {
+                    val i = Act.intent(this@MainActivity, JSONObject(json))
+                    if (i != null) startActivity(i) else Toast.makeText(this@MainActivity, "Could not open that", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(this@MainActivity, "No app can do that", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        @JavascriptInterface
+        fun takeDone(): String = Scheduler.takeDone(applicationContext)
 
         // ----- speech recognition -----
         @JavascriptInterface
