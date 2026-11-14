@@ -94,6 +94,7 @@ table.grid{border-collapse:separate;border-spacing:0;table-layout:fixed;min-widt
 .tslot .ins:hover,.tslot .xs:hover{background:var(--accent-soft);color:var(--fg)}
 
 .grid th.ms,.grid td.ms{border-left:2px solid var(--accent)}
+td.cell{position:relative}.spb{position:absolute;right:calc(2px + var(--i,0)*7px);width:5px;background:var(--c);opacity:.9;z-index:2;pointer-events:none;top:-1px;bottom:-1px}.spb.f{border-radius:4px 4px 0 0}.spb.l{border-radius:0 0 4px 4px}.spb.f.l{border-radius:4px}.spt{position:absolute;left:5px;right:calc(10px + var(--i,0)*7px);bottom:calc(2px + var(--i,0)*14px);z-index:2;font-size:10px;line-height:13px;color:var(--c);background:color-mix(in srgb,var(--surface) 82%,transparent);border-left:3px solid var(--c);padding:0 4px;border-radius:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;font-weight:600}
 td.cell{height:118px;padding:6px 7px;cursor:pointer;background:var(--surface)}
 td.cell.today{background:color-mix(in srgb,var(--today) 45%,var(--surface))}
 td.cell:hover{background:var(--accent-soft)}
@@ -610,7 +611,7 @@ function buildGrid(){
   COLW=S.colW||136;TCOL=S.tcolW||138;const days=dayList(),today=iso(new Date()),t=$('#grid');t.textContent='';t.style.width=(TCOL+ui.count*COLW)+'px';t.style.setProperty('--tcol',TCOL+'px');$('.gridwrap').style.scrollPaddingLeft=TCOL+'px';
   t.append(h('thead',null,h('tr',null,h('th',{class:'tcol'},'Time',h('span',{class:'rzc','data-k':'t',title:'Drag to resize. Double-tap to reset.'})),days.map(d=>h('th',{class:(iso(d)===today?'today':'')+(d.getDate()===1?' ms':'')+offCls(iso(d)),title:holOf(iso(d))?'Holiday: '+holOf(iso(d)).name:null},
     h('span',{class:'dn'},DOW[d.getDay()]),h('span',{class:'dd'},String(d.getDate())),h('span',{class:'dm'},MON[d.getMonth()]+(d.getDate()===1||d.getMonth()===0&&d.getDate()===1?' '+d.getFullYear():'')),holSpan(iso(d)),h('span',{class:'rzc','data-k':'c',title:'Drag to resize all day columns. Double-tap to reset.'}))))));
-  const tb=h('tbody');
+  const tb=h('tbody'),spans=spanMap(days);
   for(const s of S.slots){
     const x=h('button',{class:'xs','aria-label':'Remove row',title:'Remove row',html:ic('trash',12)});
     arm(x,()=>{snap();for(const k of Object.keys(S.cells))if(k.split('|')[1]===s.id)purgeCell(k);S.slots=S.slots.filter(q=>q.id!==s.id);dirty();renderGrid()},'Delete row?');
@@ -630,7 +631,7 @@ function buildGrid(){
         if(sm.att)m.append(h('span',{html:ic('clip')+sm.att}));if(sm.lnk)m.append(h('span',{html:ic('link')+sm.lnk}));
         if(sm.drw)m.append(h('span',{html:ic('draw')+sm.drw}));if(sm.alm)m.append(h('span',{class:'al',html:ic('bell')+sm.alm}));
         td.append(m);const inn=h('div',{class:'cinner',style:'max-height:'+(rh-14)+'px'},[...td.childNodes]);td.append(inn)}
-      tr.append(td)}
+      spanMarks(td,spans,iso(d),s);tr.append(td)}
     tb.append(tr)}
   t.append(tb)}
 function updateRange(){
@@ -750,7 +751,7 @@ function boxCard(n,cur){
     if(cur){openNode(p)}else renderEditor()},'Delete'+(n.kids.length?' + inside':'')+'?');
   const ents=h('div',{class:'ents'});paintEnts(n,ents);
   const tools=h('div',{class:'tools'},tbtn('clip','Attach files',()=>pick.click()),tbtn('link','Link to a day or another box',()=>linkDlg(n)),tbtn('href','Insert hyperlink',()=>hrefDlg(n,ta)),tbtn('users','Contacts for this box',()=>peopleDlg(n)),tbtn('cal','Copy or move to another day',()=>copyDlg(n)),
-    tbtn('pen','New scribble pad',()=>scribble(n)),mic,tbtn('voice','Record voice',()=>recordDlg(n,'audio')),tbtn('video','Record video',()=>recordDlg(n,'video')),tbtn('copy','Copy text',()=>copyText(n.text||'')),
+    tbtn('pen','New scribble pad',()=>scribble(n)),tbtn('phone','Schedule a call or message',()=>actDlg(n)),mic,tbtn('voice','Record voice',()=>recordDlg(n,'audio')),tbtn('video','Record video',()=>recordDlg(n,'video')),tbtn('copy','Copy text',()=>copyText(n.text||'')),
     tbtn('checklist','Add a checklist',()=>addList(n,ents)),tbtn('steps','Add steps',()=>addStep(n,ents)),tbtn('bell','Alarm',()=>alarmDlg(n)),tbtn('share','Share this box',()=>shareBoxDlg(n)),tbtn('repeat',recOf(n)?'Repeats: '+recText(recOf(n)):'Repeat this box on a schedule',()=>recDlg(n),recOf(n)?'on':''),tbtn('pin','Location reminder',()=>geoDlg(n)),tbtn('apps','Open an app',()=>appsDlg(n,ta)),tbtn('globe','Search Google for this text',()=>openGoogle(firstLine(ta.value)||'')),tbtn('timer','Pomodoro for this box',()=>pomoOpen(n.id)),del);
   if(!cur)tools.append(h('button',{class:'tb open',onclick:()=>openNode(n.id),html:'Open inside'+(n.kids.length?' · '+descendants(n.id).length:'')+ic('enter')}));
   const nm=n.contact?null:autoName({class:'bname',value:n.name||'',placeholder:firstLine(n.text)||'Name this box','aria-label':'Box name',enterkeyhint:'next',
@@ -819,7 +820,7 @@ function bhead(n){
     [1,2,3].forEach(v=>seg.append(h('button',{class:'pb p'+v+(pr===v?' on':''),'aria-pressed':String(pr===v),title:PRI[v]+' priority. Tap again to clear.',
       onclick:()=>{n.pri=pr===v?0:v;dirty();paint();renderTreeSoon()}},v===1?'Low':v===2?'Med':'High')));
     w.append(seg);
-    const cs=h('select',{class:'catsel','aria-label':'Category',title:'Category',onchange:()=>{n.cat=cs.value||null;dirty();const bx=w.closest('.box');if(bx)setCat(bx,n)}},h('option',{value:''},'No category'),(S.cats||[]).map(c=>h('option',{value:c.id},c.name)));cs.value=n.cat||'';w.append(cs);{const gs=goalSel(n);if(gs)w.append(gs)}w.append(revBtn(n));
+    const cs=h('select',{class:'catsel','aria-label':'Category',title:'Category',onchange:()=>{if(cs.value==='__new'){cs.value=n.cat||'';newCatDlg(n);return}n.cat=cs.value||null;dirty();const bx=w.closest('.box');if(bx)setCat(bx,n)}},h('option',{value:''},'No category'),(S.cats||[]).map(c=>h('option',{value:c.id},c.name)),h('option',{value:'__new'},'+ New category…'));cs.value=n.cat||'';w.append(cs);{const gs=goalSel(n);if(gs)w.append(gs)}w.append(revBtn(n));
     const bx=w.closest('.box');if(bx){bx.classList.toggle('done',st==='d');setCat(bx,n)}}
   paint();return w}
 function linkLabel(l){if(l.tt){const t=S.tts.find(x=>x.id===l.tt);return(l.label?l.label+' · ':'')+(t?'Timetable: '+t.name:'Missing timetable')}if(l.id){const t=N(l.id);return t?(l.label?l.label+' · ':'')+nodeLabel(t):'Missing box'}return(l.label?l.label+' · ':'')+cellLabel(l.key)}
@@ -919,29 +920,6 @@ function repDate(base,i,p){const d=new Date(base);
   if(p==='w')d.setDate(d.getDate()+7*i);else if(p==='w2')d.setDate(d.getDate()+14*i);
   else if(p==='m'){const dd=d.getDate();d.setDate(1);d.setMonth(d.getMonth()+i);d.setDate(Math.min(dd,new Date(d.getFullYear(),d.getMonth()+1,0).getDate()))}
   else d.setDate(d.getDate()+i);return d}
-function copyDlg(n){
-  const rk=rootOf(n.id).key||'',isDate=rk.indexOf('|')>0,src=isDate?parseISO(rk.split('|')[0]):new Date(),srcSlot=isDate?rk.split('|')[1]:S.slots[0].id;
-  const nd=new Date(src);nd.setDate(nd.getDate()+1);
-  const d=h('input',{type:'date',id:'cpd',value:iso(nd)}),s=h('select',{id:'cps'},S.slots.map(x=>h('option',{value:x.id},x.s+'–'+x.e))),rep=h('input',{type:'number',id:'cpr',min:'0',max:'60',value:'0'}),pat=h('select',{id:'cpp'},[['d','Every day'],['wd','Every weekday (Mon\u2013Fri)'],['w','Every week'],['w2','Every 2 weeks'],['m','Every month']].map(a=>h('option',{value:a[0]},a[1])));
-  s.value=slotOf(srcSlot)?srcSlot:S.slots[0].id;
-  const inner=descendants(n.id).length;
-  const dayMs=k=>isDate?Math.round((Date.UTC(k.getFullYear(),k.getMonth(),k.getDate())-Date.UTC(src.getFullYear(),src.getMonth(),src.getDate()))/864e5)*864e5:0;
-  const canMove=!n.contact&&!n.ref&&!!n.parent;
-  const mv=h('button',{class:'btn',disabled:!canMove,title:canMove?'':'This box cannot be moved'},'Move'),cp=h('button',{class:'btn primary'},'Copy');
-  const m=modal('Copy or move to another day',h('div',{style:'display:flex;flex-direction:column;gap:10px'},
-    h('p',{style:'margin:0;font-size:13px;color:var(--muted)'},'Brings along the text, files, links, scribbles, alarm, status and priority'+(inner?', and the '+inner+' box'+(inner>1?'es':'')+' inside it':'')+'.'),
-    h('label',null,'Day',d),h('label',null,'Time row',s),h('label',null,'Repeat how many more times (0 for none)',rep),h('label',null,'Repeat pattern',pat)),
-    [h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),mv,cp]);
-  async function go(move){
-    if(!d.value)return;mv.disabled=cp.disabled=true;const base=parseISO(d.value),reps=move?0:Math.max(0,Math.min(60,parseInt(rep.value)||0));
-    try{
-      if(move){snap();const par=N(n.parent);par.kids=par.kids.filter(k=>k!==n.id);const root=cellRoot(d.value+'|'+s.value);n.parent=root.id;root.kids.push(n.id);shiftAlarms(n.id,dayMs(base))}
-      else for(let i=0;i<=reps;i++){const day=repDate(base,i,pat.value);{const cc=await cloneNode(n,cellRoot(iso(day)+'|'+s.value).id,dayMs(day));if(n.ref)cc.ref=null}}
-    }catch(e){toast('Could not finish: '+(e&&e.message||'error'));mv.disabled=cp.disabled=false;return}
-    dirty();m.close();renderGrid();if(move&&ed.node)renderEditor();if(move)setTimeout(()=>checkSchedule(n),80);
-    toast((move?'Moved to ':'Copied to ')+cellLabel(d.value+'|'+s.value)+(reps?' and '+reps+' more time'+(reps>1?'s':''):''))}
-  mv.onclick=()=>go(true);cp.onclick=()=>go(false)}
-
 /* ---------- contacts ---------- */
 const contactsRoot=()=>cellRoot('contacts');
 const contactNodes=()=>contactsRoot().kids.map(N).filter(Boolean);
@@ -1262,7 +1240,7 @@ function addStep(host,wrap){host.lists=host.lists||[];const g={id:uid(),k:'s',te
 
 /* ---------- open apps, Google tab, location reminders ---------- */
 Object.assign(P,{pin:'M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',apps:'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z',globe:'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18'});
-function openUrl(u){const a=h('a',{href:u,target:'_blank',rel:'noopener noreferrer'});a.style.display='none';document.body.append(a);a.click();a.remove()}
+function openUrl(u){const NB=window.AndroidBridge;if(NB&&NB.openInApp&&/^https?:/i.test(u)){NB.openInApp(u);return}const a=h('a',{href:u,target:'_blank',rel:'noopener noreferrer'});a.style.display='none';document.body.append(a);a.click();a.remove()}
 const APPS=[['WhatsApp','whatsapp://send','com.whatsapp','Messaging'],['WhatsApp Business','whatsapp://send','com.whatsapp.w4b','Messaging'],['Telegram','tg://','org.telegram.messenger','Messaging'],['Signal','sgnl://','org.thoughtcrime.securesms','Messaging'],['Messages','sms:','com.google.android.apps.messaging','Phone'],['Phone dialer','tel:','com.google.android.dialer','Phone'],['New email','mailto:','','Phone'],
  ['Instagram','instagram://','com.instagram.android','Social'],['Facebook','fb://','com.facebook.katana','Social'],['X (Twitter)','twitter://','com.twitter.android','Social'],['LinkedIn','linkedin://','com.linkedin.android','Social'],['Snapchat','snapchat://','com.snapchat.android','Social'],['Reddit','reddit://','com.reddit.frontpage','Social'],
  ['Gmail','https://mail.google.com','com.google.android.gm','Google'],['Google Maps','https://www.google.com/maps','com.google.android.apps.maps','Google'],['Google Calendar','https://calendar.google.com','com.google.android.calendar','Google'],['Google Drive','https://drive.google.com','com.google.android.apps.docs','Google'],['Google Meet','https://meet.google.com','com.google.android.apps.tachyon','Google'],['Google Photos','https://photos.google.com','com.google.android.apps.photos','Google'],['Google Keep','https://keep.google.com','com.google.android.keep','Google'],['Chrome','googlechrome://','com.android.chrome','Google'],
@@ -1273,13 +1251,15 @@ const APPS=[['WhatsApp','whatsapp://send','com.whatsapp','Messaging'],['WhatsApp
  ['Phone settings','intent:#Intent;action=android.settings.SETTINGS;end','','Phone']];
 const pkgUrl=p=>'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package='+p+';end';
 const isAndroid=()=>/Android/i.test(navigator.userAgent||'');
-function launchApp(a){const u=(isAndroid()&&a.pkg)?pkgUrl(a.pkg):a.url;openUrl(u);toast('Opening '+a.name+'. If nothing happens, the app may not be installed or this viewer blocked it.')}
+function launchApp(a){const NB=window.AndroidBridge;if(NB&&NB.launchPkg&&a.pkg){if(NB.launchPkg(a.pkg))return;toast(a.name+' is not installed on this phone.');if(!a.url)return}const u=(isAndroid()&&a.pkg)?pkgUrl(a.pkg):a.url;openUrl(u);toast('Opening '+a.name+'. If nothing happens, the app may not be installed or this viewer blocked it.')}
 function appTarget(s){s=(s||'').trim();if(!s)return null;if(/^[a-z][a-z0-9+.-]*:/i.test(s))return{url:s};if(/^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/i.test(s)&&!/\.(com|org|net|in|io|app)$/i.test(s))return{url:'',pkg:s};if(/^[\w-]+(\.[\w-]+)+(\/\S*)?$/.test(s))return{url:'https://'+s};return null}
 function appsDlg(n,ta){
   n.apps=n.apps||[];const has=a=>n.apps.some(x=>x.name===a.name&&(x.pkg||'')===(a.pkg||'')&&x.url===a.url);
+  let INST=null;try{const NB=window.AndroidBridge;if(NB&&NB.listApps)INST=JSON.parse(NB.listApps()).map(x=>[x.name,'',x.pkg,'Installed on this phone'])}catch(e){INST=null}
+  if(INST&&!INST.length)INST=null;
   const q=h('input',{class:'cin',type:'search',placeholder:'Search apps','aria-label':'Search apps'}),list=h('div',{style:'max-height:46vh;overflow:auto'});
   const paint=()=>{list.textContent='';const s=q.value.trim().toLowerCase();let lastG='';
-    APPS.filter(a=>!s||a[0].toLowerCase().includes(s)||a[3].toLowerCase().includes(s)).forEach(x=>{const a={name:x[0],url:x[1],pkg:x[2]};
+    (INST||APPS).filter(a=>!s||a[0].toLowerCase().includes(s)||a[3].toLowerCase().includes(s)).forEach(x=>{const a={name:x[0],url:x[1],pkg:x[2]};
       if(x[3]!==lastG){lastG=x[3];list.append(h('div',{class:'gth'},x[3]))}
       const on=has(a);list.append(h('div',{class:'approw'},h('div',{class:'an'},x[0]),
         h('button',{class:'btn'+(on?' primary':''),'aria-pressed':String(on),title:on?'Remove from this box':'Add to this box',onclick:()=>{if(on)n.apps=n.apps.filter(q=>!(q.name===a.name&&(q.pkg||'')===(a.pkg||'')&&q.url===a.url));else n.apps.push(a);dirty();refreshBox(n);paint()}},on?'Added':'Add'),
@@ -1293,7 +1273,7 @@ function appsDlg(n,ta){
       const a={name:nm.value.trim()||tg.value.trim().slice(0,30),url:t.url||'',pkg:t.pkg||''};n.apps.push(a);dirty();refreshBox(n);paint();toast('Added '+a.name)}},'Add to this box'),
       h('button',{class:'btn',onclick:()=>{const t=appTarget(tg.value);if(!t){toast('Enter a link or package first');return}launchApp({name:nm.value.trim()||'app',url:t.url||'',pkg:t.pkg||''})}},'Open now')));
   const m=modal('App picker',h('div',{style:'display:flex;flex-direction:column;gap:10px'},
-    h('p',{class:'psub',style:'margin:0'},'Browsers cannot list the apps installed on your phone, so pick from popular apps here. Added apps show as buttons on the text box.'),q,list,
+    h('p',{class:'psub',style:'margin:0'},INST?'These are the apps installed on this phone. Search, then add one. Added apps show as buttons on the text box.':'Browsers cannot list the apps installed on your phone, so pick from popular apps here. The Android app lists your installed apps instead. Added apps show as buttons on the text box.'),q,list,
     found.length?h('div',null,h('div',{class:'gth'},'Links in this text'),found.map(u=>h('div',{class:'approw'},h('div',{class:'an'},u.replace(/^https?:\/\//,'').slice(0,46)),h('button',{class:'btn',onclick:()=>openUrl(u)},'Open')))):null,other),
     [h('button',{class:'btn',onclick:()=>m.close()},'Done')])}
 
@@ -1321,6 +1301,7 @@ const fmtM=m=>m>=1000?(m/1000).toFixed(m>=10000?0:1)+' km':Math.round(m)+' m';
 function parseCoords(s){s=decodeURIComponent(s||'');const m=s.match(/@(-?\d{1,3}(?:\.\d+)?),(-?\d{1,3}(?:\.\d+)?)/)||s.match(/(-?\d{1,3}\.\d+)\s*[, ]\s*(-?\d{1,3}\.\d+)/);
   if(!m)return null;const a=+m[1],b=+m[2];return Math.abs(a)<=90&&Math.abs(b)<=180?{lat:a,lng:b}:null}
 function geoSync(){const any=S&&Object.values(S.nodes).some(n=>n.geo&&n.geo.on);
+  if(window.AndroidBridge&&window.AndroidBridge.setGeofences){if(G.w!=null){try{navigator.geolocation.clearWatch(G.w)}catch(e){}G.w=null}if(typeof nativeSync==='function')nativeSync();return}
   if(any&&G.w==null){if(!navigator.geolocation){G.err='This device or viewer has no location support';return}
     try{G.w=navigator.geolocation.watchPosition(onPos,onGeoErr,{enableHighAccuracy:true,maximumAge:0,timeout:60000})}catch(e){onGeoErr({message:String(e)})}}
   else if(!any&&G.w!=null){try{navigator.geolocation.clearWatch(G.w)}catch(e){}G.w=null;G.pos=null}}
@@ -1337,7 +1318,7 @@ function geoChip(n){const g=n.geo,x=cbtn({class:'cx','aria-label':'Remove locati
   sw.addEventListener('change',()=>{g.on=sw.checked;g.armed=g.mode==='out'?false:true;dirty();geoSync();if(g.on)testGeo();refreshBox(n)});
   return h('span',{class:'chip loc'+(g.on?'':' off')},h('button',{onclick:()=>geoDlg(n),title:G.err||'',html:ic('pin',14)+' '}),sw,x)}
 function geoChipText(n){const g=n.geo;return (g.mode==='out'?'Leaving ':'Near ')+(g.label||g.lat.toFixed(4)+', '+g.lng.toFixed(4))+' · '+fmtM(g.r||200)+(g.on&&G.err?' · unavailable':'')}
-function testGeo(){if(!navigator.geolocation){onGeoErr({message:'This device or viewer has no location support'});return}
+function testGeo(){if(window.AndroidBridge&&window.AndroidBridge.setGeofences){toast('Location reminder is on.');return}if(!navigator.geolocation){onGeoErr({message:'This device or viewer has no location support'});return}
   navigator.geolocation.getCurrentPosition(p=>{G.err='';G.pos={lat:p.coords.latitude,lng:p.coords.longitude,acc:p.coords.accuracy,t:Date.now()};toast('Location works. Reminder is on.')},onGeoErr,{timeout:15000})}
 function extraChips(n,w){
   (n.apps||[]).forEach(a=>{const x=cbtn({class:'cx','aria-label':'Remove shortcut',html:ic('x')},()=>{snap();n.apps=n.apps.filter(q=>q!==a);dirty();refreshBox(n)},'Remove?');
@@ -1362,7 +1343,7 @@ function geoDlg(n){
     h('p',{class:'psub',style:'margin:0'},'In Google Maps, long-press the place, then copy the coordinates shown (or the page link) and paste them above.'),
     h('div',{class:'crow2'},h('span',null,'Radius'),rng,num,h('span',null,'m')),
     h('div',{class:'crow2'},mode),h('label',{class:'crow2'},sw,h('span',null,'Reminder on')),st,
-    h('p',{class:'psub',style:'margin:0'},'Works only while this page is open and location access is allowed. It cannot run in the background.'));
+    h('p',{class:'psub',style:'margin:0'},window.AndroidBridge&&window.AndroidBridge.setGeofences?'In the Android app this works with the app closed. Choose “Allow all the time” for location when asked. Radius under 100 m is treated as 100 m.':'Works only while this page is open and location access is allowed. The Android app can do it with the app closed.'));
   const save=h('button',{class:'btn primary',onclick:()=>{const c=parseCoords(co.value);if(!c){st.textContent='Could not read coordinates. Use a pair like 12.9716, 77.5946, or a Google Maps link that contains @lat,lng.';return}
     n.geo={lat:c.lat,lng:c.lng,r:Math.max(10,+num.value||200),on:sw.checked,mode:mode.value,label:lab.value.trim(),armed:mode.value==='out'?false:true,n:(n.geo&&n.geo.n)||0};
     dirty();geoSync();if(n.geo.on)testGeo();refreshBox(n);m.close()}},'Save');
@@ -2005,7 +1986,11 @@ function planMenu(){
   const m=modal('Plan',h('div',{class:'rlist',style:'padding:0;max-height:62vh'},
     sc('Today'),
     it('Today\u2019s checks',checkItems().length?checkItems().length+' things need attention':'All clear',checksDlg),
-    it('Quick add',"Type or speak a box, e.g. \u201cDentist tomorrow 3pm\u201d",()=>{$('#qabtn').click()}),
+    it('Quick add',"Type or speak a box, e.g. \u201cDentist tomorrow 3pm\u201d",()=>{setTimeout(()=>$('#qabtn').click(),60)}),
+    it('Alarms','Cancel or change one or more alarms',alarmsDlg),
+    it('Everything scheduled','Change or cancel any scheduled item',schedAllDlg),
+    it('Calls and messages','Scheduled calls, texts, WhatsApp and app launches',actListDlg),
+    window.AndroidBridge&&window.AndroidBridge.alarmStatus?it('Phone alarm check','Make sure alarms ring when the app is closed',phoneSetupDlg):null,
     it('Inbox',inboxKids().length+' captured, not yet scheduled',openInbox),
     it((S.nextOff?'Show':'Hide')+' the next-up bar','Current box and the next one, with a countdown',()=>{S.nextOff=!S.nextOff;dirty();updateNextBar()}),
     it('End-of-day wrap-up','Mark done, move the rest to tomorrow, add a note',wrapSettings),
@@ -2050,16 +2035,16 @@ const revInts=()=>{const a=(S.revCfg&&S.revCfg.ints||[]).filter(x=>x>0);return a
 function enrollRev(n,due){n.rev={step:0,due:due||addDaysISO(iso(new Date()),revInts()[0]),n:0}}
 function autoRev(n){if(n.st==='d'&&S.revCfg&&S.revCfg.auto&&!n.rev&&!n.ref&&!n.contact)enrollRev(n)}
 function revBtn(n){
-  const b=h('button',{class:'btn revb',onclick:()=>{if(n.rev){n.rev=null}else enrollRev(n);dirty();paint()}});
+  const b=h('button',{class:'btn revb',onclick:()=>revWhenDlg(n)});
   const paint=()=>{const on=!!n.rev;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on));
-    b.textContent=on?'↻ Revise: '+(n.rev.due<=iso(new Date())?'due now':dateLabel(n.rev.due)):(n.st==='d'?'↻ Revise later':'↻ Revise');
-    b.title=on?'In your revision list. Tap to remove.':'Add this box to your revision list'};
+    b.textContent=on?'↻ Revise: '+revWhen(n):(n.st==='d'?'↻ Revise later':'↻ Revise');
+    b.title=on?'In your revision list. Tap to change the date and time or remove it.':'Add this box to your revision list, on a date and time you choose'};
   paint();return b}
-function revDue(){const t=iso(new Date());return Object.values(S.nodes).filter(n=>n.rev&&!n.ref&&n.parent&&liveBox(n)&&n.rev.due<=t).sort((a,b)=>a.rev.due<b.rev.due?-1:1)}
+function revDue(){const t=iso(new Date()),hm=hmNow();return Object.values(S.nodes).filter(n=>n.rev&&!n.ref&&n.parent&&liveBox(n)&&(n.rev.due<t||(n.rev.due===t&&(!n.rev.t||n.rev.t<=hm)))).sort((a,b)=>a.rev.due<b.rev.due?-1:1)}
 function revAll(){return Object.values(S.nodes).filter(n=>n.rev&&!n.ref&&n.parent&&liveBox(n))}
 function revGrade(n,g){const ints=revInts(),t=iso(new Date());
   if(g==='forgot'){n.rev.step=0}else if(g==='good'){n.rev.step=Math.min(n.rev.step+1,ints.length-1)}
-  n.rev.n=(n.rev.n||0)+1;n.rev.due=addDaysISO(t,ints[n.rev.step]);n.rev.last=t;dirty()}
+  n.rev.n=(n.rev.n||0)+1;n.rev.due=addDaysISO(t,ints[n.rev.step]);n.rev.last=t;const nx=revNextSched(n);if(nx){n.rev.sched=n.rev.sched.filter(x=>dtMs(x.d,x.s||'23:59')>=dtMs(nx.d,nx.s||'00:00'));n.rev.due=nx.d;if(nx.s)n.rev.t=nx.s;else delete n.rev.t;if(nx.e)n.rev.e=nx.e;else delete n.rev.e}else{n.rev.due=addDaysISO(t,ints[n.rev.step]);delete n.rev.t;delete n.rev.e;n.rev.sched=[];n.rev.sd={}}dirty()}
 const RVS={shown:false,id:null};
 function openRevise(){
   const p=overlay('revise');const due=revDue(),all=revAll();
@@ -2087,7 +2072,7 @@ function openRevise(){
       cbtn({class:'btn',html:ic('trash')+'Remove from revision'},()=>{cur.rev=null;dirty();RVS.id=null;openRevise()},'Tap again')))}
   const up=all.filter(n=>!due.includes(n)).sort((a,b)=>a.rev.due<b.rev.due?-1:1);
   if(up.length){p.append(h('div',{class:'gday'},'Coming up ('+up.length+')'));
-    const l=h('div',{class:'rlist',style:'flex:none;max-height:32vh'});up.slice(0,40).forEach(n=>l.append(h('button',{class:'res',onclick:()=>{p.hidden=true;ui.hist=[];goBox(n)}},h('span',null,nodeLabel(n)),h('small',null,dateLabel(n.rev.due)+' · revised '+(n.rev.n||0)+'×'))));p.append(l)}}
+    const l=h('div',{class:'rlist',style:'flex:none;max-height:32vh'});up.slice(0,40).forEach(n=>l.append(h('button',{class:'res',onclick:()=>{p.hidden=true;ui.hist=[];goBox(n)}},h('span',null,nodeLabel(n)),h('small',null,revWhen(n)+' · revised '+(n.rev.n||0)+'×'))));p.append(l)}}
 function revSettings(){
   const au=h('input',{type:'checkbox',checked:!!S.revCfg.auto,onchange:()=>{S.revCfg.auto=au.checked;dirty()}}),
     iv=h('input',{type:'text',class:'cin',value:revInts().join(', '),'aria-label':'Revision gaps in days',onchange:()=>{const a=iv.value.split(/[ ,;]+/).map(x=>parseInt(x)).filter(x=>x>0&&x<=3650);if(a.length){S.revCfg.ints=a;dirty()}iv.value=revInts().join(', ')}}),st=h('p',{class:'psub',style:'margin:0'},'');
@@ -2393,7 +2378,7 @@ function resRow(n){
   if(n.contact||n.ref||!n.parent||(rootOf(n.id).key||'').indexOf('tpl:')===0)return null;
   const b=(l,t,m)=>h('button',{class:'btn rsb',title:t,onclick:()=>reschedule(n,m)},l);
   return h('div',{class:'rsrow',role:'group','aria-label':'Reschedule'},h('span',{class:'psub'},'Move to'),
-    b('Later today','Next free time row later today','later'),b('Tomorrow','Same time row tomorrow','tom'),b('Next week','Seven days on from this box (or from today if it is in the past)','wk'))}
+    b('Later today','Next free time row later today','later'),b('Tomorrow','Same time row tomorrow','tom'),b('Next week','Seven days on from this box (or from today if it is in the past)','wk'),h('button',{class:'btn rsb',title:'Choose any date and time',onclick:()=>copyDlg(n,'move')},'Pick dates and times…'))}
 
 /* ---------- working hours and days off ---------- */
 function workDlg(){
@@ -2443,12 +2428,15 @@ function recMatch(r,day){
   if(r.pat==='dow'){if(!r.days.includes(d.getDay()))return false;const wk=Math.round((mondayOf(d)-mondayOf(st))/(7*864e5));return wk%(r.n||1)===0}
   if(r.pat==='int')return Math.round((d-st)/864e5)%(r.n||1)===0;
   if(r.pat==='dom'){const mo=(d.getFullYear()-st.getFullYear())*12+d.getMonth()-st.getMonth();if(mo<0||mo%(r.n||1))return false;
-    return d.getDate()===Math.min(r.dom,new Date(d.getFullYear(),d.getMonth()+1,0).getDate())}
+    const last=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();return(r.doms&&r.doms.length?r.doms:[r.dom]).some(x=>d.getDate()===Math.min(x,last))}
   return false}
 function recText(r){const e=r.until?' until '+dateLabel(r.until):'';
   if(r.pat==='dow')return(r.n>1?'Every '+r.n+' weeks on ':'Every ')+[1,2,3,4,5,6,0].filter(d=>r.days.includes(d)).map(d=>WD[d]).join(', ')+e;
   if(r.pat==='int')return(r.n>1?'Every '+r.n+' days':'Every day')+e;
-  return(r.n>1?'Every '+r.n+' months':'Every month')+' on day '+r.dom+e}
+  const dd=(r.doms&&r.doms.length?r.doms:[r.dom]).slice().sort((a,b)=>a-b);return(r.n>1?'Every '+r.n+' months':'Every month')+' on day '+dd.join(', ')+e+recTimesTxt(r)}
+const recTimesTxt=r=>(r.times&&r.times.length)?' · '+r.times.map(x=>x.s+'–'+x.e).join(', '):'';
+const recSlots=r=>{const a=(r.slots&&r.slots.length?r.slots:[r.slot]).filter(x=>slotOf(x));return a.length?a:[r.slot]};
+const slotMin=id=>{const s=slotOf(id);if(!s)return 0;const p=String(s.s).split(':');return(+p[0]||0)*60+(+p[1]||0)};
 const recOf=n=>(S.rec||[]).find(x=>x.src===n.id)||(n.recId&&(S.rec||[]).find(x=>x.id===n.recId))||null;
 let RECBUSY=false;
 async function recRun(){
@@ -2456,38 +2444,52 @@ async function recRun(){
   try{const today=iso(new Date()),end=addDaysISO(today,90);
     for(const r of S.rec.slice()){
       let src=N(r.src);if(!src||!liveBox(src)){const any=Object.keys(r.gen||{}).map(d=>N(r.gen[d])).find(x=>x&&liveBox(x));if(any)src=any;else{S.rec=S.rec.filter(x=>x!==r);dirty();continue}}
-      const sk=rootOf(src.id).key||'',sdate=sk.indexOf('|')>0?sk.split('|')[0]:r.from;r.gen=r.gen||{};
+      const sk=rootOf(src.id).key||'',sdate=sk.indexOf('|')>0?sk.split('|')[0]:r.from,sslot=sk.indexOf('|')>0?sk.split('|')[1]:r.slot;r.gen=r.gen||{};
+      Object.keys(r.gen).forEach(k=>{if(k.indexOf('|')<0){r.gen[k+'|'+(r.slot||sslot)]=r.gen[k];delete r.gen[k]}});
       for(let d=r.from>today?r.from:today;d<=end;d=addDaysISO(d,1)){
-        if(r.gen[d]!==undefined||!recMatch(r,d))continue;
-        if(d===sdate){r.gen[d]=src.id;continue}
-        const c=await cloneNode(src,cellRoot(d+'|'+r.slot).id,dayDiffMs(parseISO(sdate),parseISO(d)));
-        c.st=null;c.cat=src.cat||null;c.goal=src.goal||null;c.pin=false;c.recId=r.id;r.gen[d]=c.id;made++}
-      const old=addDaysISO(today,-7);Object.keys(r.gen).forEach(d=>{if(d<old)delete r.gen[d]})}
+        if(!recMatch(r,d))continue;
+        const siv=ivOf(src),jobs=(r.times&&r.times.length)?r.times.map(x=>({gk:d+'|@'+x.s+'-'+x.e,a:tmin(x.s),b:tmin(x.e),sl:slotForMin(tmin(x.s),sslot).id})):recSlots(r).map(sl=>({gk:d+'|'+sl,sl,a:null}));
+        for(const j of jobs){const gk=j.gk;if(r.gen[gk]!==undefined)continue;
+          if(j.a==null){if(d===sdate&&j.sl===sslot){r.gen[gk]=src.id;continue}}
+          else if(d===sdate&&siv&&siv.a===j.a&&siv.b===j.b){r.gen[gk]=src.id;continue}
+          const mins=j.a==null?slotMin(j.sl)-slotMin(sslot):j.a-(siv?siv.a:j.a);
+          const c=await cloneNode(src,cellRoot(d+'|'+j.sl).id,dayDiffMs(parseISO(sdate),parseISO(d))+mins*60000);
+          if(j.a!=null){c.start=d+'T'+hmS(j.a);c.end=d+'T'+hmS(j.b)}
+          c.st=null;c.cat=src.cat||null;c.goal=src.goal||null;c.pin=false;c.recId=r.id;r.gen[gk]=c.id;made++}}
+      const old=addDaysISO(today,-7);Object.keys(r.gen).forEach(k=>{if(k.slice(0,10)<old)delete r.gen[k]})}
     if(made){dirty();renderGrid();renderBelow()}}
   catch(e){}finally{RECBUSY=false}
   return made}
-function recDropFuture(r){const t=iso(new Date());let k=0;Object.keys(r.gen||{}).forEach(d=>{const x=N(r.gen[d]);
-  if(d>t&&x&&x.id!==r.src&&x.st!=='d'){dropBox(x);k++}if(d>t)delete r.gen[d]});return k}
+function recDropFuture(r){const t=iso(new Date());let k=0;Object.keys(r.gen||{}).forEach(d=>{const x=N(r.gen[d]),dy=d.slice(0,10);
+  if(dy>t&&x&&x.id!==r.src&&x.st!=='d'){dropBox(x);k++}if(dy>t)delete r.gen[d]});return k}
 function recDlg(n){
   const r0=recOf(n),root=rootOf(n.id),key=root.key||'';
   if(!r0&&!(key.indexOf('|')>0&&n.parent===root.id)){toast('Repeating works for a box placed directly in a day and time row. Move it into the grid first.');return}
   const src=r0&&N(r0.src)&&liveBox(N(r0.src))?N(r0.src):n,sk=rootOf(src.id).key||'',sdate=sk.indexOf('|')>0?sk.split('|')[0]:iso(new Date()),sslot=sk.indexOf('|')>0?sk.split('|')[1]:S.slots[0].id;
   const r=r0||{pat:'dow',days:[parseISO(sdate).getDay()],n:1,dom:parseISO(sdate).getDate(),until:'',slot:sslot};
-  const st={pat:r.pat,days:new Set(r.days),n:r.n||1,dom:r.dom,until:r.until||'',slot:r.slot};
+  const st={pat:r.pat,days:new Set(r.days),n:r.n||1,doms:new Set(r.doms&&r.doms.length?r.doms:[r.dom]),slots:new Set(recSlots(r)),until:r.until||'',times:(r.times||[]).map(x=>({s:x.s,e:x.e}))};
   const body=h('div',{style:'display:flex;flex-direction:column;gap:10px'}),sec=h('div',{style:'display:flex;flex-direction:column;gap:10px'});
-  const pat=h('select',{class:'cin',onchange:()=>{st.pat=pat.value;paint()}},h('option',{value:'dow'},'Every week on chosen days'),h('option',{value:'int'},'Every few days'),h('option',{value:'dom'},'Every month on a date'));pat.value=st.pat;
-  const tt=ttOfSlot(sslot),slots=tt?tt.slots:S.slots,sl=h('select',{class:'cin',onchange:()=>{st.slot=sl.value}},slots.map(x=>h('option',{value:x.id},x.s+'–'+x.e)));sl.value=slotOf(st.slot)?st.slot:sslot;
+  const pat=h('select',{class:'cin',onchange:()=>{st.pat=pat.value;paint()}},h('option',{value:'dow'},'Every week on chosen days'),h('option',{value:'int'},'Every few days'),h('option',{value:'dom'},'Every month on chosen dates'));pat.value=st.pat;
+  const tt=ttOfSlot(sslot),slots=tt?tt.slots:S.slots,sl=h('div',{class:'crow2',role:'group','aria-label':'Time rows'});
+  const paintSl=()=>{sl.textContent='';slots.forEach(x=>sl.append(h('button',{class:'btn'+(st.slots.has(x.id)?' primary':''),'aria-pressed':String(st.slots.has(x.id)),onclick:()=>{if(st.slots.has(x.id)){if(st.slots.size>1)st.slots.delete(x.id)}else st.slots.add(x.id);paintSl()}},x.s+'–'+x.e)))};paintSl();
   const until=h('input',{type:'date',class:'cin',value:st.until,onchange:()=>{st.until=until.value}});
+  const siv0=ivOf(src);let tmEd=null;const tmBox=h('div',{style:'display:flex;flex-direction:column;gap:8px'});
+  const paintTm=()=>{tmBox.textContent='';if(st.times.length){tmEd=rowsEditor(st.times,{noDate:true,min:1,add:'Add another start and end time'});
+      tmBox.append(tmEd,h('button',{class:'btn',onclick:()=>{st.times.length=0;paintTm()}},'Clear times and use the time rows'))}
+    else tmBox.append(h('button',{class:'btn',html:ic('plus',14)+'Set start and end times',onclick:()=>{st.times.push({s:siv0?hmS(siv0.a):'09:00',e:siv0?hmS(Math.min(1439,siv0.b)):'10:00'});paintTm()}}))};
+  paintTm();
   function paint(){sec.textContent='';
     const num=(lab,key,max)=>h('label',{class:'dtl',style:'flex-direction:row;align-items:center;gap:8px'},h('span',null,lab),h('input',{type:'number',class:'cin',min:'1',max:String(max),value:String(st[key]),style:'width:5em',oninput:e=>{st[key]=Math.max(1,Math.min(max,parseInt(e.target.value)||1))}}));
     if(st.pat==='dow'){const dr=h('div',{class:'crow2',role:'group','aria-label':'Days'});
       [1,2,3,4,5,6,0].forEach(d=>dr.append(h('button',{class:'btn'+(st.days.has(d)?' primary':''),'aria-pressed':String(st.days.has(d)),onclick:()=>{if(st.days.has(d)){if(st.days.size>1)st.days.delete(d)}else st.days.add(d);paint()}},WD[d])));
       sec.append(dr,num('Every how many weeks','n',12))}
     else if(st.pat==='int')sec.append(num('Every how many days','n',365));
-    else sec.append(num('On day of the month','dom',31),num('Every how many months','n',12))}
+    else{const dr=h('div',{class:'crow2',role:'group','aria-label':'Days of the month'});
+      for(let d=1;d<=31;d++)dr.append(h('button',{class:'btn'+(st.doms.has(d)?' primary':''),style:'min-width:2.4em;padding-inline:6px','aria-pressed':String(st.doms.has(d)),onclick:()=>{if(st.doms.has(d)){if(st.doms.size>1)st.doms.delete(d)}else st.doms.add(d);paint()}},String(d)));
+      sec.append(h('span',null,'On these days of the month (a day past the end of a short month uses its last day)'),dr,num('Every how many months','n',12))}}
   paint();
   body.append(h('p',{class:'psub',style:'margin:0'},'This box is the pattern. Copies are made for the next 90 days, starting from '+dateLabel(sdate)+', and topped up each day you open the app. Change this box, save again, and upcoming copies are rebuilt from it.'),
-    h('label',null,'Repeat',pat),sec,h('label',null,'Time row',sl),h('label',null,'Stop after (optional)',until));
+    h('label',null,'Repeat',pat),sec,h('p',{class:'sect',style:'margin:0'},'Start and end times (optional, any number)'),tmBox,h('p',{class:'psub',style:'margin:0'},'Leave this empty to use the time rows below. With start and end times set, each copy goes into the row that holds its start time, and the rows below are not used.'),h('p',{class:'sect',style:'margin:0'},'Time rows (any number; independent of the days)'),sl,h('label',null,'Stop after (optional)',until));
   if(r0)body.append(h('p',{class:'psub',style:'margin:0'},'Now: '+recText(r0)));
   const stop=(del)=>()=>{snap();if(del)recDropFuture(r0);S.rec=S.rec.filter(x=>x!==r0);dirty();m.close();renderGrid();if(!$('#sheet').hidden)renderEditor();toast(del?'Stopped and removed upcoming copies':'Stopped repeating')};
   const m=modal('Repeat this box',body,[
@@ -2498,7 +2500,9 @@ function recDlg(n){
       if(st.until&&st.until<sdate){toast('The stop date is before the first day.');return}
       snap();let rule=r0;if(!rule){rule={id:'r'+uid(),src:src.id,gen:{}};S.rec=S.rec||[];S.rec.push(rule)}
       if(r0)recDropFuture(rule);
-      Object.assign(rule,{pat:st.pat,days:[...st.days].sort(),n:st.n,dom:st.dom,until:st.until,slot:st.slot,from:sdate,src:src.id});
+      for(const x of st.times){if(!x.s||!x.e||tmin(x.e)<=tmin(x.s)){toast('Each start and end time needs an end after its start.');return}}
+      const sls=slots.map(x=>x.id).filter(x=>st.slots.has(x)),dms=[...st.doms].sort((a,b)=>a-b);
+      Object.assign(rule,{pat:st.pat,days:[...st.days].sort(),n:st.n,dom:dms[0],doms:dms,until:st.until,slot:sls[0]||sslot,slots:sls,times:st.times.map(x=>({s:x.s,e:x.e})),from:sdate,src:src.id});
       dirty();m.close();const k=await recRun();renderGrid();if(!$('#sheet').hidden)renderEditor();toast('Repeats '+recText(rule).toLowerCase()+'. '+(k||0)+' upcoming box'+(k===1?'':'es')+' created.')}},'Save repeat')])}
 function recListDlg(){
   const rs=(S.rec||[]).filter(r=>N(r.src)),list=h('div',{class:'rlist',style:'flex:none;padding:0;max-height:50vh'});
@@ -2883,12 +2887,275 @@ function importBoxDlg(){
       if(!ta.value.trim()){toast('Choose a file or paste its text.');return}
       const par=dest.value==='inbox'?cellRoot('inbox'):cellRoot((dt.value||iso(new Date()))+'|'+sl.value);
       const r=await importBox(ta.value,par.id);if(!r)return;m.close();renderGrid();renderBelow();renderInboxBtn();toast('Imported “'+boxTitle(r)+'”')}},'Import')])}
+/* ===== v39: alarm manager, custom category, custom revise and move times, phone alarm setup ===== */
+const NBR=()=>window.AndroidBridge||null;
+const fmtAt=ms=>{const d=new Date(ms);return dateLabel(iso(d))+' '+pad(d.getHours())+':'+pad(d.getMinutes())};
+const clearAlarm=n=>{n.alarm=null;n.rep=null;n.snz=null;n.fired=false};
+
+/* --- all alarms: cancel one, several, a day or all --- */
+function alarmBoxes(){return Object.values(S.nodes).filter(n=>n.parent&&!n.contact&&!n.ref&&liveBox(n)&&(n.alarm||n.snz)).sort((a,b)=>(a.alarm||a.snz)-(b.alarm||b.snz))}
+function alarmsDlg(){
+  const sel=new Set(),wrap=h('div',{style:'display:flex;flex-direction:column;gap:8px;min-width:0'}),list=h('div',{class:'rlist',style:'flex:none;padding:0;max-height:48vh'});
+  const flt=h('select',{class:'cin','aria-label':'Show'},h('option',{value:'up'},'Upcoming'),h('option',{value:'today'},'Today'),h('option',{value:'week'},'Next 7 days'),h('option',{value:'past'},'Already rang'),h('option',{value:'all'},'All alarms'));
+  const shown=()=>{const now=Date.now(),t=iso(new Date()),w=addDaysISO(t,7),f=flt.value;
+    return alarmBoxes().filter(n=>{const a=n.alarm||n.snz,d=iso(new Date(a));
+      return f==='all'||(f==='up'&&(a>=now||n.rep))||(f==='today'&&d===t)||(f==='week'&&d>=t&&d<=w)||(f==='past'&&a<now&&!n.rep)})};
+  const info=h('p',{class:'psub',style:'margin:0'}),cancel=h('div',{class:'crow2'});
+  const paint=()=>{list.textContent='';const items=shown();let last='';
+    items.forEach(n=>{const a=n.alarm||n.snz,d=iso(new Date(a));
+      if(d!==last){last=d;const day=items.filter(x=>iso(new Date(x.alarm||x.snz))===d),all=day.every(x=>sel.has(x.id));
+        list.append(h('label',{class:'gth',style:'display:flex;align-items:center;gap:8px'},h('input',{type:'checkbox',checked:all,'aria-label':'Select every alarm on '+dateLabel(d),onchange:e=>{day.forEach(x=>e.target.checked?sel.add(x.id):sel.delete(x.id));paint()}}),dateLabel(d)+' · '+day.length))}
+      const c=h('input',{type:'checkbox',checked:sel.has(n.id),'aria-label':'Select '+nodeLabel(n),onchange:()=>{c.checked?sel.add(n.id):sel.delete(n.id);upd()}});
+      list.append(h('label',{class:'res crow',style:'align-items:center;gap:10px'},c,h('span',{class:'rmain'},h('span',{class:'cname'},nodeLabel(n)),
+        h('small',null,pad(new Date(a).getHours())+':'+pad(new Date(a).getMinutes())+(n.snz&&!n.alarm?' · snoozed':'')+(n.rep?' · repeats':'')+(n.fired&&a<Date.now()?' · rang':'')))))});
+    if(!items.length)list.append(h('p',{class:'psub',style:'margin:0'},'No alarms here.'));upd()};
+  const upd=()=>{const items=shown(),k=items.filter(n=>sel.has(n.id)).length;info.textContent=k?k+' selected':items.length+' alarm'+(items.length===1?'':'s')+' shown. Tick the ones to cancel.';
+    cancel.textContent='';
+    cancel.append(h('button',{class:'btn',onclick:()=>{items.forEach(n=>sel.add(n.id));paint()}},'Select all shown'),h('button',{class:'btn',onclick:()=>{sel.clear();paint()}},'Clear selection'))};
+  const doCancel=ids=>{if(!ids.length)return;snap();ids.forEach(id=>{const n=N(id);if(n)clearAlarm(n)});sel.clear();dirty();renderGrid();renderBelow();if(!$('#sheet').hidden&&ed.node&&N(ed.node))renderEditor();paint();toast('Cancelled '+ids.length+' alarm'+(ids.length===1?'':'s')+'. Undo is in the header.')};
+  const cd=h('input',{type:'date',class:'cin','aria-label':'New date'}),ct=h('input',{type:'time',class:'cin','aria-label':'New time'}),sh=h('input',{type:'number',class:'cin',value:'15',min:'1',style:'width:5em','aria-label':'Shift by'}),su=h('select',{class:'cin','aria-label':'Shift unit'},h('option',{value:'1'},'minutes'),h('option',{value:'60'},'hours'),h('option',{value:'1440'},'days'));
+  const picked=()=>shown().filter(n=>sel.has(n.id));
+  const apply=(f,msg)=>{const ps=picked();if(!ps.length){toast('Tick the alarms to change first.');return}snap();ps.forEach(n=>{const cur=n.alarm||n.snz;n.alarm=f(cur,n);n.snz=null;n.fired=n.alarm<Date.now();if(n.rep&&n.rep.anchor)n.rep.anchor=n.alarm});dirty();renderGrid();renderBelow();if(!$('#sheet').hidden&&ed.node&&N(ed.node))renderEditor();paint();toast(msg(ps.length))};
+  const chg=h('div',{style:'display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:8px'},h('span',{class:'sect'},'Change the ticked alarms'),
+    h('div',{class:'crow2',style:'align-items:center;flex-wrap:wrap'},cd,ct,h('button',{class:'btn',onclick:()=>{if(!cd.value&&!ct.value){toast('Pick a date, a time, or both.');return}
+      apply(cur=>{const d=new Date(cur);const nd=cd.value?cd.value.split('-').map(Number):[d.getFullYear(),d.getMonth()+1,d.getDate()],nt=ct.value?ct.value.split(':').map(Number):[d.getHours(),d.getMinutes()];return new Date(nd[0],nd[1]-1,nd[2],nt[0],nt[1]).getTime()},k=>'Changed '+k+' alarm'+(k>1?'s':''))}},'Set to this')),
+    h('div',{class:'crow2',style:'align-items:center;flex-wrap:wrap'},sh,su,h('button',{class:'btn',onclick:()=>apply(c=>c-(+sh.value||0)*(+su.value)*60000,k=>'Moved '+k+' earlier')},'Earlier'),h('button',{class:'btn',onclick:()=>apply(c=>c+(+sh.value||0)*(+su.value)*60000,k=>'Moved '+k+' later')},'Later')));
+  flt.onchange=()=>{sel.clear();paint()};paint();
+  const m=modal('Alarms',h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('label',null,'Show',flt),info,cancel,list,chg,
+    h('p',{class:'psub',style:'margin:0'},'Cancelling removes the alarm and any repeat from the box. The box stays where it is.')),
+    [cbtn({class:'btn',html:'Cancel selected'},()=>doCancel(shown().filter(n=>sel.has(n.id)).map(n=>n.id)),'Cancel selected?'),
+     cbtn({class:'btn',html:'Cancel all shown'},()=>doCancel(shown().map(n=>n.id)),'Cancel all shown?'),
+     h('button',{class:'btn primary',onclick:()=>m.close()},'Done')]);
+  m.firstChild.classList.add('wide')}
+
+/* --- a category made on the spot --- */
+function newCatDlg(n){
+  const nm=h('input',{type:'text',class:'cin',placeholder:'Category name','aria-label':'Category name'}),co=h('input',{type:'color',class:'catco',value:CATC[(S.cats||[]).length%CATC.length],'aria-label':'Colour'});
+  const go=()=>{const t=nm.value.trim();if(!t){toast('Give the category a name.');return}snap();S.cats=S.cats||[];const c={id:'c'+uid(),name:t,color:co.value};S.cats.push(c);if(n)n.cat=c.id;dirty();m.close();renderGrid();if(n){refreshBox(n);const bx=document.querySelector('[data-id="'+n.id+'"]');if(bx&&typeof setCat==='function'){try{setCat(bx,n)}catch(e){}}}
+    if(!$('#sheet').hidden&&ed.node&&N(ed.node))renderEditor();toast('Added category “'+t+'”')};
+  nm.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();go()}});
+  const m=modal('New category',h('div',{class:'crow2'},co,nm),[h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',onclick:go},'Add')])}
+
+/* --- phone alarm setup (Android app only) --- */
+function phoneSetupDlg(){
+  const A=NBR();if(!A||!A.alarmStatus){toast('This is only in the Android app.');return}
+  let st={};try{st=JSON.parse(A.alarmStatus())}catch(e){}
+  const row=(ok,l,sub,key)=>h('div',{class:'res crow',style:'align-items:center'},h('span',{class:'rmain'},h('span',{class:'cname'},(ok?'✓ ':'✗ ')+l),h('small',null,sub)),ok?null:h('button',{class:'btn primary',onclick:()=>{A.fixAlarm(key);m.close();setTimeout(phoneSetupDlg,600)}},'Fix'));
+  const m=modal('Phone alarm check',h('div',{style:'display:flex;flex-direction:column;gap:8px'},
+    h('p',{class:'psub',style:'margin:0'},'For alarms to ring when the app is closed, the phone must allow all of these.'),
+    row(st.notif,'Notifications','Needed to show and ring alarms','notif'),
+    row(st.fullScreen,'Full-screen alarms','Lets an alarm light up the lock screen','fullScreen'),
+    row(st.battery,'No battery restriction','Stops the phone putting the app to sleep','battery'),
+    row(st.location,'Location','Needed for location alarms','location'),
+    row(st.bgLocation,'Location “Allow all the time”','Needed for location alarms with the app closed','location')),
+    [h('button',{class:'btn primary',onclick:()=>m.close()},'Done')])}
+function phoneSetupOnce(){const A=NBR();if(!A||!A.alarmStatus||S.phoneAsked)return;
+  setTimeout(()=>{try{const s=JSON.parse(A.alarmStatus());if(s.notif&&s.battery&&s.fullScreen)return;S.phoneAsked=true;dirty();phoneSetupDlg()}catch(e){}},2500)}
+
+$('#morem').prepend(h('button',{class:'btn',id:'albtn',onclick:()=>{$('#morem').hidden=true;alarmsDlg()}},'Alarms'));
+/* ===== v40: span bars, copy/move to many dates and times, revise sessions, scheduled calls and messages ===== */
+const slotForMin=(a,ref)=>{const tt=ref&&ttOfSlot(ref),sl=(tt?tt.slots:S.slots).slice().sort((x,y)=>x.s<y.s?-1:1);let pick=sl[0];for(const s of sl)if(tmin(s.s)<=a)pick=s;return pick};
+const hmNow=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())};
+const clampT=m=>hmS(Math.max(0,Math.min(1439,m)));
+const dtMs=(d,t)=>new Date(d+'T'+(t||'00:00')+':00').getTime();
+
+/* --- a box that covers several time rows gets a coloured bar from its start to its end --- */
+function spanMap(days){const out={},sl=S.slots;
+  for(const d of days){const day=iso(d),list=[];
+    dayBoxes(day).forEach(n=>{const iv=ivOf(n);if(!iv||iv.day!==day)return;
+      const cov=sl.filter(s=>iv.a<tmin(s.e)&&tmin(s.s)<iv.b),multi=!!(n.start&&n.end&&n.end.slice(0,10)>n.start.slice(0,10));if(cov.length<2&&!multi)return;if(!cov.length)return;
+      list.push({n,iv,multi,ids:new Set(cov.map(s=>s.id)),first:cov[0].id,last:cov[cov.length-1].id})});
+    if(list.length)out[day]=list}
+  /* a box that runs over several days continues as a bar on every later day, up to its end */
+  const vis=new Set(days.map(iso)),seen=new Set();
+  for(const k of Object.keys(S.cells)){if(k.indexOf('|')<0)continue;const root=N(S.cells[k]);if(!root)continue;
+    root.kids.forEach(c=>{const n=N(c);if(!n||n.ref||n.contact||seen.has(n.id)||!n.start||!n.end)return;const sd=n.start.slice(0,10),ed=n.end.slice(0,10);if(ed<=sd)return;seen.add(n.id);
+      for(let d=addDaysISO(sd,1);d<=ed;d=addDaysISO(d,1)){if(!vis.has(d))continue;const a=0,b=d===ed?tmin(n.end.slice(11,16)):1440;if(b<=0)continue;
+        const cov=sl.filter(s=>a<tmin(s.e)&&tmin(s.s)<b);if(!cov.length)continue;
+        (out[d]=out[d]||[]).push({n,iv:{day:d,a,b},multi:true,cont:true,ids:new Set(cov.map(s=>s.id)),first:cov[0].id,last:cov[cov.length-1].id})}})}
+  return out}
+function spanMarks(td,spans,day,s){
+  (spans[day]||[]).forEach((x,i)=>{if(!x.ids.has(s.id))return;
+    const a=tmin(s.s),e=Math.max(a+1,tmin(s.e)),isF=x.first===s.id,isL=x.last===s.id,
+      top=isF?Math.max(0,Math.min(100,(x.iv.a-a)/(e-a)*100)):0,bot=isL?Math.max(0,Math.min(100,(e-x.iv.b)/(e-a)*100)):0,
+      c=catOf(x.n.cat),col=c?c.color:'hsl('+([...x.n.id].reduce((q,ch)=>q+ch.charCodeAt(0),0)*47%360)+' 65% 50%)',
+      lab=nodeLabel(x.n)+' · '+(x.multi?x.n.start.slice(5,16).replace('T',' ')+' → '+x.n.end.slice(5,16).replace('T',' '):hmS(x.iv.a)+'–'+hmS(x.iv.b)),
+      endDay=x.multi&&x.iv.day===x.n.end.slice(0,10);
+    td.append(h('i',{class:'spb'+(isF?' f':'')+(isL?' l':''),style:'--c:'+col+';--i:'+i+';top:'+top+'%;bottom:'+bot+'%',title:lab}));
+    if(!isF||x.cont)td.append(h('span',{class:'spt',style:'--c:'+col+';--i:'+i,title:lab},'↕ '+nodeLabel(x.n)+(x.multi?(endDay&&isL?' until '+hmS(x.iv.b):' · until '+dateLabel(x.n.end.slice(0,10))):(isL?' to '+hmS(x.iv.b):''))))})}
+
+/* --- one editable list of dates, start times and end times (shared by copy/move, repeat and revise) --- */
+function rowsEditor(rows,opt){
+  opt=opt||{};const box=h('div',{style:'display:flex;flex-direction:column;gap:8px;min-width:0'});
+  const paint=()=>{box.textContent='';
+    rows.forEach((r,i)=>{
+      const d=h('input',{type:'date',class:'cin','aria-label':'Date '+(i+1),value:r.d||'',onchange:e=>{r.d=e.target.value}}),
+        a=h('input',{type:'time',class:'cin','aria-label':'Start time '+(i+1),value:r.s||'',onchange:e=>{r.s=e.target.value}}),
+        b=h('input',{type:'time',class:'cin','aria-label':'End time '+(i+1),value:r.e||'',onchange:e=>{r.e=e.target.value}});
+      box.append(h('div',{class:'crow2',style:'align-items:end;flex-wrap:wrap'},opt.noDate?null:h('label',{class:'dtl'},h('span',null,'Date'),d),h('label',{class:'dtl'},h('span',null,'Start'),a),opt.noEnd?null:h('label',{class:'dtl'},h('span',null,'End'),b),
+        rows.length>(opt.min||1)?h('button',{class:'btn','aria-label':'Remove row '+(i+1),html:ic('trash',14),onclick:()=>{rows.splice(i,1);paint()}}):null))});
+    box.append(h('button',{class:'btn',html:ic('plus',14)+(opt.add||'Add another'),onclick:()=>{const l=rows[rows.length-1]||{};rows.push({d:opt.noDate?'':(l.d?addDaysISO(l.d,1):iso(new Date())),s:l.s||'',e:l.e||''});paint()}}))};
+  paint();return box}
+
+/* --- copy or move to several dates, each with its own start and end time --- */
+function copyDlg(n,mode0){
+  const iv=ivOf(n),rk=rootOf(n.id).key||'',isDate=rk.indexOf('|')>0,srcDay=isDate?rk.split('|')[0]:(iv?iv.day:iso(new Date())),srcSlot=isDate?rk.split('|')[1]:S.slots[0].id;
+  const sl0=slotOf(srcSlot)||S.slots[0],a0=iv?iv.a:tmin(sl0.s),b0=iv?iv.b:tmin(sl0.e),inner=descendants(n.id).length,canMove=!n.contact&&!n.ref&&!!n.parent;
+  let mode=mode0==='move'&&canMove?'move':'copy';
+  const rows=[{d:addDaysISO(srcDay,1),s:clampT(a0),e:clampT(b0)}];let ed2=rowsEditor(rows,{add:'Add another date'});
+  const cnt=h('input',{type:'number',class:'cin',min:'1',max:'60',value:'4',style:'width:4.5em','aria-label':'How many more'}),pat=h('select',{class:'cin','aria-label':'Pattern'},[['d','every day'],['wd','every weekday'],['w','every week'],['w2','every 2 weeks'],['m','every month']].map(a=>h('option',{value:a[0]},a[1])));
+  const gen=h('button',{class:'btn',onclick:()=>{const l=rows[rows.length-1],k=Math.max(1,Math.min(60,parseInt(cnt.value)||1));if(!l.d)return;const base=parseISO(l.d);
+    for(let i=1;i<=k;i++)rows.push({d:iso(repDate(base,i,pat.value)),s:l.s,e:l.e});ed2.replaceWith(ed2=rowsEditor(rows,{add:'Add another date'}))},html:ic('plus',14)+'Add'});
+  const seg=h('div',{class:'crow2',role:'group','aria-label':'Copy or move'}),paintSeg=()=>{seg.textContent='';
+    [['copy','Copy'],['move','Move']].forEach(x=>seg.append(h('button',{class:'btn'+(mode===x[0]?' primary':''),disabled:x[0]==='move'&&!canMove,title:x[0]==='move'&&!canMove?'This box cannot be moved':null,'aria-pressed':String(mode===x[0]),onclick:()=>{mode=x[0];paintSeg();note.textContent=nt()}},x[1])))};
+  const nt=()=>(mode==='move'?'The first row moves this box. Any other rows get a copy. ':'Every row gets a copy. ')+'Brings along the text, files, links, scribbles, alarm, status and priority'+(inner?', and the '+inner+' box'+(inner>1?'es':'')+' inside it':'')+'. Each goes into the time row that holds its start time.';
+  const note=h('p',{class:'psub',style:'margin:0'},nt());paintSeg();
+  const m=modal('Copy or move to other days',h('div',{style:'display:flex;flex-direction:column;gap:10px;min-width:0'},seg,note,ed2,
+    h('div',{class:'crow2',style:'align-items:center;flex-wrap:wrap'},h('span',null,'Add'),cnt,h('span',null,'more, '),pat,gen)),
+    [h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',id:'cpgo'},'Done')]);
+  m.firstChild.classList.add('wide');
+  const go=m.firstChild.querySelector('#cpgo');
+  go.onclick=async()=>{
+    for(const r of rows){if(!r.d||!r.s){toast('Every row needs a date and a start time.');return}if(!r.e)r.e=clampT(Math.min(1439,tmin(r.s)+Math.max(15,b0-a0)));if(tmin(r.e)<=tmin(r.s)){toast('An end time must be after its start time.');return}}
+    go.disabled=true;
+    try{snap();let first=true,made=0;
+      for(const r of rows){const a=tmin(r.s),b=tmin(r.e);
+        if(mode==='move'&&first&&canMove){if(n.st==='d')n.st=null;setTimes(n,r.d,a,b);first=false;continue}
+        first=false;const ms=Math.round((Date.UTC(...r.d.split('-').map((x,i)=>i===1?x-1:+x))-Date.UTC(...srcDay.split('-').map((x,i)=>i===1?x-1:+x)))/864e5)*864e5+(a-a0)*60000;
+        const c=await cloneNode(n,cellRoot(r.d+'|'+slotForMin(a,srcSlot).id).id,ms);c.start=r.d+'T'+hmS(a);c.end=r.d+'T'+hmS(b);if(n.ref)c.ref=null;made++}
+      afterSched();m.close();toast((mode==='move'?'Moved'+(made?' and copied '+made+' time'+(made>1?'s':''):''):'Copied '+made+' time'+(made>1?'s':''))+'. Undo is in the header.');
+      if(mode==='move')setTimeout(()=>checkSchedule(n),80)}
+    catch(e){toast('Could not finish: '+(e&&e.message||'error'));go.disabled=false}}}
+const moveCustomDlg=n=>copyDlg(n,'move');
+
+/* --- revise on one or many dates, each with a start and end time --- */
+const revEntries=n=>{const r=n.rev||{};return(r.sched&&r.sched.length?r.sched:(r.t?[{d:r.due,s:r.t,e:r.e||''}]:[])).filter(x=>x.d)};
+const revWhen=n=>{const r=n.rev;if(!r)return'';const es=revEntries(n),f=es[0];
+  return(r.due<=iso(new Date())&&!(f&&f.s&&dtMs(f.d,f.s)>Date.now())?'due now':dateLabel(r.due)+(r.t?' '+r.t+(r.e?'–'+r.e:''):''))+(es.length>1?' +'+(es.length-1):'')};
+function revNextSched(n){const now=Date.now();return(n.rev.sched||[]).filter(x=>dtMs(x.d,x.s||'23:59')>now).sort((a,b)=>dtMs(a.d,a.s||'00:00')-dtMs(b.d,b.s||'00:00'))[0]||null}
+function revWhenDlg(n){
+  const on=!!n.rev,t0=iso(new Date()),rows=(on&&revEntries(n).length?revEntries(n):[{d:on?n.rev.due:addDaysISO(t0,revInts()[0]),s:'',e:''}]).map(x=>({d:x.d,s:x.s||'',e:x.e||''}));
+  let ed2=rowsEditor(rows,{add:'Add another revise time'});
+  const q=(l,k)=>h('button',{class:'btn',onclick:()=>{const last=rows[rows.length-1];rows.push({d:addDaysISO(t0,k),s:last?last.s:'',e:last?last.e:''});ed2.replaceWith(ed2=rowsEditor(rows,{add:'Add another revise time'}))}},l);
+  const m=modal('Revise this box',h('div',{style:'display:flex;flex-direction:column;gap:10px;min-width:0'},
+    h('p',{class:'psub',style:'margin:0'},on?'Now: '+revWhen(n):'Not in your revision list yet.'),
+    h('p',{class:'psub',style:'margin:0'},'Add a date, with a start and end time if you like. Add as many as you want. A box with a time gives you a reminder then, even if the app is closed.'),
+    h('div',{class:'crow2'},h('span',null,'Quick add'),q('Tomorrow',1),q('In 3 days',3),q('In a week',7),q('In a month',30)),ed2),
+    [on?cbtn({class:'btn',html:'Remove from revision'},()=>{snap();n.rev=null;dirty();m.close();refreshBox(n)},'Tap again'):null,h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),
+     h('button',{class:'btn primary',onclick:()=>{
+       for(const r of rows){if(!r.d){toast('Every row needs a date.');return}if(r.s&&r.e&&tmin(r.e)<=tmin(r.s)){toast('An end time must be after its start time.');return}}
+       const list=rows.map(r=>({d:r.d,s:r.s||'',e:r.e||''})).sort((a,b)=>dtMs(a.d,a.s||'00:00')-dtMs(b.d,b.s||'00:00'));
+       snap();if(!n.rev)enrollRev(n,list[0].d);const r=n.rev;r.sched=list;r.sd={};r.due=list[0].d;if(list[0].s)r.t=list[0].s;else delete r.t;if(list[0].e)r.e=list[0].e;else delete r.e;
+       dirty();m.close();refreshBox(n);toast('Revise '+revWhen(n))}},'Save')]);
+  m.firstChild.classList.add('wide')}
+let revMin='';
+function revTick(){const now=Date.now(),k=Math.floor(now/60000);if(revMin===k)return;revMin=k;
+  for(const n of Object.values(S.nodes)){const r=n.rev;if(!r||!n.parent||!liveBox(n))continue;r.sd=r.sd||{};
+    for(const x of revEntries(n)){if(!x.s)continue;const key=x.d+x.s;if(r.sd[key])continue;const t=dtMs(x.d,x.s);
+      if(t<=now){r.sd[key]=1;dirty();if(now-t<10*60000)toast('Time to revise: '+nodeLabel(n))}}}}
+
+/* --- scheduled calls, texts, WhatsApp messages and other apps, with reminders if not done --- */
+const ACTK={call:'Call',sms:'Text',wa:'WhatsApp',app:'Open app'};
+const actPayload=a=>({k:a.kind,to:a.to?dialStr(a.to):'',wa:a.to?waNum(a.to):'',text:a.text||'',pkg:a.pkg||''});
+function doAct(a){const B=window.AndroidBridge,p=actPayload(a);
+  if(B&&B.runAction){B.runAction(JSON.stringify(p));return}
+  let u='';if(a.kind==='call')u='tel:'+p.to;else if(a.kind==='sms')u='sms:'+p.to+'?body='+encodeURIComponent(p.text);else if(a.kind==='wa')u='https://wa.me/'+p.wa+'?text='+encodeURIComponent(p.text);
+  else{toast('Open '+(a.appName||'the app')+' yourself. The Android app can open it for you.');return}
+  const el=h('a',{href:u,target:'_blank',rel:'noopener'});document.body.append(el);el.click();el.remove()}
+const actTitle=(a,n)=>ACTK[a.kind]+(a.kind==='app'?' '+(a.appName||''):' '+(a.name||a.to||nodeLabel(n)));
+const actKey=x=>x.d+'T'+x.t;
+function actSteps(a){return[0].concat((a.again||[]).filter(m=>m>0))}
+function actDlg(n){
+  const a0=n.act,own=n.contact&&(n.contact.phones||[])[0],a=a0?JSON.parse(JSON.stringify(a0)):{kind:'call',to:own?own.num:'',name:n.contact?n.contact.name:'',text:'',pkg:'',appName:'',times:[],again:[10,30],on:true,done:{},seen:{}};
+  if(!a.times.length)a.times.push({d:iso(new Date()),t:''});
+  const rows=a.times.map(x=>({d:x.d,s:x.t}));let ed2=rowsEditor(rows,{noEnd:true,add:'Add another date and time'});
+  const kind=h('select',{class:'cin','aria-label':'What to do',onchange:()=>{a.kind=kind.value;paint()}},Object.keys(ACTK).map(k=>h('option',{value:k},{call:'Call someone',sms:'Send a text message',wa:'Send a WhatsApp message',app:'Open another app'}[k])));kind.value=a.kind;
+  const sec=h('div',{style:'display:flex;flex-direction:column;gap:10px;min-width:0'});
+  const again=h('input',{type:'text',class:'cin',value:(a.again||[]).join(', '),placeholder:'e.g. 10, 30, 60','aria-label':'Try again after these many minutes',inputmode:'numeric'});
+  function paint(){sec.textContent='';
+    if(a.kind==='app'){let inst=[];try{const B=window.AndroidBridge;if(B&&B.listApps)inst=JSON.parse(B.listApps())}catch(e){}
+      if(inst.length){const s=h('select',{class:'cin','aria-label':'App',onchange:()=>{a.pkg=s.value;a.appName=s.selectedOptions[0].text}},h('option',{value:''},'Choose an app…'),inst.map(x=>h('option',{value:x.pkg},x.name)));s.value=a.pkg||'';sec.append(h('label',null,'App',s))}
+      else sec.append(h('label',null,'App name',h('input',{type:'text',class:'cin',value:a.appName||'',oninput:e=>{a.appName=e.target.value}})),h('p',{class:'psub',style:'margin:0'},'The Android app lists your installed apps here.'))}
+    else{const cs=contactNodes().filter(c=>(c.contact.phones||[]).some(p=>p.num)),num=h('input',{type:'tel',class:'cin',value:a.to||'',placeholder:'Phone number','aria-label':'Phone number',oninput:e=>{a.to=e.target.value}});
+      if(cs.length){const s=h('select',{class:'cin','aria-label':'Pick a contact',onchange:()=>{const c=N(s.value);if(c){const p=c.contact.phones.find(p=>p.num);a.to=p.num;a.name=c.contact.name||'';num.value=a.to}}},h('option',{value:''},'Pick a contact…'),cs.map(c=>h('option',{value:c.id},c.contact.name||'Unnamed')));sec.append(h('label',null,'Contact',s))}
+      sec.append(h('label',null,'Number',num));
+      if(a.kind!=='call')sec.append(h('label',null,'Message',h('textarea',{class:'cin',rows:'3',oninput:e=>{a.text=e.target.value}},a.text||'')))}}
+  paint();
+  const m=modal('Schedule a call or message',h('div',{style:'display:flex;flex-direction:column;gap:10px;min-width:0'},
+    h('p',{class:'psub',style:'margin:0'},'At each time you get an alert with a one-tap button that opens the dialer, the message ready to send, or the app. Android does not let any app place calls or send messages by itself, so the last tap is yours.'),
+    h('label',null,'What',kind),sec,h('p',{class:'sect',style:'margin:0'},'Dates and times (any number)'),ed2,
+    h('label',null,'If you have not marked it Done, remind me again after (minutes)',again),
+    h('p',{class:'psub',style:'margin:0'},'For example 10, 30, 60 reminds you 10, 30 and 60 minutes after each time. Leave empty for no repeats. Tap Done on the alert, or here, to stop.'),
+    a0?h('div',{class:'rlist',style:'flex:none;padding:0'},(a0.times||[]).map(x=>h('div',{class:'res crow',style:'align-items:center'},h('span',{class:'rmain'},h('span',{class:'cname'},dateLabel(x.d)+' '+x.t),h('small',null,(a0.done||{})[actKey(x)]?'Done':'Waiting')),
+      h('button',{class:'btn',onclick:()=>{snap();a0.done=a0.done||{};if(a0.done[actKey(x)])delete a0.done[actKey(x)];else a0.done[actKey(x)]=1;dirty();m.close();actDlg(n)}},(a0.done||{})[actKey(x)]?'Undo done':'Mark done')))):null),
+    [a0?cbtn({class:'btn',html:'Remove schedule'},()=>{snap();n.act=null;dirty();m.close();toast('Schedule removed')},'Tap again'):null,h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),
+     h('button',{class:'btn primary',onclick:()=>{
+       if(a.kind==='app'){if(!a.pkg&&!a.appName){toast('Choose an app.');return}}else if(!String(a.to||'').trim()){toast('Enter a phone number.');return}
+       for(const r of rows)if(!r.d||!r.s){toast('Every row needs a date and a time.');return}
+       const ag=again.value.split(/[,\s]+/).map(x=>parseInt(x)).filter(x=>x>0&&x<=1440).slice(0,8);
+       snap();const old=a0&&a0.done||{};n.act=Object.assign(a,{times:rows.map(r=>({d:r.d,t:r.s})).sort((x,y)=>actKey(x)<actKey(y)?-1:1),again:ag,on:true,done:old,seen:{}});
+       dirty();m.close();toast('Scheduled '+rows.length+' time'+(rows.length>1?'s':'')+(ag.length?', with reminders after '+ag.join(', ')+' min':''))}},'Save')]);
+  m.firstChild.classList.add('wide')}
+function actListDlg(){
+  const list=Object.values(S.nodes).filter(n=>n.act&&n.parent&&liveBox(n)),box=h('div',{class:'rlist',style:'flex:none;padding:0;max-height:55vh'});
+  list.forEach(n=>{const a=n.act,nx=a.times.find(x=>!(a.done||{})[actKey(x)]);
+    box.append(h('div',{class:'res crow',style:'align-items:center;flex-wrap:wrap'},h('span',{class:'rmain'},h('span',{class:'cname'},actTitle(a,n)),h('small',null,nx?'Next: '+dateLabel(nx.d)+' '+nx.t+' · '+a.times.length+' time'+(a.times.length>1?'s':''):'All done')),
+      h('button',{class:'btn',onclick:()=>{m.close();actDlg(n)}},'Change'),
+      cbtn({class:'btn',html:'Cancel'},()=>{snap();n.act=null;dirty();m.close();actListDlg();toast('Cancelled')},'Cancel it?')))});
+  if(!list.length)box.append(h('p',{class:'psub',style:'margin:0'},'Nothing scheduled. Open a box and tap the phone-and-clock button in its toolbar.'));
+  const m=modal('Scheduled calls and messages',box,[h('button',{class:'btn primary',onclick:()=>m.close()},'Done')])}
+let actLast=0,actEl=null;const actOpen=()=>!!(actEl&&document.body.contains(actEl));
+function actTick(){const now=Date.now();if(now-actLast<4000)return;actLast=now;
+  for(const n of Object.values(S.nodes)){const a=n.act;if(!a||!a.on||!n.parent||!liveBox(n))continue;a.seen=a.seen||{};
+    for(const x of a.times){if((a.done||{})[actKey(x)])continue;const base=dtMs(x.d,x.t);
+      actSteps(a).forEach((mn,i)=>{const t=base+mn*60000,sk=actKey(x)+'_'+i;if(a.seen[sk]||t>now)return;a.seen[sk]=1;dirty();
+        if(now-t>90000||actOpen()||document.visibilityState!=='visible')return;actShow(n,x,i)})}}}
+function actShow(n,x,i){const a=n.act;const more=actSteps(a)[i+1];
+  const m=modal(actTitle(a,n),h('div',{style:'display:flex;flex-direction:column;gap:8px'},h('p',{style:'margin:0'},dateLabel(x.d)+' '+x.t+(i?' · reminder '+i:'')),a.text?h('p',{class:'psub',style:'margin:0'},a.text):null,
+    h('p',{class:'psub',style:'margin:0'},more?'If you do not mark it Done, you will be reminded again in '+(more-actSteps(a)[i])+' min.':'')),
+    [h('button',{class:'btn',onclick:()=>m.close()},'Later'),h('button',{class:'btn',onclick:()=>{snap();a.done=a.done||{};a.done[actKey(x)]=1;dirty();m.close();toast('Marked done')}},'Done'),
+     h('button',{class:'btn primary',onclick:()=>{doAct(a)}},ACTK[a.kind]==='Open app'?'Open':ACTK[a.kind])]);
+  actEl=m}
+function actDone(){const B=window.AndroidBridge;if(!B||!B.takeDone)return;try{JSON.parse(B.takeDone()||'[]').forEach(g=>{const p=String(g).split('|'),n=N(p[0]);if(n&&n.act){n.act.done=n.act.done||{};n.act.done[p[1]]=1;dirty()}})}catch(e){}}
+window.nativeDone=actDone;
+
+/* --- every scheduled thing in one place: change or cancel it --- */
+function schedAllDlg(){
+  const body=h('div',{style:'display:flex;flex-direction:column;gap:8px;min-width:0;max-height:62vh;overflow:auto'}),again=()=>{m.close();schedAllDlg()};
+  const sec=t=>body.append(h('p',{class:'sect',style:'margin:6px 0 0'},t));
+  const row=(title,sub,btns)=>body.append(h('div',{class:'res crow',style:'align-items:center;flex-wrap:wrap'},h('span',{class:'rmain'},h('span',{class:'cname'},title),h('small',null,sub)),btns));
+  const live=Object.values(S.nodes).filter(n=>n.parent&&!n.ref&&!n.contact&&liveBox(n)),nal=live.filter(n=>n.alarm||n.snz).length;
+  sec('Alarms');row('Box alarms',nal+' set',h('button',{class:'btn',onclick:()=>{m.close();alarmsDlg()}},'Change or cancel…'));
+  const acts=live.filter(n=>n.act);sec('Calls and messages');
+  acts.forEach(n=>{const a=n.act,nx=a.times.find(x=>!(a.done||{})[actKey(x)]);row(actTitle(a,n),nx?'Next: '+dateLabel(nx.d)+' '+nx.t+' · '+a.times.length+' time'+(a.times.length>1?'s':''):'All done',[h('button',{class:'btn',onclick:()=>{m.close();actDlg(n)}},'Change'),cbtn({class:'btn',html:'Cancel'},()=>{snap();n.act=null;dirty();again()},'Cancel it?')])});
+  if(!acts.length)body.append(h('p',{class:'psub',style:'margin:0'},'None.'));
+  const recs=(S.rec||[]).filter(r=>N(r.src));sec('Repeating boxes');
+  recs.forEach(r=>{const n=N(r.src);row(nodeLabel(n),recText(r),[h('button',{class:'btn',onclick:()=>{m.close();recDlg(n)}},'Change'),
+    cbtn({class:'btn',html:'Stop'},()=>{snap();S.rec=S.rec.filter(x=>x!==r);dirty();again()},'Stop repeating?'),cbtn({class:'btn',html:'Stop and delete copies'},()=>{snap();recDropFuture(r);S.rec=S.rec.filter(x=>x!==r);dirty();renderGrid();again()},'Delete copies?')])});
+  if(!recs.length)body.append(h('p',{class:'psub',style:'margin:0'},'None.'));
+  const revs=live.filter(n=>n.rev&&revEntries(n).length);sec('Revise times');
+  revs.forEach(n=>row(nodeLabel(n),revEntries(n).map(x=>dateLabel(x.d)+(x.s?' '+x.s+(x.e?'–'+x.e:''):'')).join(' · '),[h('button',{class:'btn',onclick:()=>{m.close();revWhenDlg(n)}},'Change'),
+    cbtn({class:'btn',html:'Cancel times'},()=>{snap();n.rev.sched=[];delete n.rev.t;delete n.rev.e;n.rev.sd={};dirty();refreshBox(n);again()},'Cancel them?')]));
+  if(!revs.length)body.append(h('p',{class:'psub',style:'margin:0'},'None.'));
+  const geos=live.filter(n=>n.geo&&n.geo.on);sec('Location alarms');
+  geos.forEach(n=>row(nodeLabel(n),(n.geo.mode==='out'?'When you leave ':'When you arrive at ')+(n.geo.label||'the place'),[h('button',{class:'btn',onclick:()=>{m.close();geoDlg(n)}},'Change'),
+    cbtn({class:'btn',html:'Cancel'},()=>{snap();n.geo.on=false;dirty();geoSync();again()},'Cancel it?')]));
+  if(!geos.length)body.append(h('p',{class:'psub',style:'margin:0'},'None.'));
+  const meds=(S.meds||[]).filter(x=>x.on);sec('Medicine and water reminders');
+  meds.forEach(x=>row(x.name,(x.times||[]).join(', ')||'Reminder',[h('button',{class:'btn',onclick:()=>{m.close();medEdit(x,()=>schedAllDlg())}},'Change'),
+    cbtn({class:'btn',html:'Cancel'},()=>{snap();x.on=false;dirty();again()},'Cancel it?')]));
+  if(!meds.length)body.append(h('p',{class:'psub',style:'margin:0'},'None.'));
+  sec('Daily');
+  if(S.digest&&S.digest.on)row('Morning agenda','Every day at '+(S.digest.time||''),[h('button',{class:'btn',onclick:()=>{m.close();digestDlg()}},'Change'),cbtn({class:'btn',html:'Cancel'},()=>{S.digest.on=false;dirty();again()},'Cancel it?')]);
+  if(S.wrap&&S.wrap.on)row('End-of-day wrap-up','Every day at '+(S.wrap.time||''),cbtn({class:'btn',html:'Cancel'},()=>{S.wrap.on=false;dirty();again()},'Cancel it?'));
+  if(!(S.digest&&S.digest.on)&&!(S.wrap&&S.wrap.on))body.append(h('p',{class:'psub',style:'margin:0'},'None.'));
+  const m=modal('Everything scheduled',body,[h('button',{class:'btn primary',onclick:()=>m.close()},'Done')]);m.firstChild.classList.add('wide')}
 /* ===== Android app bridge: keeps the phone's alarm clock in step with the page (no effect in a browser) ===== */
 const NB=window.AndroidBridge;
 let nsT=0,nsLast='';
 function nativeEvents(){
   const out=[],now=Date.now(),lim=now+30*864e5;
-  const add=(id,t,title,body)=>{if(t>now+2000&&t<lim&&out.length<480)out.push({id,t,title:String(title||'Alarm').slice(0,80),body:String(body||'').slice(0,160)})};
+  const add=(id,t,title,body,x)=>{if(t>now+2000&&t<lim&&out.length<480){const o={id,t,title:String(title||'Alarm').slice(0,80),body:String(body||'').slice(0,160)};if(x)o.x=x;out.push(o)}};
   const hm2=s=>{const a=String(s||'').split(':');return[+a[0]||0,+a[1]||0]};
   const at=(k,time)=>{const d=new Date();d.setDate(d.getDate()+k);const p=hm2(time);d.setHours(p[0],p[1],0,0);return d};
   for(const n of Object.values(S.nodes)){
@@ -2900,14 +3167,25 @@ function nativeEvents(){
   const w=S.wrap;if(w&&w.on)for(let k=0;k<14;k++){const d=at(k,w.time);if(iso(d)===w.last)continue;add('wr'+iso(d),d.getTime(),'End-of-day wrap-up','What got done today? Tap to wrap up.')}
   (S.meds||[]).forEach(m=>{if(!m.on)return;for(let k=0;k<7;k++){const d0=new Date();d0.setDate(d0.getDate()+k);const ds=iso(d0);
     medTimes(m,ds).forEach(t=>{const p=hm2(t),d=new Date(d0);d.setHours(p[0],p[1],0,0);add('m'+m.id+ds+t,d.getTime(),m.name,m.note||'Reminder')})}});
+  for(const n of Object.values(S.nodes)){if(!n.parent||n.ref||!liveBox(n))continue;const r=n.rev;
+    if(r)revEntries(n).forEach(x=>{if(!x.s||(r.sd||{})[x.d+x.s])return;const d=dtMs(x.d,x.s);if(!isNaN(d))add('rv'+n.id+x.d+x.s,d,'Time to revise',nodeLabel(n)+(x.e?' ('+x.s+'–'+x.e+')':''))});
+    const a=n.act;if(a&&a.on)a.times.forEach(x=>{const key=actKey(x);if((a.done||{})[key])return;const base=dtMs(x.d,x.t);if(isNaN(base))return;const ps=actPayload(a),steps=actSteps(a);
+      steps.forEach((mn,i)=>add('x'+n.id+key+'_'+i,base+mn*60000,actTitle(a,n),(a.text?a.text+'\n':'')+(i<steps.length-1?'Tap Done when it is finished, or you will be reminded again in '+(steps[i+1]-mn)+' min.':'Tap Done when it is finished.'),Object.assign({grp:n.id+'|'+key},ps)))})}
   const p=S.pomo;if(p&&p.running&&p.endAt>now)add('pomo',p.endAt,'Pomodoro',p.phase==='focus'?'Focus session finished. Time for a break.':'Break is over. Back to focus.');
   return out.sort((a,b)=>a.t-b.t)}
+let ngLast='';
+function nativeGeos(){const out=[];for(const n of Object.values(S.nodes)){const g=n.geo;if(!g||!g.on||g.lat==null||!n.parent||n.ref||!liveBox(n))continue;
+  out.push({id:n.id,lat:g.lat,lng:g.lng,r:g.r||200,mode:g.mode==='out'?'out':'in',title:nodeLabel(n),body:(g.mode==='out'?'You left ':'You arrived at ')+(g.label||'the place')})}return out.slice(0,95)}
 function nativeSync(now){
   if(!NB||!NB.setSchedule)return;clearTimeout(nsT);
-  nsT=setTimeout(()=>{try{const j=JSON.stringify(nativeEvents());if(j!==nsLast){nsLast=j;NB.setSchedule(j)}}catch(e){}},now?0:1200)}
-document.addEventListener('visibilitychange',()=>{if(document.hidden)nativeSync(true)});
+  nsT=setTimeout(()=>{try{const j=JSON.stringify(nativeEvents());if(j!==nsLast){nsLast=j;NB.setSchedule(j)}}catch(e){}
+    try{if(NB.setGeofences){const g=JSON.stringify(nativeGeos());if(g!==ngLast){ngLast=g;NB.setGeofences(g)}}}catch(e){}},now?0:1200)}
+/* location alarms that rang while the app was closed: count them on the boxes */
+function geoHits(){if(!NB||!NB.takeGeoHits)return;try{const ids=JSON.parse(NB.takeGeoHits()||'[]');let k=0;ids.forEach(id=>{const n=N(id);if(n&&n.geo){n.geo.n=(n.geo.n||0)+1;n.geo.armed=n.geo.mode==='out'?false:true;k++}});if(k){dirty();if(ed.node&&!$('#sheet').hidden)renderEditor()}}catch(e){}}
+window.nativeGeoHits=geoHits;
+document.addEventListener('visibilitychange',()=>{if(document.hidden)nativeSync(true);else geoHits()});
 window.addEventListener('pagehide',()=>nativeSync(true));
-window.nativeSyncNow=()=>nativeSync(true);
+window.nativeSyncNow=force=>{if(force){nsLast='';ngLast=''}nativeSync(true)};
 
 /* ---------- audio ---------- */
 let AC=null;
@@ -2972,6 +3250,14 @@ function scribble(n,padId){
     pad.w+=dx+er;pad.h+=dy+eb;invalidate(pad);
     panes.forEach(P=>{if(P.pad===pad){P.ox-=dx*P.z;P.oy-=dy*P.z}});
     return[dx,dy]}
+  /* eight handles on the selected image: edges stretch one way, corners keep the shape */
+  function handlePts(im){return[[im.x,im.y],[im.x+im.w/2,im.y],[im.x+im.w,im.y],[im.x,im.y+im.h/2],[im.x+im.w,im.y+im.h/2],[im.x,im.y+im.h],[im.x+im.w/2,im.y+im.h],[im.x+im.w,im.y+im.h]]}
+  const HN=['nw','n','ne','w','e','sw','s','se'];
+  function hitHandle(im,p,z){const r=22/z,pts=handlePts(im);let best=null,bd=1e9;pts.forEach((q,i)=>{const dd=Math.hypot(p[0]-q[0],p[1]-q[1]);if(dd<=r&&dd<bd){bd=dd;best=HN[i]}});return best}
+  function resizeImg(d,p){const k=d.rs,dx=p[0]-d.px,dy=p[1]-d.py,MIN=24;let x=d.ix,y=d.iy,w=d.iw,hh=d.ih;
+    if(k.length===2){const asp=d.iw/d.ih;w=Math.max(MIN,k.includes('e')?d.iw+dx:d.iw-dx);hh=w/asp;if(k.includes('w'))x=d.ix+d.iw-w;if(k.includes('n'))y=d.iy+d.ih-hh}
+    else{if(k==='e')w=Math.max(MIN,d.iw+dx);if(k==='w'){w=Math.max(MIN,d.iw-dx);x=d.ix+d.iw-w}if(k==='s')hh=Math.max(MIN,d.ih+dy);if(k==='n'){hh=Math.max(MIN,d.ih-dy);y=d.iy+d.ih-hh}}
+    d.im.x=x;d.im.y=y;d.im.w=w;d.im.h=hh}
   function drawPane(P){
     const pad=P.pad;if(!pad||P.cv.width<2)return;const L=layerFor(pad),c=P.ctx;
     c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,P.cv.width,P.cv.height);c.imageSmoothingQuality='high';
@@ -2979,7 +3265,7 @@ function scribble(n,padId){
     c.fillStyle='#fdfdfb';c.fillRect(0,0,pad.w,pad.h);
     for(const im of pad.imgs){const el=imEl.get(im.id);if(el)c.drawImage(el,im.x,im.y,im.w,im.h)}
     c.drawImage(L.cv,0,0,pad.w,pad.h);
-    if(sel&&mode==='edit'&&pad.imgs.includes(sel)){c.strokeStyle='#3346e0';c.lineWidth=2/P.z;c.setLineDash([6/P.z,4/P.z]);c.strokeRect(sel.x,sel.y,sel.w,sel.h);c.setLineDash([])}
+    if(sel&&mode==='edit'&&pad.imgs.includes(sel)){c.strokeStyle='#3346e0';c.lineWidth=2/P.z;c.setLineDash([6/P.z,4/P.z]);c.strokeRect(sel.x,sel.y,sel.w,sel.h);c.setLineDash([]);{const hs=8/P.z;c.fillStyle='#fff';for(const q of handlePts(sel)){c.fillRect(q[0]-hs,q[1]-hs,hs*2,hs*2);c.strokeRect(q[0]-hs,q[1]-hs,hs*2,hs*2)}}}
     c.strokeStyle='rgba(0,0,0,.3)';c.lineWidth=1/P.z;c.strokeRect(0,0,pad.w,pad.h);
     P.zl.textContent=Math.round(P.z*100)+'%'}
   const drawAll=()=>panes.forEach(drawPane);
@@ -3008,8 +3294,8 @@ function scribble(n,padId){
         const s={c:color,w:size,p:[p]};if(t==='erase'){s.e=1;s.c='#000';s.w=size*3}
         P.cur=s;pad.s.push(s);dot(pad,s,p);drawPad(pad)}
       else if(t==='hand'){P.drag={x:e.clientX,y:e.clientY,ox:P.ox,oy:P.oy}}
-      else if(t==='img'){const hit=[...pad.imgs].reverse().find(i=>p[0]>=i.x&&p[0]<=i.x+i.w&&p[1]>=i.y&&p[1]<=i.y+i.h);sel=hit||null;
-        P.drag=hit?{im:hit,px:p[0],py:p[1],ix:hit.x,iy:hit.y}:null;sync();drawAll()}});
+      else if(t==='img'){const hd=sel&&pad.imgs.includes(sel)?hitHandle(sel,p,P.z):null;if(hd){P.drag={im:sel,rs:hd,px:p[0],py:p[1],ix:sel.x,iy:sel.y,iw:sel.w,ih:sel.h};drawAll()}else{const hit=[...pad.imgs].reverse().find(i=>p[0]>=i.x&&p[0]<=i.x+i.w&&p[1]>=i.y&&p[1]<=i.y+i.h);sel=hit||null;
+        P.drag=hit?{im:hit,px:p[0],py:p[1],ix:hit.x,iy:hit.y}:null;sync();drawAll()}}});
     cv.addEventListener('pointermove',e=>{
       if(!P.ptrs.has(e.pointerId))return;P.ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
       if(P.ptrs.size>=2){if(P.pinch&&P.ptrs.size===2)doPinch();return}
@@ -3019,10 +3305,10 @@ function scribble(n,padId){
           if(!P.cur.e){const sh=ensure(pad,p[0]-GM,p[1]-GM,p[0]+GM,p[1]+GM);if(sh[0]||sh[1])p=[p[0]+sh[0],p[1]+sh[1]]}
           const l=P.cur.p[P.cur.p.length-1];P.cur.p.push(p);seg(pad,P.cur,l,p)}
         drawPad(pad)}
-      else if(P.drag&&P.drag.im){const d=P.drag,p=pt(P,e);d.im.x=d.ix+p[0]-d.px;d.im.y=d.iy+p[1]-d.py;
+      else if(P.drag&&P.drag.im){const d=P.drag,p=pt(P,e);if(d.rs)resizeImg(d,p);else{d.im.x=d.ix+p[0]-d.px;d.im.y=d.iy+p[1]-d.py}
         const sh=ensure(pad,d.im.x,d.im.y,d.im.x+d.im.w,d.im.y+d.im.h);if(sh[0]||sh[1]){d.ix+=sh[0];d.iy+=sh[1];d.px+=sh[0];d.py+=sh[1]}drawPad(pad)}
       else if(P.drag){P.ox=P.drag.ox+e.clientX-P.drag.x;P.oy=P.drag.oy+e.clientY-P.drag.y;drawPane(P)}});
-    const up=e=>{P.ptrs.delete(e.pointerId);if(P.ptrs.size<2)P.pinch=null;if(P.cur){P.cur=null;dirty()}if(P.drag&&P.drag.im)dirty();P.drag=null;if(!P.ptrs.size)P.ignore=false};
+    const up=e=>{P.ptrs.delete(e.pointerId);if(P.ptrs.size<2)P.pinch=null;if(P.cur){P.cur=null;dirty()}if(P.drag&&P.drag.im){dirty();if(P.drag.rs)setTimeout(sync,0)}P.drag=null;if(!P.ptrs.size)P.ignore=false};
     cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
     cv.addEventListener('wheel',e=>{e.preventDefault();active=P;markActive();const r=P.body.getBoundingClientRect();zoomAt(P,e.clientX-r.left,e.clientY-r.top,Math.exp(-e.deltaY*(e.ctrlKey?0.01:0.0015)))},{passive:false})}
   function makePane(pad){
@@ -3081,6 +3367,10 @@ function scribble(n,padId){
       if(!n.pads.length){finish();return}const np=n.pads[Math.min(i,n.pads.length-1)];panes.forEach(Q=>{if(Q.pad===pad){Q.pad=np;fitP(Q)}});sel=null;refreshSelects();sync()},'Delete this pad?');t2.append(dp);
     if(sel&&mode==='edit'){const scl=f=>{const cx=sel.x+sel.w/2,cy=sel.y+sel.h/2;sel.w*=f;sel.h*=f;sel.x=cx-sel.w/2;sel.y=cy-sel.h/2;const pd=n.pads.find(p=>p.imgs.includes(sel));if(pd)ensure(pd,sel.x,sel.y,sel.x+sel.w,sel.y+sel.h);dirty();drawAll()};
       t2.append(h('span',{class:'psub',style:'margin:0 4px 0 10px'},'Image'),h('button',{class:'btn',onclick:()=>scl(1/1.15),html:ic('minus')+'Smaller'}),h('button',{class:'btn',onclick:()=>scl(1.15),html:ic('plus')+'Larger'}));
+      const ens=()=>{const pd=n.pads.find(p=>p.imgs.includes(sel));if(pd)ensure(pd,sel.x,sel.y,sel.x+sel.w,sel.y+sel.h);dirty();drawAll()};
+      t2.append(h('label',{class:'psub',style:'display:inline-flex;gap:4px;align-items:center;margin:0'},'W',h('input',{type:'number',class:'cin',style:'width:5.4em',min:'10',value:String(Math.round(sel.w)),'aria-label':'Image width',onchange:e=>{sel.w=Math.max(10,+e.target.value||sel.w);ens()}})),
+        h('label',{class:'psub',style:'display:inline-flex;gap:4px;align-items:center;margin:0'},'H',h('input',{type:'number',class:'cin',style:'width:5.4em',min:'10',value:String(Math.round(sel.h)),'aria-label':'Image height',onchange:e=>{sel.h=Math.max(10,+e.target.value||sel.h);ens()}})),
+        h('span',{class:'psub',style:'margin:0'},'or drag the square handles'));
       const rm=h('button',{class:'btn',html:ic('trash')+'Remove image'});
       arm(rm,()=>{const pd=n.pads.find(p=>p.imgs.includes(sel));if(pd)pd.imgs=pd.imgs.filter(i=>i!==sel);snap();imgCache.delete(sel.id);imEl.delete(sel.id);sel=null;dirty();sync();drawAll()},'Remove?');t2.append(rm)}
     t2.append(h('span',{class:'psub',style:'margin-left:auto'},'The page grows as you draw near an edge.'));
@@ -3294,7 +3584,7 @@ setInterval(()=>{
   if($('#ring').hidden){for(const n of Object.values(S.nodes)){
     if(n.snz&&now>=n.snz){n.snz=null;dirty();ring(n);break}
     if(n.alarm&&!n.fired&&now>=n.alarm){n.fired=true;if(n.rep)advance(n);dirty();ring(n);renderGrid();if(ed.node)renderEditor();break}}}
-  digestTick();wrapTick();medTick();const p=pm();
+  digestTick();wrapTick();medTick();revTick();geoHits();actTick();actDone();const p=pm();
   if(p.running&&p.endAt-now<=0){beep(3);notify(PH[p.phase]+' finished',p.phase==='focus'?'Time for a break.':'Back to focus.');pomoNext(true);$('#pomo').hidden=false}
   pomoRender()},500);
 
@@ -3310,7 +3600,7 @@ async function gcFiles(){if(!DB.db)return;try{const keys=await DB.tx('files','re
   if(!S||!S.slots){seed();flush()}
   migrate(S);dirty();if(!S.pomo)S.pomo=pomoDefault();
   const p=S.pomo;if(p.running&&p.endAt-Date.now()<=0){p.running=false;p.remain=0}
-  gcFiles();geoSync();syncPomoCfg();buildGrid();renderTTBar();trashPurgeOld();renderStrip();qaInit();setTimeout(updateChecksBadge,700);setInterval(updateChecksBadge,60000);setTimeout(()=>{recRun();updateNextBar();nativeSync(true)},900);setInterval(()=>{recRun()},1800000);setInterval(updateNextBar,10000);renderBelow();scrollToDate(new Date(),false);pomoRender();
+  gcFiles();geoSync();syncPomoCfg();buildGrid();renderTTBar();trashPurgeOld();renderStrip();qaInit();setTimeout(updateChecksBadge,700);setInterval(updateChecksBadge,60000);setTimeout(()=>{recRun();updateNextBar();geoHits();actDone();nativeSync(true);phoneSetupOnce()},900);setInterval(()=>{recRun()},1800000);setInterval(updateNextBar,10000);renderBelow();scrollToDate(new Date(),false);pomoRender();
   try{chan=new BroadcastChannel('nested-timetable');chan.onmessage=async()=>{
     if(document.activeElement&&/TEXTAREA|INPUT/.test(document.activeElement.tagName))return;
     try{const s=await DB.get('kv','state');if(s){S=s;linkTT(S);syncPomoCfg();renderGrid();renderTTBar();renderStrip();renderInboxBtn();renderBelow();if(ed.node&&N(ed.node))renderEditor();else if(ed.node)closeEditor()}}catch(e){}}}catch(e){}
