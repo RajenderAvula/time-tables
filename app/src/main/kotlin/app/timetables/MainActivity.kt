@@ -430,6 +430,22 @@ class MainActivity : AppCompatActivity() {
 
     /** Functions the page can call as window.AndroidBridge.* */
     inner class Bridge {
+        /** Opens the system print dialog for the page as it is shown now (the page hides everything but the table). */
+        @JavascriptInterface
+        fun printPage(title: String) {
+            runOnUiThread {
+                try {
+                    val pm = getSystemService(android.content.Context.PRINT_SERVICE) as android.print.PrintManager
+                    val attrs = android.print.PrintAttributes.Builder()
+                        .setMediaSize(android.print.PrintAttributes.MediaSize.ISO_A4.asLandscape())
+                        .build()
+                    pm.print(title.ifBlank { "Timetable" }, web.createPrintDocumentAdapter(title.ifBlank { "Timetable" }), attrs)
+                } catch (e: Exception) {
+                    Toast.makeText(this@MainActivity, "Printing is not available on this device", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
         // ----- saving files in chunks, so large backups do not need to fit in one string -----
         @JavascriptInterface
         fun saveBegin(name: String, mime: String): Boolean = try {
