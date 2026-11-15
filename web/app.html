@@ -70,7 +70,7 @@ button{cursor:pointer}
 .mc{display:flex;flex-direction:column;gap:3px;align-items:stretch;min-height:68px;padding:5px 6px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);font:inherit;text-align:left;cursor:pointer}
 .mc.out{opacity:.45}.mc.today{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}.mn{font-weight:600;font-size:13px}.mb{font-size:11px;color:var(--muted)}
 .mdots{display:flex;gap:3px;flex-wrap:wrap}.mdots i{width:7px;height:7px;border-radius:50%;display:inline-block}
-.ttfs{flex:none;margin-left:auto}body.ttfull .top .right>*:not(.morew):not(#sbtn):not(#agbtn):not(#planbtn):not(#undobtn),body.ttfull .brand{display:none}body.ttfull #app{padding-block:6px}body.ttfull .top{justify-content:center}.ttab{flex:none;font:inherit;font-size:13px;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--fg);cursor:pointer;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ttfs{flex:none;margin-left:auto}body.ttfull .top .right>*:not(.morew):not(#sbtn):not(#treebtn):not(#tblbtn):not(#agbtn):not(#planbtn):not(#undobtn),body.ttfull .brand{display:none}body.ttfull #app{padding-block:6px}body.ttfull .top{justify-content:center}.ttab{flex:none;font:inherit;font-size:13px;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--fg);cursor:pointer;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ttab.on{border-color:var(--accent);background:var(--surface2);display:inline-flex;align-items:center;gap:6px;padding:3px 6px 3px 12px;max-width:none}
 .ttab.on input{font:inherit;font-size:13px;font-weight:600;border:0;background:transparent;color:var(--fg);min-width:60px;outline:none;padding:4px 0}
 .ttab.on input:focus{box-shadow:0 1px 0 var(--accent)}
@@ -318,7 +318,26 @@ a.btn.off{pointer-events:none;opacity:.45}
 .ttop{max-height:24vh;overflow:auto;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 8px}
 .ttop .tl{font-family:inherit}
 .cl .cn,.res .cn{font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:600}.cl.more{color:var(--muted);font-size:11px}
-.cl{-webkit-line-clamp:1}.gth{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:8px}#gtree{z-index:61}
+.cl{-webkit-line-clamp:1}#gtree.dock{inset:auto 0 0 0;height:48vh;border-top:2px solid var(--line);border-radius:14px 14px 0 0;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
+#gtree.float{inset:auto;border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 32px rgba(0,0,0,.45);resize:both;max-width:100vw;max-height:100vh;padding-left:12px;padding-right:12px;padding-top:0;padding-bottom:6px}
+#gtree.float .gthead{cursor:move;touch-action:none;padding-top:8px}
+#gtree.min{inset:auto 0 0 0;height:auto;border-top:2px solid var(--line);border-radius:14px 14px 0 0;box-shadow:0 -6px 18px rgba(0,0,0,.3);overflow:hidden}
+#gtree.min>*:not(.gthead){display:none}
+.gtre{position:fixed;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:62;display:flex;gap:6px;box-shadow:0 6px 20px rgba(0,0,0,.4);border-radius:12px;background:var(--bg)}
+#stbl{z-index:63}#stbl.stwin{inset:4vh 2vw;border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.stba{display:flex;gap:3px;padding:0 3px 3px;flex-wrap:wrap}.stab{border:1px solid var(--line);background:var(--surface);color:inherit;border-radius:6px;font-size:12px;padding:2px 6px;cursor:pointer;line-height:1.4}.stab.on{background:var(--accent,#5b6cf0);color:#fff;border-color:transparent}.stc.sdn{text-decoration:line-through;opacity:.55}
+.sthd{display:flex;gap:2px;align-items:center}.stds,.stdi{width:100%;min-width:0;box-sizing:border-box;border:1px solid var(--line);background:var(--bg);color:inherit;border-radius:6px;padding:3px 2px;font-size:12px;margin-top:2px}.stds{margin-top:0;flex:1}
+.stwrap{flex:1;overflow:auto;margin-top:6px;border:1px solid var(--line);border-radius:10px}
+.stg{border-collapse:collapse;width:100%;min-width:560px;table-layout:fixed}.stg th{position:sticky;top:0;background:var(--surface);z-index:1;padding:8px 6px;font-size:12px;text-align:left;border-bottom:1px solid var(--line)}
+.stg td{border:1px solid var(--line);padding:2px;vertical-align:top}.stg td.stt{width:132px;padding:4px;background:var(--surface)}
+.sttr{display:flex;flex-direction:column;gap:3px}.sttr input{width:100%;min-width:0;border:1px solid var(--line);background:var(--bg);color:inherit;border-radius:6px;padding:3px 4px;font-size:13px}
+.sttb{display:flex;gap:2px;margin-top:3px}
+.stc{width:100%;box-sizing:border-box;border:0;background:transparent;color:inherit;font:inherit;font-size:14px;padding:6px;resize:none;min-height:44px;outline:none;display:block}.stc:focus{background:rgba(127,127,127,.12);box-shadow:inset 0 0 0 2px var(--accent,#7c8cff)}
+.sprint{position:fixed;inset:0;z-index:95;background:#e9e9ee;display:flex;flex-direction:column}.spbar{display:flex;gap:8px;align-items:center;padding:10px 14px;background:var(--bg);color:var(--fg,inherit);border-bottom:1px solid var(--line)}
+.spsheet{flex:1;overflow:auto;background:#fff;color:#111;margin:10px;padding:14px;border-radius:6px}
+@media print{body.psp>*:not(#sprint){display:none!important}body.psp .sprint{position:static;background:#fff;display:block}body.psp .spbar{display:none!important}body.psp .spsheet{margin:0;padding:0;overflow:visible}}
+.gwb{min-width:38px;padding:6px 8px;line-height:1}
+.gth{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:8px}#gtree{z-index:61}
 .zbody{flex:1;min-height:0;overflow:auto;width:100%;max-width:60rem;margin:0 auto;padding:6px 2px 80px}
 .zbox .box textarea.bt{font-size:var(--zfs,20px);min-height:45vh;line-height:1.55}
 .cl .inn{font-family:var(--mono);font-size:10.5px;color:var(--muted)}.chip.hl{color:var(--accent)}
@@ -398,10 +417,12 @@ html,body{overflow:auto}#app{min-width:360px}
     </div>
     <div class="right">
       <button class="ibtn" id="sbtn" aria-label="Search"><svg viewBox="0 0 24 24"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM21 21l-5-5"/></svg></button>
+      <button class="btn" id="treebtn" title="Tree by day: open or close">Tree</button>
       <button class="btn" id="fbtn">Filter</button>
       <button class="btn" id="cbtn">Contacts</button>
       <button class="btn" id="undobtn" disabled>Undo</button>
       <button class="btn" id="qabtn" aria-haspopup="true" aria-expanded="false">+ Quick add</button>
+      <button class="btn" id="tblbtn" title="Simple tables with only times and days">Simple tables</button>
       <button class="btn" id="agbtn">Agenda</button>
       <button class="btn" id="planbtn">Plan</button>
       <span class="morew"><button class="btn" id="morebtn" aria-haspopup="true" aria-expanded="false">More ▾</button>
@@ -433,6 +454,7 @@ html,body{overflow:auto}#app{min-width:360px}
     <button class="btn" id="eback" hidden>Back</button>
     <span class="grow"></span>
     <button class="ibtn" id="etree" aria-label="Show or hide tree"><svg viewBox="0 0 24 24"><path d="M5 4v6h6M5 10v8h6M13 7h6M13 15h6"/></svg></button>
+    <button class="btn" id="etreeday" title="Tree by day: open or close">Tree</button>
     <button class="ibtn" id="esearch" aria-label="Search"><svg viewBox="0 0 24 24"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM21 21l-5-5"/></svg></button>
     <button class="ibtn" id="egbtn" aria-label="Google search"><svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></button>
     <button class="pill" id="epomo" aria-label="Pomodoro timer"><svg viewBox="0 0 24 24"><path d="M12 8v5l3 2M9 2h6M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/></svg><span id="eptime">25:00</span></button>
@@ -1389,7 +1411,7 @@ function treeLines(key,td){const id=S.cells[key];if(!id||!N(id))return;const top
   if(top.length>3)td.append(h('p',{class:'cl more'},'+'+(top.length-3)+' more'))}
 const dateLabel=iso=>{const d=parseISO(iso);return DOW[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()};
 const slotLabel=id=>{const s=slotOf(id);return s?s.s+'\u2013'+s.e:id};
-const GT={mode:'week',date:iso(new Date()),hide:false,col:new Set()};
+const GT={mode:'week',date:iso(new Date()),hide:false,col:new Set(),view:'full',fx:12,fy:80,fw:0,fh:0};
 function dayBlock(date,f,pick,curId,rerender){const els=[];let any=0;
   for(const s of S.slots){const id=S.cells[date+'|'+s.id];if(!id||!N(id))continue;const rows=[];let cnt=0;
     const emit=(k,depth)=>{if(++cnt>600)return;const c=N(k);if(!c)return;const ex=(f||GT.hide)?[]:visTokens(k,extraRows(c)),dk=directKids(c);
@@ -1416,9 +1438,9 @@ function fillDayTree(box,date){if(!box)return;box.textContent='';
 function gridTree(mode){
   if(mode)GT.mode=mode;
   let p=$('#gtree');if(!p){p=h('div',{id:'gtree',class:'srch'});document.body.append(p)}
-  p.hidden=false;p.textContent='';
+  p.hidden=false;p.textContent='';gtApply(p);gtReopen(false);
   const list=h('div',{class:'rlist'}),q=h('input',{class:'q',type:'search',placeholder:'Filter boxes','aria-label':'Filter boxes'});
-  const pick=id=>{p.hidden=true;ui.hist=[];openNode(id)};
+  const pick=id=>{ui.hist=[];gtKeep();openNode(id)};
   const paint=()=>{list.textContent='';const f=q.value.trim().toLowerCase();let dates;
     if(GT.mode==='day')dates=[GT.date];else if(GT.mode==='all')dates=[...new Set(Object.keys(S.cells).filter(k=>/^\d{4}-/.test(k)).map(k=>k.split('|')[0]))].sort();else dates=dayList().map(iso);
     let any=0;for(const dt of dates){const els=dayBlock(dt,f,pick,null,paint);if(!els)continue;any++;list.append(h('div',{class:'gday'},dateLabel(dt),dayProgText(dt)));els.forEach(e=>list.append(e))}
@@ -1428,7 +1450,7 @@ function gridTree(mode){
     const di=h('input',{type:'date',class:'cin',value:GT.date,'aria-label':'Day',style:'flex:0 1 11em',onchange:e=>{if(e.target.value){GT.date=e.target.value;gridTree()}}});
     seg.append(h('button',{class:'btn','aria-label':'Previous day',onclick:shift(-1)},'\u2039'),di,h('button',{class:'btn','aria-label':'Next day',onclick:shift(1)},'\u203a'))}
   q.oninput=paint;
-  p.append(h('div',{class:'ehead'},h('strong',null,'Tree by day'),h('span',{class:'grow'}),h('button',{class:'btn',onclick:()=>{p.hidden=true}},'Close')),seg,h('div',{class:'gseg'},h('button',{class:'btn'+(GT.hide?' primary':''),'aria-pressed':String(GT.hide),onclick:()=>{GT.hide=!GT.hide;gridTree()}},GT.hide?'Show sub boxes':'Hide sub boxes'),h('button',{class:'btn',onclick:()=>{GT.col.clear();COLN.clear();gridTree()}},'Expand all'),h('button',{class:'btn',onclick:()=>{allIds().forEach(id=>GT.col.add(id));gridTree()}},'Collapse all')),q,list);
+  p.append(gtHead(p),seg,h('div',{class:'gseg'},h('button',{class:'btn'+(GT.hide?' primary':''),'aria-pressed':String(GT.hide),onclick:()=>{GT.hide=!GT.hide;gridTree()}},GT.hide?'Show sub boxes':'Hide sub boxes'),h('button',{class:'btn',onclick:()=>{GT.col.clear();COLN.clear();gridTree()}},'Expand all'),h('button',{class:'btn',onclick:()=>{allIds().forEach(id=>GT.col.add(id));gridTree()}},'Collapse all')),q,list);
   paint()}
 $('#gtbtn').onclick=()=>gridTree();
 
@@ -1819,6 +1841,36 @@ function openAgenda(){
       h('span',{class:'cname',style:n.st==='d'?'text-decoration:line-through;opacity:.6':''},(x.tm?x.tm+'  ':'')+nodeLabel(n)),
       h('small',null,[boxPath(n),x.al?'\u23f0 '+pad(new Date(x.al).getHours())+':'+pad(new Date(x.al).getMinutes()):''].filter(Boolean).join(' \u00b7 ')))))})}
 $('#agbtn').onclick=openAgenda;
+
+/* tree window: dock, undock (float), minimise, full screen, close */
+function gtApply(p){p.classList.remove('dock','float','min');if(GT.view!=='full')p.classList.add(GT.view);
+  if(GT.view==='float'){p.style.left=GT.fx+'px';p.style.top=GT.fy+'px';p.style.width=(GT.fw||Math.min(innerWidth*.92,440))+'px';p.style.height=(GT.fh||Math.round(innerHeight*.6))+'px'}
+  else{p.style.left=p.style.top=p.style.width=p.style.height=''}}
+function gtHead(p){
+  const set=v=>()=>{if(v==='min'){GT.prev=GT.view}else if(GT.view==='min'&&v==='min')v=GT.prev;GT.view=v;gtApply(p);const hd=p.querySelector('.ehead');if(hd)hd.replaceWith(gtHead(p))};
+  const bt=(sym,label,fn,on)=>h('button',{class:'btn gwb'+(on?' primary':''),title:label,'aria-label':label,'aria-pressed':on?'true':null,onclick:fn},sym);
+  const hd=h('div',{class:'ehead gthead'},h('strong',null,'Tree by day'),h('span',{class:'grow'}),
+    bt('\u2581',GT.view==='min'?'Restore':'Minimise',()=>{if(GT.view==='min'){GT.view=GT.prev&&GT.prev!=='min'?GT.prev:'full'}else{GT.prev=GT.view;GT.view='min'}gtApply(p);const hd=p.querySelector('.ehead');if(hd)hd.replaceWith(gtHead(p))},GT.view==='min'),
+    bt('\u29c9','Undock into a movable window',set('float'),GT.view==='float'),
+    bt('\u2b13','Dock to the bottom of the screen',set('dock'),GT.view==='dock'),
+    bt('\u26f6','Full screen',set('full'),GT.view==='full'),
+    bt('\u2715','Close',()=>{p.hidden=true;gtReopen(true)}));
+  let st=null;
+  hd.addEventListener('pointerdown',e=>{if(GT.view!=='float'||e.target.closest('button'))return;st={x:e.clientX-GT.fx,y:e.clientY-GT.fy};try{hd.setPointerCapture(e.pointerId)}catch(x){}});
+  hd.addEventListener('pointermove',e=>{if(!st)return;GT.fx=Math.max(0,Math.min(innerWidth-80,e.clientX-st.x));GT.fy=Math.max(0,Math.min(innerHeight-40,e.clientY-st.y));p.style.left=GT.fx+'px';p.style.top=GT.fy+'px'});
+  const end=()=>{st=null;if(GT.view==='float'){GT.fw=p.offsetWidth;GT.fh=p.offsetHeight}};
+  hd.addEventListener('pointerup',end);hd.addEventListener('pointercancel',end);
+  if(!p._rz){p._rz=1;p.addEventListener('pointerup',()=>{if(GT.view==='float'&&!p.hidden){GT.fw=p.offsetWidth;GT.fh=p.offsetHeight}})}
+  return hd}
+
+/* opening a box from the tree keeps the tree on screen: a full-screen tree docks to the bottom first */
+function gtKeep(){const p=$('#gtree');if(!p||p.hidden)return;if(GT.view==='full'){GT.view='dock';gtApply(p);const hd=p.querySelector('.ehead');if(hd)hd.replaceWith(gtHead(p))}}
+
+/* after closing the tree by mistake, a small chip brings it straight back */
+function gtReopen(show){let c=$('#gtre');
+  if(!show){if(c)c.hidden=true;return}
+  if(!c){c=h('div',{id:'gtre',class:'gtre'},h('button',{class:'btn primary',onclick:()=>gridTree()},'\u21a9 Reopen tree'),h('button',{class:'btn','aria-label':'Dismiss',onclick:()=>{c.hidden=true}},'\u2715'));document.body.append(c)}
+  c.hidden=false}
 
 /* ---------- planning tools: categories, pins, templates, review, month, digest, snapshot, drag ---------- */
 const CATC=['#3b82f6','#8b5cf6','#10b981','#f59e0b','#ef4444','#06b6d4','#ec4899','#84cc16'];
@@ -3225,6 +3277,8 @@ function extraRows(n,lv,seen,pre,ctr){const o=[];lv=lv||0;seen=seen||new Set();i
       if(nm||tx){c1=1;o.push({k:'Box',num:num+'.1',t:(nm||tx.slice(0,140))+' \u00b7 '+progTxt(x,progOf(x)),done:x.st==='d',sub:l,go:()=>openNode(x.id)});if(nm&&tx){c1=2;o.push({k:'Note',num:num+'.2',t:tx.slice(0,140),sub:l+1,go:()=>openNode(x.id)})}}}
     const c2={c:c1};extraRows(x,l,seen,num,c2).forEach(r=>o.push(r));
     if(x.ref)(x.kids||[]).forEach(k=>{const c=N(k);if(c&&!c.ref&&!c.contact){c2.c++;o.push({box:k,sub:l+1,num:num+'.'+c2.c})}})};
+  if(!n.ref&&!n.contact&&n.parent){const full=n.text||'',body=((n.name||'').trim()?full:full.split('\n').slice(1).join('\n')).trim().replace(/\s+/g,' ');
+    if(body)o.push({k:'Note',num:nx(),t:body.slice(0,160)+(body.length>160?'\u2026':''),sub:lv,go:()=>openNode(n.id)})}
   (n.lists||[]).forEach(g=>{const it=g.items||[],d=it.filter(x=>x.done).length,gn=nx();o.push({k:g.k==='s'?'Steps':'Checklist',num:gn,t:(g.text||'')+' \u00b7 '+d+'/'+it.length,done:it.length&&d===it.length,sub:lv,go:()=>openNode(entryNode(n,{k:'l',i:g.id},g).id)});
     sub(g.node,lv+1,gn);
     it.forEach((x,i)=>{const xn=gn+'.'+(i+1);o.push({k:g.k==='s'?'Step':'Item',num:xn,t:x.text||'(empty)',done:!!x.done,sub:lv+1,go:()=>openNode(entryNode(n,{k:'c',g:g.id,i:x.id},x).id)});sub(x.node,lv+2,xn)})});
@@ -3275,7 +3329,142 @@ function visTokens(host,ex){const P=[...COLN].filter(k=>k.startsWith(host+'|')).
     lastHid=hid;lastCol=!!t.col;if(!hid)out.push(t)});return out}
 function xrowEl(t,left,rerender,minor){
   const car=t.has&&t.key?h('button',{class:'gcar','aria-label':t.col?'Show items inside '+t.num:'Hide items inside '+t.num,'aria-expanded':String(!t.col),onclick:e=>{e.stopPropagation();t.col?COLN.delete(t.key):COLN.add(t.key);rerender&&rerender()}},t.col?'\u25b8':'\u25be'):null;
-  return h('div',{class:'xrow'+(t.done?' xd':'')+(t.go?' go':''),style:'margin-left:'+left+'px',role:t.go?'button':null,tabindex:t.go?'0':null,title:t.go?'Open':null,onclick:t.go?(()=>{const g=$('#gtree');if(g&&!g.hidden){g.hidden=true;ui.hist=[]}t.go()}):null},car,(t.num?h('b',{class:'cn'},t.num):null),h('b',null,' '+t.k),' '+(t.done?'\u2713 ':'')+t.t+(t.col?'  \u2026':''))}
+  return h('div',{class:'xrow'+(t.done?' xd':'')+(t.go?' go':''),style:'margin-left:'+left+'px',role:t.go?'button':null,tabindex:t.go?'0':null,title:t.go?'Open':null,onclick:t.go?(()=>{const g=$('#gtree');if(g&&!g.hidden){ui.hist=[];gtKeep()}t.go()}):null},car,(t.num?h('b',{class:'cn'},t.num):null),h('b',null,' '+t.k),' '+(t.done?'\u2713 ':'')+t.t+(t.col?'  \u2026':''))}
+/* ---------- simple tables: only time lines and days, edited right in the grid ---------- */
+const SDN=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],SDL=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const STS={id:null,win:false};
+const stList=()=>(S.simple=S.simple||[]);
+const stMeta=(t,k,mk)=>{t.meta=t.meta||{};return mk?(t.meta[k]=t.meta[k]||{}):t.meta[k]};
+function stMake(name,from){const t=from?JSON.parse(JSON.stringify(from)):{cols:[0,1,2,3,4].map(d=>({id:uid(),d,date:''})),rows:[],cells:{},meta:{}};
+  if(from){const mp={},mc={};t.rows.forEach(r=>{const o=r.id;r.id=uid();mp[o]=r.id});t.cols.forEach(c=>{const o=c.id;c.id=uid();mc[o]=c.id});const cc={},mm={};Object.keys(t.cells).forEach(k=>{const[a,b]=k.split('|');if(mp[a]&&mc[b])cc[mp[a]+'|'+mc[b]]=t.cells[k]});Object.keys(t.meta||{}).forEach(k=>{const[a,b]=k.split('|');if(mp[a]&&mc[b]&&t.meta[k].done)mm[mp[a]+'|'+mc[b]]={done:true}});t.cells=cc;t.meta=mm}
+  else for(let i=0;i<8;i++)t.rows.push({id:uid(),s:pad(9+i)+':00',e:pad(10+i)+':00'});
+  t.id=uid();t.name=name||('Table '+(stList().length+1));stList().push(t);return t}
+function stCur(){const L=stList();let t=L.find(x=>x.id===STS.id);if(!t){t=L[0]||stMake('My timetable')}STS.id=t.id;stFix(t);return t}
+/* older tables listed plain weekdays; every column now has its own day and an editable date */
+function stFix(t){if(t.cols)return;const ds=(t.days||[0,1,2,3,4]).slice().sort((a,b)=>a-b),mc={};t.cols=ds.map(d=>{const c={id:uid(),d,date:''};mc[d]=c.id;return c});
+  const cc={};Object.keys(t.cells||{}).forEach(k=>{const[a,b]=k.split('|');if(mc[b])cc[a+'|'+mc[b]]=t.cells[k]});t.cells=cc;delete t.days}
+const stWd=iso=>(parseISO(iso).getDay()+6)%7;
+const stCols=t=>{stFix(t);return t.cols};
+const stColDay=c=>c.date?stWd(c.date):c.d;
+const stColLbl=(c,long)=>(long?SDL:SDN)[stColDay(c)]+(c.date?(long?' ':' ')+(()=>{const d=parseISO(c.date);return d.getDate()+' '+MON[d.getMonth()]+(long?' '+d.getFullYear():'')})():'');
+const stRange=r=>(r.s||'')+(r.e?'–'+r.e:'');
+function stEl(){let p=$('#stbl');if(!p){p=h('div',{id:'stbl',class:'srch stbl',hidden:true});document.body.append(p)}return p}
+function openSimple(){const p=stEl();p.hidden=false;stPaint();try{const b=$('#tblbtn');if(b)b.setAttribute('aria-expanded','true')}catch(e){}}
+function closeSimple(){const p=stEl();p.hidden=true;try{if(document.fullscreenElement)document.exitFullscreen()}catch(e){}}
+let stT=0;const stSave=()=>{clearTimeout(stT);stT=setTimeout(dirty,300)};
+function stPaint(){const p=stEl(),t=stCur();p.textContent='';p.classList.toggle('stwin',STS.win);
+  const fsBtn=h('button',{class:'btn gwb',title:STS.win?'Full screen':'Smaller window','aria-label':STS.win?'Full screen':'Smaller window',onclick:()=>{STS.win=!STS.win;if(!STS.win){try{p.requestFullscreen&&p.requestFullscreen().catch(()=>{})}catch(e){}}else{try{if(document.fullscreenElement)document.exitFullscreen()}catch(e){}}stPaint()}},STS.win?'⛶':'❐');
+  p.append(h('div',{class:'ehead'},h('strong',null,'Simple tables'),h('span',{class:'grow'}),
+    h('button',{class:'btn',onclick:()=>stPrint(t)},'Print'),h('button',{class:'btn',onclick:()=>stShare(t)},'Share'),fsBtn,h('button',{class:'btn gwb','aria-label':'Close',onclick:closeSimple},'✕')));
+  const sel=h('select',{class:'cin','aria-label':'Choose a table',style:'flex:1 1 9em;min-width:0',onchange:()=>{STS.id=sel.value;stPaint()}},stList().map(x=>h('option',{value:x.id},x.name||'(unnamed)')));sel.value=t.id;
+  const del=h('button',{class:'btn',html:'Delete'});arm(del,()=>{snap();S.simple=stList().filter(x=>x!==t);STS.id=null;dirty();stPaint()},'Delete?');
+  p.append(h('div',{class:'gseg'},sel,h('button',{class:'btn primary',onclick:()=>{const n=stMake();STS.id=n.id;dirty();stPaint()}},'+ New'),
+    h('button',{class:'btn',onclick:()=>stRename(t)},'Rename'),h('button',{class:'btn',onclick:()=>{const n=stMake(t.name+' copy',t);STS.id=n.id;dirty();stPaint();toast('Copied')}},'Copy'),del));
+  const addCol=()=>{const cs=t.cols,l=cs[cs.length-1];let c;if(l&&l.date){const d=addDaysISO(l.date,1);c={id:uid(),d:stWd(d),date:d}}else c={id:uid(),d:l?(l.d+1)%7:0,date:''};cs.push(c);dirty();stPaint()};
+  p.append(h('div',{class:'gseg'},h('button',{class:'btn',onclick:addCol},'+ Day column'),
+    h('button',{class:'btn',title:'Give every column its date, counting forward from a start date',onclick:()=>stFillDates(t)},'Fill dates'),
+    h('button',{class:'btn',onclick:()=>{t.cols.forEach(c=>{c.date=''});dirty();stPaint()}},'Clear dates'),h('span',{class:'grow'}),
+    h('button',{class:'btn',onclick:()=>{const l=t.rows[t.rows.length-1];let s='09:00',e='10:00';if(l&&l.e){const a=tmin(l.s||l.e),b=tmin(l.e),d=b>a?b-a:60,n=Math.min(1439,b+d);s=l.e;e=pad(Math.floor(n/60))+':'+pad(n%60)}t.rows.push({id:uid(),s,e});dirty();stPaint()}},'+ Time row'),
+    h('button',{class:'btn',title:'Order rows by start time',onclick:()=>{t.rows.sort((a,b)=>(a.s||'')<(b.s||'')?-1:(a.s||'')>(b.s||'')?1:0);dirty();stPaint()}},'Sort by time')));
+  const wrap=h('div',{class:'stwrap'});wrap.append(stGrid(t,true));p.append(wrap);
+  p.append(h('p',{class:'psub',style:'margin:6px 0 0'},'Type straight into the grid. Times and text save as you go.'))}
+function stHead(t,c){
+  const sel=h('select',{class:'stds','aria-label':'Day',onchange:()=>{const nd=+sel.value;if(c.date){const delta=nd-stWd(c.date);c.date=addDaysISO(c.date,delta)}c.d=nd;dirty();stPaint()}},SDN.map((n,i)=>h('option',{value:i},n)));sel.value=String(stColDay(c));
+  const di=h('input',{type:'date',class:'stdi',value:c.date||'','aria-label':'Date for '+stColLbl(c,true),onchange:()=>{c.date=di.value||'';if(c.date)c.d=stWd(c.date);dirty();stPaint()}});
+  const rm=h('button',{class:'tb eb',title:'Remove this column','aria-label':'Remove column',html:'\u2715'});arm(rm,()=>{snap();const k=t.cols.indexOf(c);t.cols.splice(k,1);Object.keys(t.cells).concat(Object.keys(t.meta||{})).forEach(x=>{if(x.split('|')[1]===c.id){delete t.cells[x];if(t.meta)delete t.meta[x]}});dirty();stPaint()},'?');
+  return h('th',null,h('div',{class:'sthd'},sel,rm),di)}
+function stFillDates(t){
+  const i=h('input',{type:'date',class:'cin',value:(t.cols.find(c=>c.date)||{}).date||iso(new Date()),'aria-label':'First date'});
+  const n=h('input',{type:'number',class:'cin',min:String(t.cols.length),max:'31',value:String(t.cols.length),'aria-label':'Number of day columns',style:'width:6em'});
+  const mode=h('select',{class:'cin','aria-label':'Which days'},h('option',{value:'all'},'Every day, one after another'),h('option',{value:'wk'},'Weekdays only (skip Sat and Sun)'),h('option',{value:'keep'},'Keep each column\u2019s day (Mon, Tue\u2026)'));
+  const go=()=>{if(!i.value)return;const want=Math.max(t.cols.length,Math.min(31,parseInt(n.value,10)||t.cols.length));
+    while(t.cols.length<want)t.cols.push({id:uid(),d:0,date:''});
+    let cur=i.value;
+    t.cols.forEach(c=>{
+      if(mode.value==='wk'){while(stWd(cur)>4)cur=addDaysISO(cur,1)}
+      else if(mode.value==='keep'){for(let k=0;k<7&&stWd(cur)!==c.d;k++)cur=addDaysISO(cur,1)}
+      c.date=cur;c.d=stWd(cur);cur=addDaysISO(cur,1)});
+    dirty();m.close();stPaint()};
+  const lab=(x,el)=>h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px'},x,el);
+  const m=modal('Fill dates',h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('p',{class:'psub',style:'margin:0'},'Gives each column a date. The day name follows the date, and you can still edit any date afterwards.'),lab('First date',i),lab('Number of day columns',n),lab('Which days',mode)),
+    [h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',onclick:go},'Fill dates')])}
+function stGrid(t,edit){const ds=stCols(t);
+  const tb=h('table',{class:'stg',style:edit?'min-width:'+(132+ds.length*132)+'px':null}),hd=h('tr',null,h('th',null,'Time'),ds.map(c=>edit?stHead(t,c):h('th',null,stColLbl(c,true))));tb.append(h('thead',null,hd));
+  const body=h('tbody');
+  t.rows.forEach((r,ri)=>{
+    const tr=h('tr');
+    if(edit){
+      const si=h('input',{type:'time',value:r.s||'','aria-label':'Start',onchange:()=>{r.s=si.value;stSave()}}),ei=h('input',{type:'time',value:r.e||'','aria-label':'End',onchange:()=>{r.e=ei.value;stSave()}});
+      const mv=(d)=>()=>{const j=ri+d;if(j<0||j>=t.rows.length)return;const x=t.rows[ri];t.rows[ri]=t.rows[j];t.rows[j]=x;dirty();stPaint()};
+      const rm=h('button',{class:'tb eb',title:'Remove row','aria-label':'Remove row',html:'✕'});arm(rm,()=>{snap();t.rows.splice(ri,1);ds.forEach(c=>{delete t.cells[r.id+'|'+c.id];if(t.meta)delete t.meta[r.id+'|'+c.id]});dirty();stPaint()},'?');
+      tr.append(h('td',{class:'stt'},h('div',{class:'sttr'},si,ei),h('div',{class:'sttb'},h('button',{class:'tb eb','aria-label':'Move row up',onclick:mv(-1),html:'↑'}),h('button',{class:'tb eb','aria-label':'Move row down',onclick:mv(1),html:'↓'}),rm)));
+      ds.forEach(c=>{const k=r.id+'|'+c.id,m=stMeta(t,k),ta=h('textarea',{class:'stc'+(m&&m.done?' sdn':''),rows:'2','aria-label':stColLbl(c,true)+' '+stRange(r),value:t.cells[k]||'',oninput:()=>{t.cells[k]=ta.value;if(!ta.value)delete t.cells[k];autoGrow(ta);stSave()}});
+        const done=h('button',{class:'stab'+(m&&m.done?' on':''),title:m&&m.done?'Undo strike off':'Strike off','aria-label':'Strike off','aria-pressed':String(!!(m&&m.done)),onclick:()=>{const mm=stMeta(t,k,1);mm.done=!mm.done;if(!mm.done&&!mm.al)delete t.meta[k];dirty();ta.classList.toggle('sdn',!!mm.done);done.classList.toggle('on',!!mm.done);done.setAttribute('aria-pressed',String(!!mm.done))},html:'\u2713'});
+        const al=h('button',{class:'stab'+(m&&m.al&&!m.fired?' on':''),title:'Alarm for this cell','aria-label':'Alarm for this cell',onclick:()=>stAlarmDlg(t,r,c)},'\u23f0'+(m&&m.al&&!m.fired?' '+stFmt(m.al):''));
+        const pm2=h('button',{class:'stab',title:'Pomodoro for this cell','aria-label':'Pomodoro for this cell',onclick:()=>stPomo(t,r,c)},'\u23f1');
+        tr.append(h('td',null,ta,h('div',{class:'stba'},done,al,pm2)))})}
+    else{tr.append(h('td',{class:'stt'},stRange(r)));ds.forEach(c=>tr.append(h('td',{style:(t.meta&&t.meta[r.id+'|'+c.id]&&t.meta[r.id+'|'+c.id].done)?'text-decoration:line-through;opacity:.6':null},(t.cells[r.id+'|'+c.id]||'').split('\n').flatMap((ln,i)=>i?[h('br'),ln]:[ln]))))}
+    body.append(tr)});
+  tb.append(body);if(edit)setTimeout(()=>tb.querySelectorAll('textarea').forEach(autoGrow),0);return tb}
+function stRename(t){const i=h('input',{class:'cin',value:t.name||'','aria-label':'Table name'});
+  const go=()=>{t.name=i.value.trim()||t.name;dirty();m.close();stPaint()};i.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+  const m=modal('Rename table',i,[h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',onclick:go},'Save')]);i.select()}
+/* sharing: text by day, grid text, CSV and a web page */
+function stText(t){const ds=stCols(t),out=[t.name||'Timetable',''];
+  ds.forEach(c=>{const ls=t.rows.filter(r=>(t.cells[r.id+'|'+c.id]||'').trim()).map(r=>'  '+stRange(r)+'  '+((t.meta&&t.meta[r.id+'|'+c.id]&&t.meta[r.id+'|'+c.id].done)?'\u2713 ':'')+t.cells[r.id+'|'+c.id].trim().replace(/\n+/g,' / '));
+    out.push(stColLbl(c,true));out.push(ls.length?ls.join('\n'):'  –');out.push('')});return out.join('\n').trim()}
+function stCsv(t){const ds=stCols(t),q=s=>'"'+String(s||'').replace(/"/g,'""')+'"';
+  return '﻿'+[['Time'].concat(ds.map(c=>stColLbl(c,true)))].concat(t.rows.map(r=>[stRange(r)].concat(ds.map(c=>((t.meta&&t.meta[r.id+'|'+c.id]&&t.meta[r.id+'|'+c.id].done)?'\u2713 ':'')+(t.cells[r.id+'|'+c.id]||''))))).map(r=>r.map(q).join(',')).join('\r\n')}
+const stEsc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const STCSS='body{font-family:system-ui,Segoe UI,Arial,sans-serif;margin:16px;color:#111}h1{font-size:20px;margin:0 0 10px}table{border-collapse:collapse;width:100%;min-width:640px;table-layout:fixed}th,td{border:1px solid #888;padding:6px 8px;vertical-align:top;font-size:13px;word-wrap:break-word}th{background:#eee;text-align:left}td:first-child{width:118px;font-weight:600;background:#f7f7f7}@page{size:A4 landscape;margin:10mm}';
+function stHtmlBody(t){const ds=stCols(t);
+  return '<h1>'+stEsc(t.name||'Timetable')+'</h1><table><thead><tr><th>Time</th>'+ds.map(c=>'<th>'+stEsc(stColLbl(c,true))+'</th>').join('')+'</tr></thead><tbody>'+
+    t.rows.map(r=>'<tr><td>'+stEsc(stRange(r))+'</td>'+ds.map(c=>'<td'+((t.meta&&t.meta[r.id+'|'+c.id]&&t.meta[r.id+'|'+c.id].done)?' style="text-decoration:line-through;opacity:.6"':'')+'>'+stEsc(t.cells[r.id+'|'+c.id]||'').replace(/\n/g,'<br>')+'</td>').join('')+'</tr>').join('')+'</tbody></table>'}
+const stHtmlDoc=t=>'<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+stEsc(t.name||'Timetable')+'</title><style>'+STCSS+'</style></head><body>'+stHtmlBody(t)+'</body></html>';
+const stFile=t=>(t.name||'timetable').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').slice(0,40)||'timetable';
+function stShare(t){const txt=stText(t),ta=h('textarea',{readonly:'true',rows:'10','aria-label':'Text to share',style:'width:100%'});ta.value=txt;
+  const m=modal('Share '+(t.name||'table'),h('div',{style:'display:flex;flex-direction:column;gap:10px'},ta,h('p',{class:'psub',style:'margin:0'},'Send it as text, or save a web page or a spreadsheet file (CSV).')),
+    [h('button',{class:'btn',onclick:()=>m.close()},'Close'),
+     h('button',{class:'btn',onclick:async()=>{await copyText(txt);toast('Copied')}},'Copy'),
+     h('button',{class:'btn',onclick:()=>saveBlob(stFile(t)+'.csv',new Blob([stCsv(t)],{type:'text/csv'}))},'Save CSV'),
+     h('button',{class:'btn',onclick:()=>saveBlob(stFile(t)+'.html',new Blob([stHtmlDoc(t)],{type:'text/html'}))},'Save web page'),
+     h('button',{class:'btn primary',onclick:async()=>{try{if(navigator.share){await navigator.share({title:t.name||'Timetable',text:txt});return}}catch(e){if(e&&e.name==='AbortError')return}await copyText(txt);toast('Copied. Paste it into any chat.')}},'Share')])}
+/* printing: a clean preview, then the system print dialog */
+function stPrint(t){let pv=$('#sprint');if(pv)pv.remove();
+  pv=h('div',{id:'sprint',class:'sprint'});
+  const bar=h('div',{class:'spbar'},h('strong',null,'Print preview'),h('span',{class:'grow'}),
+    h('button',{class:'btn primary',onclick:()=>{document.body.classList.add('psp');try{if(window.AndroidBridge&&AndroidBridge.printPage)AndroidBridge.printPage(t.name||'Timetable');else window.print()}catch(e){toast('Printing is not available here. Use Share › Save web page, then print it.')}}},'Print'),
+    h('button',{class:'btn',onclick:()=>{document.body.classList.remove('psp');pv.remove()}},'Close'));
+  const sheet=h('div',{class:'spsheet'});sheet.innerHTML='<style>'+STCSS.replace(/body\{[^}]*\}/,'')+'</style>'+stHtmlBody(t);
+  pv.append(bar,sheet);document.body.append(pv);
+  window.addEventListener('afterprint',()=>document.body.classList.remove('psp'),{once:true})}
+function stTopBtns(){const tb=$('#tblbtn');if(tb)tb.onclick=()=>{const p=stEl();p.hidden?openSimple():closeSimple()};
+  const f=()=>{const g=$('#gtree');if(g&&!g.hidden){g.hidden=true;gtReopen(false)}else gridTree()};['#treebtn','#etreeday'].forEach(q=>{const b=$(q);if(b)b.onclick=f})}
+stTopBtns();
+
+/* ---- per-cell alarm and pomodoro ---- */
+const stFmt=ms=>{const d=new Date(ms);return d.getDate()+' '+MON[d.getMonth()]+' '+pad(d.getHours())+':'+pad(d.getMinutes())};
+function stCellWhen(t,rid,cid){const r=(t.rows||[]).find(x=>x.id===rid),c=(t.cols||[]).find(x=>x.id===cid);return r&&c?stColLbl(c,false)+' '+stRange(r):''}
+function stDefaultWhen(r,c){let date=c.date;const tm=r.s||'09:00';
+  if(!date){const now=new Date();let k=0;for(;k<8;k++){const d=new Date(now);d.setDate(d.getDate()+k);if(((d.getDay()+6)%7)===c.d){const t=new Date(d);const p=tm.split(':');t.setHours(+p[0]||0,+p[1]||0,0,0);if(t>now||k>0){date=iso(d);break}}}}
+  return{date:date||iso(new Date()),time:tm}}
+function stAlarmDlg(t,r,c){const k=r.id+'|'+c.id,m=stMeta(t,k),cur=m&&m.al?new Date(m.al):null,def=stDefaultWhen(r,c);
+  const di=h('input',{type:'date',class:'cin',value:cur?iso(cur):def.date,'aria-label':'Alarm date'}),ti=h('input',{type:'time',class:'cin',value:cur?pad(cur.getHours())+':'+pad(cur.getMinutes()):def.time,'aria-label':'Alarm time'});
+  const pre=h('select',{class:'cin','aria-label':'Ring before the cell time'},[[0,'At that time'],[5,'5 minutes before'],[10,'10 minutes before'],[15,'15 minutes before'],[30,'30 minutes before'],[60,'1 hour before']].map(x=>h('option',{value:x[0]},x[1])));
+  const go=()=>{if(!di.value||!ti.value){toast('Pick a date and time');return}const p=ti.value.split(':'),d=parseISO(di.value);d.setHours(+p[0],+p[1],0,0);const ms=d.getTime()-(+pre.value)*60000;
+    if(ms<=Date.now()){toast('That time has already passed');return}const mm=stMeta(t,k,1);mm.al=ms;mm.fired=false;dirty();m2.close();stPaint();toast('Alarm set for '+stFmt(ms))};
+  const clr=h('button',{class:'btn',onclick:()=>{const mm=stMeta(t,k);if(mm){delete mm.al;delete mm.fired;if(!mm.done)delete t.meta[k]}dirty();m2.close();stPaint()}},'Clear alarm');
+  const lab=(x,el)=>h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px'},x,el);
+  const m2=modal('Alarm for '+stCellWhen(t,r.id,c.id),h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('p',{class:'psub',style:'margin:0'},((t.cells[k]||'').trim().split('\n')[0]||'This cell')+'. The alarm rings on this phone even when the app is closed.'),lab('Date',di),lab('Time',ti),lab('Ring',pre)),
+    [h('button',{class:'btn',onclick:()=>m2.close()},'Cancel')].concat(cur?[clr]:[],[h('button',{class:'btn primary',onclick:go},'Set alarm')]))}
+let stLast=0;
+function stTick(){const now=Date.now();if(now-stLast<2000)return;stLast=now;
+  for(const t of stList()){for(const k of Object.keys(t.meta||{})){const m=t.meta[k];if(!m||!m.al||m.fired||m.al>now)continue;m.fired=true;dirty();
+    if(now-m.al<120000){const[rid,cid]=k.split('|'),tx=((t.cells||{})[k]||'').trim().split('\n')[0]||'Simple table';
+      window.stRingCell={tid:t.id,key:k};ringNode=null;$('#rtext').textContent=tx+' \u2022 '+(t.name||'')+' '+stCellWhen(t,rid,cid);$('#ring').hidden=false;beep(4);clearInterval(ringT);ringT=setInterval(()=>beep(4),2200);notify('Alarm',tx)}}}}
+function stSnooze(){const c=window.stRingCell;if(!c)return;const t=stList().find(x=>x.id===c.tid),m=t&&stMeta(t,c.key);if(m){m.al=Date.now()+300000;m.fired=false;dirty()}}
+function stOpenRung(){const c=window.stRingCell;window.stRingCell=null;if(c){STS.id=c.tid;openSimple()}}
+function stPomo(t,r,c){const k=r.id+'|'+c.id,tx=(t.cells[k]||'').trim().split('\n')[0];pm().node=null;pm().label=(tx||'Simple table')+' \u00b7 '+stCellWhen(t,r.id,c.id);dirty();pomoOpen()}
 /* ===== Android app bridge: keeps the phone's alarm clock in step with the page (no effect in a browser) ===== */
 const NB=window.AndroidBridge;
 let nsT=0,nsLast='';
@@ -3297,6 +3486,7 @@ function nativeEvents(){
     if(r)revEntries(n).forEach(x=>{if(!x.s||(r.sd||{})[x.d+x.s])return;const d=dtMs(x.d,x.s);if(!isNaN(d))add('rv'+n.id+x.d+x.s,d,'Time to revise',nodeLabel(n)+(x.e?' ('+x.s+'–'+x.e+')':''))});
     const a=n.act;if(a&&a.on)a.times.forEach(x=>{const key=actKey(x);if((a.done||{})[key])return;const base=dtMs(x.d,x.t);if(isNaN(base))return;const ps=actPayload(a),steps=actSteps(a);
       steps.forEach((mn,i)=>add('x'+n.id+key+'_'+i,base+mn*60000,actTitle(a,n),(a.text?a.text+'\n':'')+(i<steps.length-1?'Tap Done when it is finished, or you will be reminded again in '+(steps[i+1]-mn)+' min.':'Tap Done when it is finished.'),Object.assign({grp:n.id+'|'+key},ps)))})}
+  (S.simple||[]).forEach(t=>Object.keys(t.meta||{}).forEach(k=>{const m=t.meta[k];if(m&&m.al&&!m.fired){const[rid,cid]=k.split('|'),tx=((t.cells||{})[k]||'').trim().split('\n')[0];add('asc'+t.id+'_'+k.replace('|','_'),m.al,(tx||'Simple table')+'',(t.name||'Simple table')+(stCellWhen(t,rid,cid)?' \u00b7 '+stCellWhen(t,rid,cid):''))}}));
   const p=S.pomo;if(p&&p.running&&p.endAt>now)add('pomo',p.endAt,'Pomodoro',p.phase==='focus'?'Focus session finished. Time for a break.':'Break is over. Back to focus.');
   return out.sort((a,b)=>a.t-b.t)}
 let ngLast='';
@@ -3327,10 +3517,10 @@ function notify(title,body){try{if('Notification' in window&&Notification.permis
 let ringT=0,ringNode=null;
 function ring(n){ringNode=n;const r=rootOf(n.id);$('#rtext').textContent=(boxName(n)||'Box')+' • '+(r.key?cellLabel(r.key):'');
   $('#ring').hidden=false;beep(4);ringT=setInterval(()=>beep(4),2200);notify('Alarm',boxName(n)||'Timetable alarm')}
-function stopRing(){clearInterval(ringT);$('#ring').hidden=true}
+function stopRing(){clearInterval(ringT);$('#ring').hidden=true;window.stRingCell=null}
 $('#rstop').onclick=stopRing;
-$('#rsnooze').onclick=()=>{if(ringNode){ringNode.snz=Date.now()+300000;dirty()}stopRing();renderGrid()};
-$('#ropen').onclick=()=>{stopRing();if(ringNode&&N(ringNode.id)){const n=ringNode;if(n.contact||!n.parent)openNode(n.id);else openNode(n.parent,n.id)}};
+$('#rsnooze').onclick=()=>{if(window.stRingCell){stSnooze()}if(ringNode){ringNode.snz=Date.now()+300000;dirty()}stopRing();renderGrid()};
+$('#ropen').onclick=()=>{stopRing();if(window.stRingCell){stOpenRung();return}if(ringNode&&N(ringNode.id)){const n=ringNode;if(n.contact||!n.parent)openNode(n.id);else openNode(n.parent,n.id)}};
 
 /* ---------- scribble pads: zoom, pan, view mode, images, several per box ---------- */
 const LS=2,imgCache=new Map();
@@ -3595,13 +3785,13 @@ function pomoRender(){
   $('#pring').style.strokeDashoffset=String(339.29*(1-Math.max(0,Math.min(1,left/tot))));
   $('#pomo').classList.toggle('break',p.phase!=='focus');
   $('#pbtn').classList.toggle('live',p.running);$('#epomo').classList.toggle('live',p.running);
-  const n=p.node&&N(p.node);$('#plink').textContent=n?'On: '+(boxName(n)||'Empty box'):'';$('#punlink').hidden=!n;
+  const n=p.node&&N(p.node);$('#plink').textContent=n?'On: '+(boxName(n)||'Empty box'):(p.label?'On: '+p.label:'');$('#punlink').hidden=!n&&!p.label;
   const d=$('#pdots');if(d.dataset.k!==p.done+'/'+p.cfg.n){d.dataset.k=p.done+'/'+p.cfg.n;d.textContent='';for(let i=0;i<p.cfg.n;i++)d.append(h('i',{class:i<p.done%p.cfg.n?'f':''}))}
   document.title='Nested Timetable'}
 $('#pgo').onclick=pomoGo;
 $('#pskip').onclick=()=>{pomoNext(false);pomoRender()};
 $('#preset').onclick=()=>{const p=pm();p.phase='focus';p.done=0;p.running=false;p.remain=phMs('focus');dirty();pomoRender()};
-$('#punlink').onclick=()=>{pm().node=null;dirty();pomoRender()};
+$('#punlink').onclick=()=>{pm().node=null;pm().label='';dirty();pomoRender()};
 $('#pmin').onclick=()=>{$('#pomo').hidden=true};
 for(const [id,k] of [['cf','f'],['cs','s'],['cl','l'],['cn','n']])$('#'+id).addEventListener('change',e=>{const v=Math.max(1,Math.min(180,parseInt(e.target.value)||1));pm().cfg[k]=v;
   if(!pm().running&&k!=='n'&&((k==='f'&&pm().phase==='focus')||(k==='s'&&pm().phase==='short')||(k==='l'&&pm().phase==='long')))pm().remain=phMs(pm().phase);dirty();pomoRender()});
@@ -3710,7 +3900,7 @@ setInterval(()=>{
   if($('#ring').hidden){for(const n of Object.values(S.nodes)){
     if(n.snz&&now>=n.snz){n.snz=null;dirty();ring(n);break}
     if(n.alarm&&!n.fired&&now>=n.alarm){n.fired=true;if(n.rep)advance(n);dirty();ring(n);renderGrid();if(ed.node)renderEditor();break}}}
-  digestTick();wrapTick();medTick();revTick();geoHits();actTick();actDone();const p=pm();
+  digestTick();wrapTick();medTick();revTick();stTick();geoHits();actTick();actDone();const p=pm();
   if(p.running&&p.endAt-now<=0){beep(3);notify(PH[p.phase]+' finished',p.phase==='focus'?'Time for a break.':'Back to focus.');pomoNext(true);$('#pomo').hidden=false}
   pomoRender()},500);
 
