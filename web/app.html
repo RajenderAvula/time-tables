@@ -2346,8 +2346,8 @@ function listHtmlBlob(g){const E=esc,done=(g.items||[]).filter(x=>x.done).length
 function shareListDlg(g){
   const txt=listPlain(g),ta=h('textarea',{readonly:'true',rows:'8','aria-label':'Text to share'});ta.value=txt;
   const m=modal('Share '+(g.k==='s'?'steps':'checklist'),h('div',{style:'display:flex;flex-direction:column;gap:10px'},ta,h('p',{class:'psub',style:'margin:0'},'Copy the text into any chat, or save a read-only web page that shows progress.')),
-    [h('button',{class:'btn',onclick:()=>m.close()},'Close'),h('button',{class:'btn',onclick:async()=>{await copyText(txt);toast('Copied')}},'Copy text'),
-     h('button',{class:'btn primary',onclick:async()=>{const nm=(g.text||(g.k==='s'?'steps':'checklist')).replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').slice(0,40)||'list';if(await saveBlob(nm+'.html',listHtmlBlob(g)))m.close()}},'Save HTML')])}
+    [h('button',{class:'btn',onclick:()=>m.close()},'Close'),h('button',{class:'btn primary',onclick:()=>shareOut(g.text||(g.k==='s'?'Steps':'Checklist'),txt)},'Share via apps\u2026'),h('button',{class:'btn',onclick:async()=>{await copyText(txt);toast('Copied')}},'Copy text'),
+     h('button',{class:'btn',onclick:async()=>{const nm=(g.text||(g.k==='s'?'steps':'checklist')).replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').slice(0,40)||'list';if(await saveBlob(nm+'.html',listHtmlBlob(g)))m.close()}},'Save HTML')])}
 
 /* today's checks (menu, with a dot on the Plan button) */
 const hasData=()=>Object.keys(S.nodes).length>14;
@@ -2928,10 +2928,10 @@ function shareBoxDlg(n){
   const txt=boxText(n),ta=h('textarea',{readonly:'true',rows:'9','aria-label':'Text to share'});ta.value=txt;
   const cnt=subtree(n).length-1;
   const m=modal('Share this box',h('div',{style:'display:flex;flex-direction:column;gap:10px;min-width:0'},ta,
-    h('p',{class:'psub',style:'margin:0'},'Copy the text into any chat. Or save a read-only web page. Or save a box file with its attachments; the other person opens their Nested Timetable, then Plan › Import a shared box.'+(cnt?' Includes '+cnt+' sub-box'+(cnt===1?'':'es')+'.':''))),
-    [h('button',{class:'btn',onclick:()=>m.close()},'Close'),h('button',{class:'btn',onclick:async()=>{await copyText(txt);toast('Copied')}},'Copy text'),
+    h('p',{class:'psub',style:'margin:0'},'Share it straight to WhatsApp, mail or any app. Or copy the text. Or save a read-only web page. Or save a box file with its attachments; the other person opens their Nested Timetable, then Plan › Import a shared box.'+(cnt?' Includes '+cnt+' sub-box'+(cnt===1?'':'es')+'.':''))),
+    [h('button',{class:'btn',onclick:()=>m.close()},'Close'),h('button',{class:'btn primary',onclick:()=>shareOut(boxName(n)||'Box',txt)},'Share via apps\u2026'),h('button',{class:'btn',onclick:async()=>{await copyText(txt);toast('Copied')}},'Copy text'),
      h('button',{class:'btn',onclick:async()=>{if(await saveBlob(fileName(n,'.html'),boxHtml(n)))m.close()}},'Save web page'),
-     h('button',{class:'btn primary',onclick:async()=>{toast('Preparing the box file…');const j=await boxFile(n);if(await saveBlob(fileName(n,'.ttbox.json'),new Blob([j],{type:'application/json'})))m.close()}},'Save box file')]);
+     h('button',{class:'btn',onclick:async()=>{toast('Preparing the box file…');const j=await boxFile(n);if(await saveBlob(fileName(n,'.ttbox.json'),new Blob([j],{type:'application/json'})))m.close()}},'Save box file')]);
   m.firstChild.classList.add('wide')}
 /* import */
 async function importBox(text,destParent){
@@ -3401,8 +3401,9 @@ function stGrid(t,edit){const ds=stCols(t);
       ds.forEach(c=>{const k=r.id+'|'+c.id,m=stMeta(t,k),ta=h('textarea',{class:'stc'+(m&&m.done?' sdn':''),rows:'2','aria-label':stColLbl(c,true)+' '+stRange(r),value:t.cells[k]||'',oninput:()=>{t.cells[k]=ta.value;if(!ta.value)delete t.cells[k];autoGrow(ta);stSave()}});
         const done=h('button',{class:'stab'+(m&&m.done?' on':''),title:m&&m.done?'Undo strike off':'Strike off','aria-label':'Strike off','aria-pressed':String(!!(m&&m.done)),onclick:()=>{const mm=stMeta(t,k,1);mm.done=!mm.done;if(!mm.done&&!mm.al)delete t.meta[k];dirty();ta.classList.toggle('sdn',!!mm.done);done.classList.toggle('on',!!mm.done);done.setAttribute('aria-pressed',String(!!mm.done))},html:'\u2713'});
         const al=h('button',{class:'stab'+(m&&m.al&&!m.fired?' on':''),title:'Alarm for this cell','aria-label':'Alarm for this cell',onclick:()=>stAlarmDlg(t,r,c)},'\u23f0'+(m&&m.al&&!m.fired?' '+stFmt(m.al):''));
+        const sh=h('button',{class:'stab',title:'Share this cell to WhatsApp, mail or any app','aria-label':'Share this cell',onclick:()=>stShareCell(t,r,c)},'\u2197');
         const pm2=h('button',{class:'stab',title:'Pomodoro for this cell','aria-label':'Pomodoro for this cell',onclick:()=>stPomo(t,r,c)},'\u23f1');
-        tr.append(h('td',null,ta,h('div',{class:'stba'},done,al,pm2)))})}
+        tr.append(h('td',null,ta,h('div',{class:'stba'},done,al,pm2,sh)))})}
     else{tr.append(h('td',{class:'stt'},stRange(r)));ds.forEach(c=>tr.append(h('td',{style:(t.meta&&t.meta[r.id+'|'+c.id]&&t.meta[r.id+'|'+c.id].done)?'text-decoration:line-through;opacity:.6':null},(t.cells[r.id+'|'+c.id]||'').split('\n').flatMap((ln,i)=>i?[h('br'),ln]:[ln]))))}
     body.append(tr)});
   tb.append(body);if(edit)setTimeout(()=>tb.querySelectorAll('textarea').forEach(autoGrow),0);return tb}
@@ -3428,7 +3429,7 @@ function stShare(t){const txt=stText(t),ta=h('textarea',{readonly:'true',rows:'1
      h('button',{class:'btn',onclick:async()=>{await copyText(txt);toast('Copied')}},'Copy'),
      h('button',{class:'btn',onclick:()=>saveBlob(stFile(t)+'.csv',new Blob([stCsv(t)],{type:'text/csv'}))},'Save CSV'),
      h('button',{class:'btn',onclick:()=>saveBlob(stFile(t)+'.html',new Blob([stHtmlDoc(t)],{type:'text/html'}))},'Save web page'),
-     h('button',{class:'btn primary',onclick:async()=>{try{if(navigator.share){await navigator.share({title:t.name||'Timetable',text:txt});return}}catch(e){if(e&&e.name==='AbortError')return}await copyText(txt);toast('Copied. Paste it into any chat.')}},'Share')])}
+     h('button',{class:'btn primary',onclick:()=>shareOut(t.name||'Timetable',txt)},'Share via apps\u2026')])}
 /* printing: a clean preview, then the system print dialog */
 function stPrint(t){let pv=$('#sprint');if(pv)pv.remove();
   pv=h('div',{id:'sprint',class:'sprint'});
@@ -3465,6 +3466,15 @@ function stTick(){const now=Date.now();if(now-stLast<2000)return;stLast=now;
 function stSnooze(){const c=window.stRingCell;if(!c)return;const t=stList().find(x=>x.id===c.tid),m=t&&stMeta(t,c.key);if(m){m.al=Date.now()+300000;m.fired=false;dirty()}}
 function stOpenRung(){const c=window.stRingCell;window.stRingCell=null;if(c){STS.id=c.tid;openSimple()}}
 function stPomo(t,r,c){const k=r.id+'|'+c.id,tx=(t.cells[k]||'').trim().split('\n')[0];pm().node=null;pm().label=(tx||'Simple table')+' \u00b7 '+stCellWhen(t,r.id,c.id);dirty();pomoOpen()}
+
+/* share straight to WhatsApp, mail or any app the phone offers */
+async function shareOut(title,text){const B=window.AndroidBridge;
+  try{if(B&&B.shareText){B.shareText(String(title||''),String(text||''));return true}}catch(e){}
+  try{if(navigator.share){await navigator.share({title:title||'',text:text||''});return true}}catch(e){if(e&&e.name==='AbortError')return false}
+  try{await copyText(text||'');toast('Copied. Paste it into WhatsApp, mail or any app.')}catch(e){}return true}
+function stShareCell(t,r,c){const k=r.id+'|'+c.id,m=t.meta&&t.meta[k],tx=(t.cells[k]||'').trim();
+  const lines=[(m&&m.done?'\u2713 ':'')+(tx||'(empty)'),stColLbl(c,true)+'  '+stRange(r),t.name||''];if(m&&m.al&&!m.fired)lines.splice(2,0,'Alarm: '+stFmt(m.al));
+  shareOut(t.name||'Timetable',lines.filter(Boolean).join('\n'))}
 /* ===== Android app bridge: keeps the phone's alarm clock in step with the page (no effect in a browser) ===== */
 const NB=window.AndroidBridge;
 let nsT=0,nsLast='';
