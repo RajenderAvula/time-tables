@@ -430,6 +430,23 @@ class MainActivity : AppCompatActivity() {
 
     /** Functions the page can call as window.AndroidBridge.* */
     inner class Bridge {
+        /** Opens the phone's share sheet (WhatsApp, mail, messages ...) with some text. */
+        @JavascriptInterface
+        fun shareText(title: String, text: String) {
+            runOnUiThread {
+                try {
+                    val send = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_SUBJECT, title)
+                        putExtra(Intent.EXTRA_TEXT, text)
+                    }
+                    startActivity(Intent.createChooser(send, title.ifBlank { "Share" }))
+                } catch (e: Exception) {
+                    Toast.makeText(this@MainActivity, "No app to share with", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
         /** Opens the system print dialog for the page as it is shown now (the page hides everything but the table). */
         @JavascriptInterface
         fun printPage(title: String) {
