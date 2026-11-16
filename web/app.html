@@ -336,6 +336,18 @@ a.btn.off{pointer-events:none;opacity:.45}
 .sprint{position:fixed;inset:0;z-index:95;background:#e9e9ee;display:flex;flex-direction:column}.spbar{display:flex;gap:8px;align-items:center;padding:10px 14px;background:var(--bg);color:var(--fg,inherit);border-bottom:1px solid var(--line)}
 .spsheet{flex:1;overflow:auto;background:#fff;color:#111;margin:10px;padding:14px;border-radius:6px}
 @media print{body.psp>*:not(#sprint){display:none!important}body.psp .sprint{position:static;background:#fff;display:block}body.psp .spbar{display:none!important}body.psp .spsheet{margin:0;padding:0;overflow:visible}}
+:root[data-theme="midnight"]{--bg:#000000;--surface:#0a0c12;--surface2:#14171f;--line:#20242f;--fg:#eef1f8;--muted:#8e96ab;--accent:#7dd3fc;--accent-ink:#04141c;--accent-soft:#0f2a3a;--today:#1f1b08;--warn:#fb923c;--good:#4ade80;--hi:#f0524b;--md:#d28a14;--lo:#34b36a;color-scheme:dark}
+:root[data-theme="forest"]{--bg:#0d1511;--surface:#14211a;--surface2:#1c2e24;--line:#27402f;--fg:#e6f3ea;--muted:#93b09c;--accent:#6ee7a0;--accent-ink:#06210f;--accent-soft:#1b3a28;--today:#2d3412;--warn:#fbbf24;--good:#6ee7a0;--hi:#f0625c;--md:#d6921a;--lo:#3cc97a;color-scheme:dark}
+:root[data-theme="dusk"]{--bg:#1a1426;--surface:#241b35;--surface2:#2e2344;--line:#3d2f5a;--fg:#efe9fb;--muted:#a99cc6;--accent:#c4a1ff;--accent-ink:#1c0f35;--accent-soft:#37265e;--today:#3a2f17;--warn:#fb923c;--good:#6ee7a0;--hi:#f2606a;--md:#d6921a;--lo:#3cc97a;color-scheme:dark}
+:root[data-theme="ocean"]{--bg:#eaf4fb;--surface:#ffffff;--surface2:#dcebf6;--line:#c4dcec;--fg:#0b2233;--muted:#4d6a80;--accent:#0369a1;--accent-ink:#ffffff;--accent-soft:#d3eaf8;--today:#fff1c7;--warn:#c2410c;--good:#15803d;--hi:#c62828;--md:#b45f06;--lo:#2e7d32;color-scheme:light}
+:root[data-theme="sunset"]{--bg:#fff4ec;--surface:#fffaf6;--surface2:#ffe9d9;--line:#f3d3bd;--fg:#3a1d0e;--muted:#8a5a3e;--accent:#d9480f;--accent-ink:#ffffff;--accent-soft:#ffe0cc;--today:#fff1c7;--warn:#b91c1c;--good:#15803d;--hi:#c62828;--md:#b45f06;--lo:#2e7d32;color-scheme:light}
+:root[data-theme="rose"]{--bg:#fdf2f6;--surface:#ffffff;--surface2:#fbe3ec;--line:#f2c9d8;--fg:#3b1020;--muted:#8a4a62;--accent:#be185d;--accent-ink:#ffffff;--accent-soft:#fcd9e6;--today:#fff1c7;--warn:#c2410c;--good:#15803d;--hi:#c62828;--md:#b45f06;--lo:#2e7d32;color-scheme:light}
+:root[data-theme="paper"]{--bg:#f4ecd8;--surface:#fbf6e8;--surface2:#ebe0c4;--line:#d8c9a3;--fg:#3b2f1e;--muted:#7a6a4f;--accent:#8b5a2b;--accent-ink:#ffffff;--accent-soft:#ecd9b4;--today:#ffe9a8;--warn:#b3470b;--good:#2f7a3a;--hi:#b4291f;--md:#a85c06;--lo:#2e7d32;color-scheme:light}
+:root[data-theme="contrast"]{--bg:#000000;--surface:#000000;--surface2:#1a1a1a;--line:#ffffff;--fg:#ffffff;--muted:#e0e0e0;--accent:#ffeb3b;--accent-ink:#000000;--accent-soft:#333300;--today:#3d3d00;--warn:#ffab40;--good:#69f0ae;--hi:#ff5252;--md:#ffab40;--lo:#69f0ae;color-scheme:dark}
+:root[data-theme="contrast"] .btn,:root[data-theme="contrast"] .ibtn,:root[data-theme="contrast"] .pill{border-width:2px}
+.thm{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:8px}.thm.on{outline:2px solid var(--accent)}.thsw{display:flex;gap:4px;align-items:center;width:100%;height:30px;border:2px solid;border-radius:8px;padding:0 6px}.thsw i{display:block;height:8px;border-radius:4px;width:30%}
+.gnav{flex-wrap:nowrap!important}.gnav .cin{flex:1 1 auto!important;min-width:0}.gnav .btn{flex:none}
+.gsel{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.gcb{width:20px;height:20px;flex:none;accent-color:var(--accent)}.gthr{display:flex;align-items:center;gap:8px}.gthr .grow{flex:1}
 .gwb{min-width:38px;padding:6px 8px;line-height:1}
 .gth{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:8px}#gtree{z-index:61}
 .zbody{flex:1;min-height:0;overflow:auto;width:100%;max-width:60rem;margin:0 auto;padding:6px 2px 80px}
@@ -726,7 +738,7 @@ function renderEditor(){
   $('#eup').lastChild.textContent=n.parent?(N(n.parent).key==='contacts'?'Contacts':'Parent'):'Grid';
   const back=$('#eback');back.hidden=!ui.hist.length;
   const m=$('#emain');m.textContent='';
-  if(!n.parent){m.append(h('div',null,h('h2',{class:'ptitle'},cellLabel(n.key)),h('p',{class:'psub'},n.kids.length+' text box'+(n.kids.length===1?'':'es')+' in this cell')))}
+  if(!n.parent){m.append(h('div',null,h('h2',{class:'ptitle'},cellLabel(n.key)),h('p',{class:'psub'},n.kids.length+' text box'+(n.kids.length===1?'':'es')+' in this cell'),h('div',{style:'display:flex;gap:6px;flex-wrap:wrap;margin-top:6px'},h('button',{class:'btn',onclick:()=>moveBoxesDlg(cellBoxIds(n.key),'Copy or move boxes in this cell')},'Copy or move boxes\u2026'),h('button',{class:'btn',onclick:()=>shareTreeDlg()},'Share days\u2026'))))}
   else{
     while(ui.sfStack.length&&!inside(n.id,ui.sfStack[ui.sfStack.length-1].h))ui.sfStack.pop();
     if(ui.sfStack.length){const t=ui.sfStack[ui.sfStack.length-1],hn=N(t.h),gg=hn&&(hn.lists||[]).find(x=>x.id===t.g);
@@ -1411,7 +1423,7 @@ function treeLines(key,td){const id=S.cells[key];if(!id||!N(id))return;const top
   if(top.length>3)td.append(h('p',{class:'cl more'},'+'+(top.length-3)+' more'))}
 const dateLabel=iso=>{const d=parseISO(iso);return DOW[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()};
 const slotLabel=id=>{const s=slotOf(id);return s?s.s+'\u2013'+s.e:id};
-const GT={mode:'week',date:iso(new Date()),hide:false,col:new Set(),view:'full',fx:12,fy:80,fw:0,fh:0};
+const GT={sel:null,mode:'week',date:iso(new Date()),hide:false,col:new Set(),view:'full',fx:12,fy:80,fw:0,fh:0};
 function dayBlock(date,f,pick,curId,rerender){const els=[];let any=0;
   for(const s of S.slots){const id=S.cells[date+'|'+s.id];if(!id||!N(id))continue;const rows=[];let cnt=0;
     const emit=(k,depth)=>{if(++cnt>600)return;const c=N(k);if(!c)return;const ex=(f||GT.hide)?[]:visTokens(k,extraRows(c)),dk=directKids(c);
@@ -1423,13 +1435,14 @@ function dayBlock(date,f,pick,curId,rerender){const els=[];let any=0;
     directKids(N(id)).forEach(k=>emit(k,0));
     let list=rows;if(f)list=rows.filter(r=>r.b&&(boxName(r.c)||'(empty)').toLowerCase().includes(f));
     if(!list.length)continue;any++;
-    els.push(h('div',{class:'gth'},slotLabel(s.id)));
+    els.push(h('div',{class:'gth gthr'},h('span',null,slotLabel(s.id)),h('span',{class:'grow'}),h('button',{class:'btn',style:'min-height:28px;padding:3px 8px;font-size:12px',title:'Copy or move every box in this cell, with everything inside',onclick:()=>moveBoxesDlg(cellBoxIds(date+'|'+s.id),'Copy or move this cell')},'Copy/move cell')));
     list.forEach(r=>{
       if(r.x){els.push(xrowEl(r.x,Math.min(r.depth,9)*14+(r.x.has?4:22),rerender));return}
       const k=r.b,c=r.c;
       const car=(!f&&r.has&&!GT.hide)?h('button',{class:'gcar','aria-label':GT.col.has(k)?'Show sub boxes':'Hide sub boxes','aria-expanded':String(!GT.col.has(k)),onclick:()=>{GT.col.has(k)?GT.col.delete(k):GT.col.add(k);rerender&&rerender()}},GT.col.has(k)?'\u25b8':'\u25be'):h('span',{class:'gcar sp'},'');
       const sub=r.depth===0&&GT.hide?descendants(k).filter(x=>N(x)&&!N(x).ref).length:0;
-      els.push(h('div',{class:'gtrow',style:'margin-left:'+Math.min(r.depth,9)*14+'px'},car,h('button',{class:'res gtr'+(k===curId?' cur':''),onclick:()=>pick(k)},h('span',{style:'display:block;min-width:0;flex:1'},h('span',null,h('b',{class:'cn'},numOf(k)),' '+(c.st==='d'?'\u2713 ':c.st==='p'?'\u25cb ':'')+(boxName(c)||'(empty)')+(sub?'  +'+sub:'')),h('span',{style:'display:flex;align-items:center;gap:8px'},progBar(c,'trb'),progLine(c))))))})}
+      const cb=(GT.sel&&!f&&false)?null:(GT.sel?h('input',{type:'checkbox',class:'gcb','aria-label':'Select '+(boxName(c)||'box'),checked:GT.sel.has(k),onchange:e=>{e.target.checked?GT.sel.add(k):GT.sel.delete(k);gtSelUpd()}}):null);
+      els.push(h('div',{class:'gtrow',style:'margin-left:'+Math.min(r.depth,9)*14+'px'},cb,car,h('button',{class:'res gtr'+(k===curId?' cur':''),onclick:()=>pick(k)},h('span',{style:'display:block;min-width:0;flex:1'},h('span',null,h('b',{class:'cn'},numOf(k)),' '+(c.st==='d'?'\u2713 ':c.st==='p'?'\u25cb ':'')+(boxName(c)||'(empty)')+(sub?'  +'+sub:'')),h('span',{style:'display:flex;align-items:center;gap:8px'},progBar(c,'trb'),progLine(c))))))})}
   return any?els:null}
 function fillDayTree(box,date){if(!box)return;box.textContent='';
   box.append(h('div',{class:'gday',style:'margin-top:0'},dateLabel(date),dayProgText(date)));
@@ -1446,11 +1459,12 @@ function gridTree(mode){
     let any=0;for(const dt of dates){const els=dayBlock(dt,f,pick,null,paint);if(!els)continue;any++;list.append(h('div',{class:'gday'},dateLabel(dt),dayProgText(dt)));els.forEach(e=>list.append(e))}
     if(!any)list.append(h('p',{class:'psub'},f?'No boxes match.':'No boxes for this selection yet.'))};
   const seg=h('div',{class:'gseg'},[['day','One day'],['week','Visible days'],['all','All days']].map(a=>h('button',{class:'btn'+(GT.mode===a[0]?' primary':''),onclick:()=>gridTree(a[0])},a[1])));
+  let nav=null;
   if(GT.mode==='day'){const shift=n=>()=>{const d=parseISO(GT.date);d.setDate(d.getDate()+n);GT.date=iso(d);gridTree()};
-    const di=h('input',{type:'date',class:'cin',value:GT.date,'aria-label':'Day',style:'flex:0 1 11em',onchange:e=>{if(e.target.value){GT.date=e.target.value;gridTree()}}});
-    seg.append(h('button',{class:'btn','aria-label':'Previous day',onclick:shift(-1)},'\u2039'),di,h('button',{class:'btn','aria-label':'Next day',onclick:shift(1)},'\u203a'))}
+    const di=h('input',{type:'date',class:'cin',value:GT.date,'aria-label':'Day',style:'flex:1 1 auto;min-width:0',onchange:e=>{if(e.target.value){GT.date=e.target.value;gridTree()}}});
+    nav=h('div',{class:'gseg gnav'},h('button',{class:'btn','aria-label':'Previous day',onclick:shift(-1)},'\u2039'),di,h('button',{class:'btn','aria-label':'Next day',onclick:shift(1)},'\u203a'))}
   q.oninput=paint;
-  p.append(gtHead(p),seg,h('div',{class:'gseg'},h('button',{class:'btn'+(GT.hide?' primary':''),'aria-pressed':String(GT.hide),onclick:()=>{GT.hide=!GT.hide;gridTree()}},GT.hide?'Show sub boxes':'Hide sub boxes'),h('button',{class:'btn',onclick:()=>{GT.col.clear();COLN.clear();gridTree()}},'Expand all'),h('button',{class:'btn',onclick:()=>{allIds().forEach(id=>GT.col.add(id));gridTree()}},'Collapse all')),q,list);
+  p.append(gtHead(p),seg,nav,h('div',{class:'gseg'},h('button',{class:'btn'+(GT.sel?' primary':''),'aria-pressed':String(!!GT.sel),title:'Tick boxes, then copy or move them to another cell',onclick:()=>{GT.sel=GT.sel?null:new Set();gridTree()}},GT.sel?'Done selecting':'Select boxes'),h('button',{class:'btn',onclick:()=>shareTreeDlg()},'Share\u2026'),h('button',{class:'btn'+(GT.hide?' primary':''),'aria-pressed':String(GT.hide),onclick:()=>{GT.hide=!GT.hide;gridTree()}},GT.hide?'Show sub boxes':'Hide sub boxes'),h('button',{class:'btn',onclick:()=>{GT.col.clear();COLN.clear();gridTree()}},'Expand all'),h('button',{class:'btn',onclick:()=>{allIds().forEach(id=>GT.col.add(id));gridTree()}},'Collapse all')),gtSelBar()||"",q,list);
   paint()}
 $('#gtbtn').onclick=()=>gridTree();
 
@@ -1824,7 +1838,7 @@ function openAgenda(){
   let p=$('#agenda');if(!p){p=h('div',{id:'agenda',class:'srch'});document.body.append(p)}
   p.hidden=false;p.textContent='';
   const day=AG.date,items=agendaItems(day),shift=n=>()=>{const d=parseISO(AG.date);d.setDate(d.getDate()+n);AG.date=iso(d);openAgenda()};
-  const di=h('input',{type:'date',class:'cin',value:day,'aria-label':'Day',style:'flex:0 1 11em',onchange:e=>{if(e.target.value){AG.date=e.target.value;openAgenda()}}});
+  const di=h('input',{type:'date',class:'cin',value:day,'aria-label':'Day',style:'flex:1 1 auto;min-width:0',onchange:e=>{if(e.target.value){AG.date=e.target.value;openAgenda()}}});
   const done=items.filter(x=>x.n.st==='d').length;
   p.append(h('div',{class:'ehead'},h('strong',null,'Agenda'),h('span',{class:'grow'}),h('button',{class:'btn',onclick:()=>{p.hidden=true}},'Close')),
     h('div',{class:'gseg'},h('button',{class:'btn','aria-label':'Previous day',onclick:shift(-1)},'\u2039'),di,h('button',{class:'btn','aria-label':'Next day',onclick:shift(1)},'\u203a'),
@@ -1871,6 +1885,13 @@ function gtReopen(show){let c=$('#gtre');
   if(!show){if(c)c.hidden=true;return}
   if(!c){c=h('div',{id:'gtre',class:'gtre'},h('button',{class:'btn primary',onclick:()=>gridTree()},'\u21a9 Reopen tree'),h('button',{class:'btn','aria-label':'Dismiss',onclick:()=>{c.hidden=true}},'\u2715'));document.body.append(c)}
   c.hidden=false}
+
+function gtSelUpd(){const e=$('#gtselc');if(e)e.textContent=(GT.sel?GT.sel.size:0)+' selected';const b=$('#gtselgo');if(b)b.disabled=!(GT.sel&&GT.sel.size)}
+function gtSelBar(){if(!GT.sel)return null;
+  return h('div',{class:'gseg gsel'},h('span',{id:'gtselc',class:'psub'},GT.sel.size+' selected'),
+    h('button',{id:'gtselgo',class:'btn primary',disabled:!GT.sel.size,onclick:()=>{const ids=[...GT.sel];moveBoxesDlg(ids,'Copy or move '+ids.length+' box'+(ids.length===1?'':'es'))}},'Copy or move\u2026'),
+    h('button',{class:'btn',onclick:()=>{document.querySelectorAll('#gtree .gcb').forEach(c=>{c.checked=true;c.dispatchEvent(new Event('change'))})}},'Select all shown'),
+    h('button',{class:'btn',onclick:()=>{GT.sel.clear();document.querySelectorAll('#gtree .gcb').forEach(c=>c.checked=false);gtSelUpd()}},'Clear'))}
 
 /* ---------- planning tools: categories, pins, templates, review, month, digest, snapshot, drag ---------- */
 const CATC=['#3b82f6','#8b5cf6','#10b981','#f59e0b','#ef4444','#06b6d4','#ec4899','#84cc16'];
@@ -2087,6 +2108,8 @@ function planMenu(){
     it('Categories and colours','Tag boxes and filter by category',catsDlg),
     it('Daily digest','Today\u2019s agenda pop-up at a set time',digestDlg),
     it('Trash',(S.trash||[]).length+' deleted boxes kept for 30 days',openTrash),
+    it('Share days via apps','Pick days, or a date and time range, and send it to WhatsApp, mail and more',shareTreeDlg),
+    it('Themes','Change colours: dark, light, forest, ocean and more',themeDlg),
     it('Share a read-only snapshot','Export this timetable as an HTML file',()=>exportDlg('html'))),
     [h('button',{class:'btn primary',onclick:()=>m.close()},'Close')])}
 $('#planbtn').onclick=planMenu;
@@ -3411,7 +3434,7 @@ function stRename(t){const i=h('input',{class:'cin',value:t.name||'','aria-label
   const go=()=>{t.name=i.value.trim()||t.name;dirty();m.close();stPaint()};i.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
   const m=modal('Rename table',i,[h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',onclick:go},'Save')]);i.select()}
 /* sharing: text by day, grid text, CSV and a web page */
-function stText(t){const ds=stCols(t),out=[t.name||'Timetable',''];
+function stText(t,only){const ds=stCols(t).filter(c=>!only||only.has(c.id)),out=[t.name||'Timetable',''];
   ds.forEach(c=>{const ls=t.rows.filter(r=>(t.cells[r.id+'|'+c.id]||'').trim()).map(r=>'  '+stRange(r)+'  '+((t.meta&&t.meta[r.id+'|'+c.id]&&t.meta[r.id+'|'+c.id].done)?'\u2713 ':'')+t.cells[r.id+'|'+c.id].trim().replace(/\n+/g,' / '));
     out.push(stColLbl(c,true));out.push(ls.length?ls.join('\n'):'  –');out.push('')});return out.join('\n').trim()}
 function stCsv(t){const ds=stCols(t),q=s=>'"'+String(s||'').replace(/"/g,'""')+'"';
@@ -3423,13 +3446,16 @@ function stHtmlBody(t){const ds=stCols(t);
     t.rows.map(r=>'<tr><td>'+stEsc(stRange(r))+'</td>'+ds.map(c=>'<td'+((t.meta&&t.meta[r.id+'|'+c.id]&&t.meta[r.id+'|'+c.id].done)?' style="text-decoration:line-through;opacity:.6"':'')+'>'+stEsc(t.cells[r.id+'|'+c.id]||'').replace(/\n/g,'<br>')+'</td>').join('')+'</tr>').join('')+'</tbody></table>'}
 const stHtmlDoc=t=>'<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+stEsc(t.name||'Timetable')+'</title><style>'+STCSS+'</style></head><body>'+stHtmlBody(t)+'</body></html>';
 const stFile=t=>(t.name||'timetable').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').slice(0,40)||'timetable';
-function stShare(t){const txt=stText(t),ta=h('textarea',{readonly:'true',rows:'10','aria-label':'Text to share',style:'width:100%'});ta.value=txt;
-  const m=modal('Share '+(t.name||'table'),h('div',{style:'display:flex;flex-direction:column;gap:10px'},ta,h('p',{class:'psub',style:'margin:0'},'Send it as text, or save a web page or a spreadsheet file (CSV).')),
+function stShare(t){const sel=new Set(stCols(t).map(c=>c.id));
+  const ta=h('textarea',{readonly:'true',rows:'9','aria-label':'Text to share',style:'width:100%'});
+  const txt=()=>sel.size?stText(t,sel):'';const upd=()=>{ta.value=txt()||'Tick at least one day.'};
+  const boxes=h('div',{style:'display:flex;flex-wrap:wrap;gap:6px'},stCols(t).map(c=>{const b=h('button',{class:'btn primary','aria-pressed':'true',onclick:()=>{if(sel.has(c.id)){sel.delete(c.id);b.classList.remove('primary');b.setAttribute('aria-pressed','false')}else{sel.add(c.id);b.classList.add('primary');b.setAttribute('aria-pressed','true')}upd()}},stColLbl(c,false));return b}));
+  const m=modal('Share '+(t.name||'table'),h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('p',{class:'psub',style:'margin:0'},'Pick the days to send. Highlighted days are included.'),boxes,ta),
     [h('button',{class:'btn',onclick:()=>m.close()},'Close'),
-     h('button',{class:'btn',onclick:async()=>{await copyText(txt);toast('Copied')}},'Copy'),
+     h('button',{class:'btn',onclick:async()=>{const v=txt();if(!v)return;await copyText(v);toast('Copied')}},'Copy'),
      h('button',{class:'btn',onclick:()=>saveBlob(stFile(t)+'.csv',new Blob([stCsv(t)],{type:'text/csv'}))},'Save CSV'),
      h('button',{class:'btn',onclick:()=>saveBlob(stFile(t)+'.html',new Blob([stHtmlDoc(t)],{type:'text/html'}))},'Save web page'),
-     h('button',{class:'btn primary',onclick:()=>shareOut(t.name||'Timetable',txt)},'Share via apps\u2026')])}
+     h('button',{class:'btn primary',onclick:()=>{const v=txt();if(!v){toast('Pick at least one day');return}shareOut(t.name||'Timetable',v)}},'Share via apps\u2026')]);upd()}
 /* printing: a clean preview, then the system print dialog */
 function stPrint(t){let pv=$('#sprint');if(pv)pv.remove();
   pv=h('div',{id:'sprint',class:'sprint'});
@@ -3475,6 +3501,91 @@ async function shareOut(title,text){const B=window.AndroidBridge;
 function stShareCell(t,r,c){const k=r.id+'|'+c.id,m=t.meta&&t.meta[k],tx=(t.cells[k]||'').trim();
   const lines=[(m&&m.done?'\u2713 ':'')+(tx||'(empty)'),stColLbl(c,true)+'  '+stRange(r),t.name||''];if(m&&m.al&&!m.fired)lines.splice(2,0,'Alarm: '+stFmt(m.al));
   shareOut(t.name||'Timetable',lines.filter(Boolean).join('\n'))}
+/* ---------- themes ---------- */
+const THEMES=[
+ {id:'',name:'Match my phone',note:'Light or dark, whichever your phone uses',prev:['#f2f4f9','#3346e0']},
+ {id:'light',name:'Light',prev:['#f2f4f9','#3346e0']},
+ {id:'dark',name:'Dark',prev:['#0e111e','#8e9cff']},
+ {id:'midnight',name:'Midnight',note:'True black, easy on the eyes',prev:['#000000','#7dd3fc']},
+ {id:'forest',name:'Forest',prev:['#0d1511','#6ee7a0']},
+ {id:'dusk',name:'Dusk',prev:['#1a1426','#c4a1ff']},
+ {id:'ocean',name:'Ocean',prev:['#eaf4fb','#0369a1']},
+ {id:'sunset',name:'Sunset',prev:['#fff4ec','#d9480f']},
+ {id:'rose',name:'Rose',prev:['#fdf2f6','#be185d']},
+ {id:'paper',name:'Paper',note:'Warm, like a notebook',prev:['#f4ecd8','#8b5a2b']},
+ {id:'contrast',name:'High contrast',prev:['#000000','#ffeb3b']}];
+function themeApply(id,save){id=id||'';const r=document.documentElement;
+  if(id)r.setAttribute('data-theme',id);else r.removeAttribute('data-theme');
+  if(save){try{localStorage.setItem('tt-theme',id)}catch(e){}try{S.theme=id}catch(e){}dirty()}
+  try{const t=THEMES.find(x=>x.id===id);const mm=document.querySelector('meta[name=theme-color]');if(mm&&t)mm.content=t.prev[0]}catch(e){}}
+function themeBoot(){let id='';try{id=localStorage.getItem('tt-theme')||''}catch(e){}if(!id&&S&&S.theme)id=S.theme;if(THEMES.some(t=>t.id===id))themeApply(id,false)}
+function themeDlg(){const cur=(document.documentElement.getAttribute('data-theme')||'');
+  const grid=h('div',{style:'display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px'},THEMES.map(t=>{
+    const b=h('button',{class:'res thm'+(t.id===cur?' on':''),'aria-pressed':String(t.id===cur),title:t.note||t.name,onclick:()=>{themeApply(t.id,true);[...grid.children].forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false')});b.classList.add('on');b.setAttribute('aria-pressed','true')}},
+      h('span',{class:'thsw',style:'background:'+t.prev[0]+';border-color:'+t.prev[1]},h('i',{style:'background:'+t.prev[1]}),h('i',{style:'background:'+t.prev[1]+';opacity:.5;width:40%'})),h('span',null,t.name));return b}));
+  const m=modal('Themes',h('div',{style:'display:flex;flex-direction:column;gap:10px'},grid,h('p',{class:'psub',style:'margin:0'},'Applies to the whole app and is remembered.')),[h('button',{class:'btn primary',onclick:()=>m.close()},'Done')])}
+
+/* ---------- copy or move boxes of a cell (or any picked boxes) to another cell ---------- */
+const cellBoxIds=key=>{const r=S.cells[key]&&N(S.cells[key]);return r?r.kids.filter(k=>N(k)&&!N(k).ref&&!N(k).contact):[]};
+function topSel(ids){const set=new Set(ids);return ids.filter(id=>{let p=N(id)&&N(id).parent;while(p&&N(p)){if(set.has(p))return false;p=N(p).parent}return true})}
+function moveBoxesDlg(ids,title){ids=ids.filter(id=>N(id)&&N(id).parent&&!N(id).ref&&!N(id).contact);
+  if(!ids.length){toast('No boxes to copy or move');return}
+  const first=rootOf(ids[0]).key||'',fd=first.indexOf('|')>0?first.split('|')[0]:iso(new Date()),fs=first.indexOf('|')>0?first.split('|')[1]:S.slots[0].id;
+  const checks=ids.map(id=>{const c=h('input',{type:'checkbox',checked:true,'aria-label':'Include '+nodeLabel(N(id))});return{id,c}});
+  const list=h('div',{style:'display:flex;flex-direction:column;gap:2px;max-height:34vh;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:4px'},checks.map(x=>h('label',{style:'display:flex;gap:8px;align-items:center;padding:4px;min-width:0'},x.c,h('span',{style:'min-width:0;overflow-wrap:anywhere'},(numOf(x.id)?numOf(x.id)+'  ':'')+nodeLabel(N(x.id)),(()=>{const k=descendants(x.id).filter(q=>N(q)&&!N(q).ref).length;return k?h('small',{class:'psub'},'  +'+k+' inside'):null})()))));
+  const all=h('button',{class:'btn',onclick:()=>{const on=checks.some(x=>!x.c.checked);checks.forEach(x=>x.c.checked=on)}},'Select all / none');
+  const di=h('input',{type:'date',class:'cin',value:fd,'aria-label':'Destination date'});
+  const sl=h('select',{class:'cin','aria-label':'Destination time row'},S.slots.map(s=>h('option',{value:s.id},s.s+'–'+s.e+(s.label?'  '+s.label:''))));sl.value=S.slots.some(s=>s.id===fs)?fs:S.slots[0].id;
+  let mode='copy';const mk=(v,t)=>h('button',{class:'btn'+(mode===v?' primary':''),'aria-pressed':String(mode===v),onclick:e=>{mode=v;[...e.target.parentNode.children].forEach(b=>{b.classList.remove('primary');b.setAttribute('aria-pressed','false')});e.target.classList.add('primary');e.target.setAttribute('aria-pressed','true')}},t);
+  const lab=(x,el)=>h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px'},x,el);
+  const go=async()=>{const pick=topSel(checks.filter(x=>x.c.checked).map(x=>x.id));if(!pick.length){toast('Tick at least one box');return}if(!di.value){toast('Pick a date');return}
+    const key=di.value+'|'+sl.value;snap();const root=cellRoot(key);let n=0;
+    for(const id of pick){const src=N(id);if(!src)continue;const rk=rootOf(id).key||'',shift=(rk.indexOf('|')>0)?dayDiffMs(parseISO(rk.split('|')[0]),parseISO(di.value)):0;
+      if(mode==='copy'){await cloneNode(src,root.id,shift);n++}
+      else{if(rk===key&&src.parent===root.id)continue;const par=N(src.parent);if(par)par.kids=par.kids.filter(k=>k!==id);src.parent=root.id;root.kids.push(id);shiftTree(id,shift);n++}}
+    afterSched();m.close();toast((mode==='copy'?'Copied ':'Moved ')+n+' box'+(n===1?'':'es')+' to '+cellLabel(key)+'. Undo is in the header.')};
+  const m=modal(title||'Copy or move boxes',h('div',{style:'display:flex;flex-direction:column;gap:10px;min-width:0'},
+    h('div',{style:'display:flex;gap:6px;align-items:center;flex-wrap:wrap'},mk('copy','Copy'),mk('move','Move'),h('span',{class:'grow'}),all),list,
+    lab('To date',di),lab('To time row',sl),h('p',{class:'psub',style:'margin:0'},'Each box goes with everything in it: text, files, links, checklists, scribbles and the boxes inside it.')),
+    [h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',onclick:go},'Go')])}
+
+/* ---------- share a stretch of the timetable as text, through any app ---------- */
+function flatTree(rootId){const out=[];let cnt=0;
+  const emit=(k,d)=>{if(++cnt>800)return;const c=N(k);if(!c)return;out.push({b:k,c,d});extraRows(c).forEach(t=>{if(t.box)emit(t.box,d+1+(t.sub||0));else out.push({x:t,d:d+1+(t.sub||0)})});directKids(c).forEach(q=>emit(q,d+1))};
+  extraRows(N(rootId)).forEach(t=>{if(t.box)emit(t.box,t.sub||0);else out.push({x:t,d:t.sub||0})});directKids(N(rootId)).forEach(k=>emit(k,0));return out}
+const stMs=(d,t,add)=>{const a=String(t||'00:00').split(':'),x=parseISO(d);x.setHours(+a[0]||0,+a[1]||0,0,0);return x.getTime()+(add||0)};
+function treeText(dates,from,to){const L=[];
+  [...dates].sort().forEach(dt=>{const sl=S.slots.slice().sort((a,b)=>a.s<b.s?-1:a.s>b.s?1:0);const blocks=[];
+    sl.forEach(s=>{const id=S.cells[dt+'|'+s.id];if(!id||!N(id))return;
+      if(from!=null){const a=stMs(dt,s.s),b=stMs(dt,s.e,tmin(s.e)<=tmin(s.s)?864e5:0);if(!(a<=to&&b>=from))return}
+      const rows=flatTree(id);if(!rows.length)return;
+      blocks.push('  '+s.s+'–'+s.e+(s.label?'  '+s.label:''));
+      rows.forEach(r=>{const pad2='    '+'  '.repeat(Math.min(r.d,8));
+        if(r.x)blocks.push(pad2+(r.x.num?r.x.num+' ':'')+r.x.k.toLowerCase()+': '+(r.x.done?'✓ ':'')+r.x.t);
+        else blocks.push(pad2+(numOf(r.b)?numOf(r.b)+' ':'')+(r.c.st==='d'?'✓ ':r.c.st==='p'?'○ ':'')+(boxName(r.c)||'(empty)'))})});
+    if(blocks.length){const ds=dayStat(dt);L.push(dateLabel(dt)+(ds?'  ('+ds.dn+' of '+ds.n+' done)':''));blocks.forEach(x=>L.push(x));L.push('')}});
+  return L.join('\n').trim()}
+function shareTreeDlg(){
+  const today=iso(new Date()),dd=(typeof GT!=='undefined'&&GT.date)||today;
+  let mode='range';const days=new Set([dd]);
+  const f=h('input',{type:'datetime-local',class:'cin',value:dd+'T00:00','aria-label':'From date and time'}),t=h('input',{type:'datetime-local',class:'cin',value:dd+'T23:59','aria-label':'To date and time'});
+  const dayList2=h('div',{style:'display:flex;flex-wrap:wrap;gap:6px'}),addI=h('input',{type:'date',class:'cin',value:dd,'aria-label':'Add a day',style:'flex:1 1 9em'});
+  const paintDays=()=>{dayList2.textContent='';[...days].sort().forEach(x=>dayList2.append(h('button',{class:'btn primary',title:'Remove this day',onclick:()=>{days.delete(x);paintDays();upd()}},dateLabel(x)+'  ✕')));if(!days.size)dayList2.append(h('span',{class:'psub'},'No days picked yet.'))};
+  const addBtn=h('button',{class:'btn',onclick:()=>{if(addI.value){days.add(addI.value);paintDays();upd()}}},'+ Add day');
+  const quick=h('div',{style:'display:flex;flex-wrap:wrap;gap:6px'},h('button',{class:'btn',onclick:()=>{for(let i=0;i<7;i++)days.add(addDaysISO(today,i));paintDays();upd()}},'Next 7 days'),h('button',{class:'btn',onclick:()=>{dayList().forEach(d=>days.add(iso(d)));paintDays();upd()}},'Days on screen'),h('button',{class:'btn',onclick:()=>{days.clear();paintDays();upd()}},'Clear'));
+  const ta=h('textarea',{readonly:'true',rows:'9','aria-label':'Text to share',style:'width:100%'});
+  const txt=()=>{if(mode==='days')return treeText(days,null,null);const a=f.value?new Date(f.value).getTime():null,b=t.value?new Date(t.value).getTime():null;if(a==null||b==null||b<a)return '';
+    const ds=new Set();for(let d=iso(new Date(a));d<=iso(new Date(b));d=addDaysISO(d,1))ds.add(d);return treeText(ds,a,b)};
+  const upd=()=>{const v=txt();ta.value=v||(mode==='days'?'Pick one or more days.':'Nothing between those times, or the end is before the start.')};
+  const rangeBox=h('div',{style:'display:flex;flex-direction:column;gap:8px'},h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px'},'From',f),h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px'},'To',t));
+  const daysBox=h('div',{style:'display:flex;flex-direction:column;gap:8px'},dayList2,h('div',{style:'display:flex;gap:6px;flex-wrap:wrap'},addI,addBtn),quick);
+  const holder=h('div');const show=()=>{holder.textContent='';holder.append(mode==='days'?daysBox:rangeBox);upd()};
+  const seg=h('div',{style:'display:flex;gap:6px'},[['range','Date and time range'],['days','Pick days']].map(a=>h('button',{class:'btn'+(mode===a[0]?' primary':''),'aria-pressed':String(mode===a[0]),onclick:e=>{mode=a[0];[...e.target.parentNode.children].forEach(b=>{b.classList.remove('primary');b.setAttribute('aria-pressed','false')});e.target.classList.add('primary');e.target.setAttribute('aria-pressed','true');show()}},a[1])));
+  f.onchange=t.onchange=upd;
+  const m=modal('Share your timetable',h('div',{style:'display:flex;flex-direction:column;gap:10px;min-width:0'},seg,holder,ta),
+    [h('button',{class:'btn',onclick:()=>m.close()},'Close'),h('button',{class:'btn',onclick:async()=>{const v=txt();if(!v){toast('Nothing to copy');return}await copyText(v);toast('Copied')}},'Copy'),
+     h('button',{class:'btn primary',onclick:()=>{const v=txt();if(!v){toast('Nothing to share');return}shareOut('My timetable',v)}},'Share via apps…')]);
+  m.firstChild.classList.add('wide');paintDays();show()}
 /* ===== Android app bridge: keeps the phone's alarm clock in step with the page (no effect in a browser) ===== */
 const NB=window.AndroidBridge;
 let nsT=0,nsLast='';
@@ -3926,7 +4037,7 @@ async function gcFiles(){if(!DB.db)return;try{const keys=await DB.tx('files','re
   if(!S||!S.slots){seed();flush()}
   migrate(S);dirty();if(!S.pomo)S.pomo=pomoDefault();
   const p=S.pomo;if(p.running&&p.endAt-Date.now()<=0){p.running=false;p.remain=0}
-  gcFiles();geoSync();syncPomoCfg();buildGrid();renderTTBar();trashPurgeOld();renderStrip();qaInit();setTimeout(updateChecksBadge,700);setInterval(updateChecksBadge,60000);setTimeout(()=>{recRun();updateNextBar();geoHits();actDone();nativeSync(true);phoneSetupOnce()},900);setInterval(()=>{recRun()},1800000);setInterval(updateNextBar,10000);renderBelow();scrollToDate(new Date(),false);pomoRender();
+  themeBoot();gcFiles();geoSync();syncPomoCfg();buildGrid();renderTTBar();trashPurgeOld();renderStrip();qaInit();setTimeout(updateChecksBadge,700);setInterval(updateChecksBadge,60000);setTimeout(()=>{recRun();updateNextBar();geoHits();actDone();nativeSync(true);phoneSetupOnce()},900);setInterval(()=>{recRun()},1800000);setInterval(updateNextBar,10000);renderBelow();scrollToDate(new Date(),false);pomoRender();
   try{chan=new BroadcastChannel('nested-timetable');chan.onmessage=async()=>{
     if(document.activeElement&&/TEXTAREA|INPUT/.test(document.activeElement.tagName))return;
     try{const s=await DB.get('kv','state');if(s){S=s;linkTT(S);syncPomoCfg();renderGrid();renderTTBar();renderStrip();renderInboxBtn();renderBelow();if(ed.node&&N(ed.node))renderEditor();else if(ed.node)closeEditor()}}catch(e){}}}catch(e){}
