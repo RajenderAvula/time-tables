@@ -324,7 +324,12 @@ a.btn.off{pointer-events:none;opacity:.45}
 #gtree.min{inset:auto 0 0 0;height:auto;border-top:2px solid var(--line);border-radius:14px 14px 0 0;box-shadow:0 -6px 18px rgba(0,0,0,.3);overflow:hidden}
 #gtree.min>*:not(.gthead){display:none}
 .gtre{position:fixed;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:62;display:flex;gap:6px;box-shadow:0 6px 20px rgba(0,0,0,.4);border-radius:12px;background:var(--bg)}
-#stbl{z-index:63}#stbl.stwin{inset:4vh 2vw;border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+#stbl{z-index:63}
+#stbl.dock{inset:auto 0 0 0;height:48vh;border-top:2px solid var(--line);border-radius:14px 14px 0 0;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
+#stbl.float{inset:auto;border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 32px rgba(0,0,0,.45);overflow:hidden;max-width:100vw;max-height:100vh;padding-left:12px;padding-right:12px;padding-top:0;padding-bottom:6px;display:flex;flex-direction:column}
+#stbl.float .stthead{cursor:move;touch-action:none;padding-top:8px}
+#stbl.min{inset:auto 0 0 0;height:auto;border-top:2px solid var(--line);border-radius:14px 14px 0 0;box-shadow:0 -6px 18px rgba(0,0,0,.3);overflow:hidden}#stbl.min>*:not(.stthead){display:none}
+#stbl .stthead{flex-wrap:nowrap;gap:4px}#stbl .stthead strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px}#stbl .stthead .btn{padding:8px 8px;min-width:0;flex:none}
 .stba{display:flex;gap:3px;padding:0 3px 3px;flex-wrap:wrap}.stab{border:1px solid var(--line);background:var(--surface);color:inherit;border-radius:6px;font-size:12px;padding:2px 6px;cursor:pointer;line-height:1.4}.stab.on{background:var(--accent,#5b6cf0);color:#fff;border-color:transparent}.stc.sdn{text-decoration:line-through;opacity:.55}
 .sthd{display:flex;gap:2px;align-items:center}.stds,.stdi{width:100%;min-width:0;box-sizing:border-box;border:1px solid var(--line);background:var(--bg);color:inherit;border-radius:6px;padding:3px 2px;font-size:12px;margin-top:2px}.stds{margin-top:0;flex:1}
 .stwrap{flex:1;overflow:auto;margin-top:6px;border:1px solid var(--line);border-radius:10px}
@@ -333,6 +338,33 @@ a.btn.off{pointer-events:none;opacity:.45}
 .sttr{display:flex;flex-direction:column;gap:3px}.sttr input{width:100%;min-width:0;border:1px solid var(--line);background:var(--bg);color:inherit;border-radius:6px;padding:3px 4px;font-size:13px}
 .sttb{display:flex;gap:2px;margin-top:3px}
 .stc{width:100%;box-sizing:border-box;border:0;background:transparent;color:inherit;font:inherit;font-size:14px;padding:6px;resize:none;min-height:44px;outline:none;display:block}.stc:focus{background:rgba(127,127,127,.12);box-shadow:inset 0 0 0 2px var(--accent,#7c8cff)}
+.stname{width:100%;box-sizing:border-box;margin:8px 0 0;border:0;border-bottom:2px solid var(--accent,#7c8cff);background:transparent;color:inherit;font:700 20px/1.3 inherit;padding:4px 2px;outline:none}
+.stsel{width:20px;height:20px;margin:2px;accent-color:var(--accent,#7c8cff);flex:none}.stg td[data-k]{position:relative}.stg td[data-k] .stsel{position:absolute;right:2px;top:2px;z-index:2}.stg td.sts{background:var(--accent-soft,rgba(124,140,255,.22));box-shadow:inset 0 0 0 2px var(--accent,#7c8cff)}
+.stselbar{align-items:center}.stselbar .psub{margin-right:4px}
+#stent{z-index:64;display:flex;flex-direction:column;gap:10px;background:var(--bg);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+#stent.dock{inset:auto 0 0 0;height:48vh;border-top:2px solid var(--line);border-radius:14px 14px 0 0;box-shadow:0 -8px 24px rgba(0,0,0,.35);overflow:auto}
+#stent.float{inset:auto;border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 32px rgba(0,0,0,.45);overflow:auto;max-width:100vw;max-height:100vh;padding:0 12px 8px}
+#stent.float .stehead{cursor:move;touch-action:none;padding-top:8px}#stent.float .stbig,#stent.dock .stbig{min-height:90px}
+#stent.min{inset:auto 0 0 0;height:auto;border-top:2px solid var(--line);border-radius:14px 14px 0 0;box-shadow:0 -6px 18px rgba(0,0,0,.3);overflow:hidden}#stent.min>*:not(.stehead){display:none}
+#stent .stehead{flex-wrap:nowrap;gap:4px;position:sticky;top:0;z-index:3;background:var(--bg);flex:none}#stent .stehead .btn{padding:8px 8px;min-width:0;flex:none}#stent .stehead .psub{white-space:nowrap}#stent .stehead .ztitle{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:none;flex:0 1 auto}
+.wgrip{position:sticky;bottom:0;align-self:flex-end;flex:none;width:34px;height:34px;margin:-4px -8px -4px auto;cursor:nwse-resize;touch-action:none;z-index:5;background:linear-gradient(135deg,transparent 52%,var(--muted) 52%,var(--muted) 58%,transparent 58%,transparent 70%,var(--muted) 70%,var(--muted) 76%,transparent 76%,transparent 88%,var(--muted) 88%,var(--muted) 94%,transparent 94%);border-bottom-right-radius:12px;opacity:.8}
+.stprog{height:6px;border-radius:4px;background:var(--surface2,rgba(127,127,127,.25));overflow:hidden}.stprog i{display:block;height:100%;background:var(--accent,#7c8cff)}
+.stwhere{display:flex;flex-direction:column;gap:2px;font-size:18px}
+.stbig{flex:1;min-height:30vh;width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:inherit;font:inherit;font-size:20px;line-height:1.5;padding:14px;resize:none;outline:none}.stbig:focus{box-shadow:0 0 0 2px var(--accent,#7c8cff)}.stbig.sdn{text-decoration:line-through;opacity:.6}
+.stnav{min-width:96px;font-size:16px;padding:10px 14px}
+.ttname{display:block;width:100%;box-sizing:border-box;flex:none;margin:0 0 4px;border:0;border-bottom:2px solid var(--accent);background:transparent;color:inherit;font:700 20px/1.3 inherit;padding:2px 2px 4px;outline:none;min-width:0}
+.grid th.xcol{min-width:0;vertical-align:top;padding:4px}.xhd .xti,.tslot .xli{width:100%;min-width:0;box-sizing:border-box;border:1px solid var(--line);background:var(--bg);color:inherit;border-radius:6px;padding:4px 5px;font-size:13px}
+.xbt{display:flex;gap:3px;margin-top:3px;flex-wrap:wrap}.tslot>.xbt{margin-top:2px}
+.xcol .xbt .xs,.xrow .xbt .xs,.tslot>.xbt .xs{position:static}
+td.cell.msel{box-shadow:inset 0 0 0 3px var(--accent);background:var(--accent-soft)}td.cell.merged{box-shadow:inset 0 0 0 1px var(--accent)}
+.grid th.selc{box-shadow:inset 0 -3px 0 var(--accent)}.grid th.selr{box-shadow:inset 3px 0 0 var(--accent)}
+.xadd{position:absolute;top:3px;right:12px;font-size:12px;line-height:1;min-width:20px;padding:2px 4px}.xown{font-size:10px;font-weight:700;letter-spacing:-.5px;min-width:26px}
+.stg{table-layout:fixed}.stg td.stt{position:relative}
+.stzc{position:absolute;right:-7px;top:0;bottom:0;width:16px;cursor:col-resize;touch-action:none;z-index:3}.stzc::after{content:"";position:absolute;left:7px;top:22%;bottom:22%;width:3px;border-radius:2px;background:var(--accent);opacity:.55}
+.stzr{position:absolute;left:0;right:0;bottom:-7px;height:16px;cursor:row-resize;touch-action:none;z-index:3}.stzr::after{content:"";position:absolute;top:7px;left:22%;right:22%;height:3px;border-radius:2px;background:var(--accent);opacity:.55}
+.rzx{position:absolute;top:0;right:0;width:14px;height:100%;cursor:col-resize;touch-action:none;z-index:6}.rzx::after{content:"";position:absolute;left:5px;top:22%;bottom:22%;width:3px;border-radius:2px;background:var(--line)}.rzx:hover::after{background:var(--accent)}
+.xlprev{border-collapse:collapse;font-size:12px}.xlprev td,.xlprev th{border:1px solid var(--line);padding:3px 6px;white-space:nowrap;text-align:left}.xlprev th{background:var(--surface2)}
+.msbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:66;display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;padding:8px 10px;border-radius:12px;background:var(--bg);border:1px solid var(--line);box-shadow:0 6px 20px rgba(0,0,0,.4);max-width:calc(100vw - 24px)}
 .sprint{position:fixed;inset:0;z-index:95;background:#e9e9ee;display:flex;flex-direction:column}.spbar{display:flex;gap:8px;align-items:center;padding:10px 14px;background:var(--bg);color:var(--fg,inherit);border-bottom:1px solid var(--line)}
 .spsheet{flex:1;overflow:auto;background:#fff;color:#111;margin:10px;padding:14px;border-radius:6px}
 @media print{body.psp>*:not(#sprint){display:none!important}body.psp .sprint{position:static;background:#fff;display:block}body.psp .spbar{display:none!important}body.psp .spsheet{margin:0;padding:0;overflow:visible}}
@@ -416,6 +448,35 @@ html,body{overflow:auto}#app{min-width:360px}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .gst.ok{background:#14532d;color:#bbf7d0}:root:not([data-theme="light"]) .gst.behind{background:#7f1d1d;color:#fecaca}}:root[data-theme="dark"] .gst.ok{background:#14532d;color:#bbf7d0}:root[data-theme="dark"] .gst.behind{background:#7f1d1d;color:#fecaca}
 .trb{margin-top:4px;font-size:12.5px;padding:4px 10px}.tb.on{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* v81 cell window, countdown on boxes, text rotation */
+.shwin{display:inline-flex;gap:4px;flex:none}.shwin .btn{padding:8px 8px;min-width:0}.shtitle{display:none;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sheet.dock,.sheet.float,.sheet.min{overflow:hidden;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
+.sheet.dock{inset:auto 0 0 0;height:48vh;border-top:2px solid var(--line);border-radius:14px 14px 0 0}
+.sheet.float{inset:auto;border:1px solid var(--line);border-radius:14px;max-width:100vw;max-height:100vh;box-shadow:0 10px 32px rgba(0,0,0,.45);padding-left:12px;padding-right:12px}
+.sheet.float .ehead{cursor:move;touch-action:none}
+.sheet.min{inset:auto 0 0 0;height:auto;border-top:2px solid var(--line);border-radius:14px 14px 0 0}
+.sheet.min>*:not(.ehead){display:none}.sheet.min .ehead>*:not(.shwin):not(.shtitle):not(.grow){display:none}.sheet.min .shtitle{display:block;flex:1}
+.sheet.float .ehead,.sheet.dock .ehead{gap:4px}
+.sheet.float .treep,.sheet.dock .treep{width:min(300px,45%)}
+.sheet>.wgrip{position:absolute;right:0;bottom:0;margin:0}
+body:has(#sheet.dock:not([hidden])) .gridwrap{padding-bottom:48vh}
+.mcdl{font-variant-numeric:tabular-nums;font-size:11.5px;font-weight:700;color:var(--accent)}.mcdl:empty{display:none}
+.gridwrap{--tz:1}.gridwrap td.cell .cinner{zoom:var(--tz)}
+.gridwrap.rotu td.cell .cinner,.gridwrap.rotd td.cell .cinner{writing-mode:vertical-rl;height:100%;overflow:hidden}
+.gridwrap.rotu td.cell .cinner{transform:rotate(180deg)}
+#stbl .stc{font-size:var(--stfs,14px)}
+#stbl.strtu .stc,#stbl.strtd .stc{writing-mode:vertical-rl;height:var(--strh,110px)!important;min-height:var(--strh,110px);overflow:hidden}
+#stbl.strtu .stc{transform:rotate(180deg)}
+/* v82 per-cell text */
+.cinner.cfu,.cinner.cfd{writing-mode:vertical-rl;height:100%;overflow:hidden}.cinner.cfu{transform:rotate(180deg)}
+.gridwrap .cinner.cfn{writing-mode:horizontal-tb!important;transform:none!important;height:auto!important}
+#stbl .stc.cfu,#stbl .stc.cfd{writing-mode:vertical-rl;height:var(--strh,110px)!important;min-height:var(--strh,110px);overflow:hidden}#stbl .stc.cfu{transform:rotate(180deg)}
+#stbl .stc.cfn{writing-mode:horizontal-tb;transform:none;height:auto!important;min-height:44px}
+/* v83 box text + menu */
+.tools .tbmenu{min-height:36px}
+.bt.bfu,.bt.bfd{writing-mode:vertical-rl;height:160px!important;min-height:160px;overflow:auto}.bt.bfu{transform:rotate(180deg)}
+p.cl.bfu,p.cl.bfd{display:inline-block;writing-mode:vertical-rl;max-height:84px;overflow:hidden;vertical-align:top;margin-right:3px}p.cl.bfu{transform:rotate(180deg)}
 </style>
 <div id="app">
   <header class="top">
@@ -450,6 +511,7 @@ html,body{overflow:auto}#app{min-width:360px}
     </div>
   </header>
   <div class="nextbar" id="nextbar" hidden></div>
+  <input class="ttname" id="ttname" type="text" aria-label="Timetable name" placeholder="Timetable name" maxlength="80">
   <div class="ttbar" id="ttbar" role="tablist" aria-label="Timetables"></div>
   <div class="gstrip" id="gstrip" hidden></div>
   <div class="gridwrap"><table class="grid" id="grid"></table></div>
@@ -600,14 +662,14 @@ function followTT(id){try{const r=rootOf(id),k=r&&r.key||'';let t=null;
   if(t&&t.id!==S.tt){S.tt=t.id;S.slots=t.slots;dirty();if(typeof renderTTBar==='function'){renderTTBar();renderGrid();renderBelow()}}}catch(e){}}
 const slotOf=id=>{let r=S.slots.find(s=>s.id===id);if(!r&&S.tts)for(const t of S.tts){r=t.slots.find(s=>s.id===id);if(r)break}return r};
 function cellLabel(key){if(key.indexOf('|')<0)return key==='contacts'?'Contacts':key==='inbox'?'Inbox':key.indexOf('board')===0?'Text boxes below the table'+(S.tts&&S.tts.length>1?' · '+((S.tts.find(x=>x.bk===key)||{}).name||''):''):key;const p=key.split('|'),d=parseISO(p[0]),s=slotOf(p[1]);
-  const tt=S.tts&&S.tts.length>1&&s?ttOfSlot(s.id):null;return DOW[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]+(s?' · '+s.s+'–'+s.e:'')+(tt?' · '+tt.name:'')}
+  const tt=S.tts&&S.tts.length>1&&s?ttOfSlot(s.id):null;return (isXd(p[0])?((xcolOf(p[0])||{}).title||'Column'):DOW[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()])+(s?' · '+slotTxt(s):'')+(tt?' · '+tt.name:'')}
 const firstLine=t=>((t||'').trim().split('\n')[0]||'');
 function boxName(n){return(n.name||'').trim()||firstLine(n.text)}
 function nodeLabel(n){return n.contact?(n.contact.name||'Unnamed contact'):n.ref?entryLabel(n):n.parent?(boxName(n).slice(0,40)||'Empty box'):cellLabel(n.key)}
 
 let saveT=0,chan=null;
 function stat(t){$('#stat').textContent=t}
-function dirty(){if(typeof cascadeCheck==='function')try{cascadeCheck()}catch(e){}if(typeof progRefresh==='function')try{progRefresh()}catch(e){}if(S&&S.tts){const t=S.tts.find(x=>x.id===S.tt);if(t)t.slots=S.slots}stat('Saving…');clearTimeout(saveT);saveT=setTimeout(flush,160)}
+function dirty(){if(typeof gridLive==='function')try{gridLive()}catch(e){}if(typeof cascadeCheck==='function')try{cascadeCheck()}catch(e){}if(typeof progRefresh==='function')try{progRefresh()}catch(e){}if(S&&S.tts){const t=S.tts.find(x=>x.id===S.tt);if(t)t.slots=S.slots}stat('Saving…');clearTimeout(saveT);saveT=setTimeout(flush,160)}
 async function flush(){clearTimeout(saveT);try{await DB.put('kv','state',S);const d=new Date();stat('Saved '+pad(d.getHours())+':'+pad(d.getMinutes()));nativeSync();
   try{chan&&chan.postMessage('s')}catch(e){}}catch(e){stat('Not saved')}}
 window.addEventListener('pagehide',flush);
@@ -636,7 +698,6 @@ const cbtn=(attrs,fn,msg)=>{const b=h('button',attrs);arm(b,fn,msg||'Remove?');r
 function arm(btn,fn,msg){btn.addEventListener('click',e=>{e.stopPropagation();e.preventDefault();
   if(btn.dataset.armed){fn();return}btn.dataset.armed='1';const old=btn.innerHTML;btn.innerHTML=msg||'Delete?';btn.classList.add('armed');
   setTimeout(()=>{if(btn.isConnected){delete btn.dataset.armed;btn.innerHTML=old;btn.classList.remove('armed')}},2800)})}
-function slotsChanged(){S.slots.sort((a,b)=>a.s<b.s?-1:a.s>b.s?1:a.e<b.e?-1:a.e>b.e?1:0);dirty();renderGrid()}
 let COLW=136,TCOL=116;
 const tm=x=>{const a=x.split(':');return (+a[0])*60+(+a[1])},fm=m=>pad(Math.floor(m/60))+':'+pad(m%60);
 function dayList(){const s=parseISO(ui.start);return Array.from({length:ui.count},(_,i)=>{const d=new Date(s);d.setDate(s.getDate()+i);return d})}
@@ -645,49 +706,23 @@ function insertSlot(s,dir){const i=S.slots.indexOf(s);let a,b;
   else{const pv=S.slots[i-1];b=tm(s.s);a=pv&&tm(pv.e)<b?Math.max(tm(pv.e),b-60):b-30}
   a=Math.max(0,Math.min(a,23*60+30));b=Math.max(a+1,Math.min(b,24*60-1));
   S.slots.push({id:'s'+uid(),s:fm(a),e:fm(b)});slotsChanged();toast('Row added. Edit its times on the left.')}
-function buildGrid(){
-  COLW=S.colW||136;TCOL=S.tcolW||138;const days=dayList(),today=iso(new Date()),t=$('#grid');t.textContent='';t.style.width=(TCOL+ui.count*COLW)+'px';t.style.setProperty('--tcol',TCOL+'px');$('.gridwrap').style.scrollPaddingLeft=TCOL+'px';
-  t.append(h('thead',null,h('tr',null,h('th',{class:'tcol'},'Time',h('span',{class:'rzc','data-k':'t',title:'Drag to resize. Double-tap to reset.'})),days.map(d=>h('th',{class:(iso(d)===today?'today':'')+(d.getDate()===1?' ms':'')+offCls(iso(d)),title:holOf(iso(d))?'Holiday: '+holOf(iso(d)).name:null},
-    h('span',{class:'dn'},DOW[d.getDay()]),h('span',{class:'dd'},String(d.getDate())),h('span',{class:'dm'},MON[d.getMonth()]+(d.getDate()===1||d.getMonth()===0&&d.getDate()===1?' '+d.getFullYear():'')),holSpan(iso(d)),dayProg(iso(d)),h('span',{class:'rzc','data-k':'c',title:'Drag to resize all day columns. Double-tap to reset.'}))))));
-  const tb=h('tbody'),spans=spanMap(days);
-  for(const s of S.slots){
-    const x=h('button',{class:'xs','aria-label':'Remove row',title:'Remove row',html:ic('trash',12)});
-    arm(x,()=>{snap();for(const k of Object.keys(S.cells))if(k.split('|')[1]===s.id)purgeCell(k);S.slots=S.slots.filter(q=>q.id!==s.id);dirty();renderGrid()},'Delete row?');
-    const ia=h('button',{class:'ins a','aria-label':'Insert row above',title:'Insert row above',html:ic('plus',12),onclick:()=>insertSlot(s,-1)});
-    const ib=h('button',{class:'ins b','aria-label':'Insert row below',title:'Insert row below',html:ic('plus',12),onclick:()=>insertSlot(s,1)});
-    const tr=h('tr',null,h('th',{class:'tcol',scope:'row'},h('div',{class:'tslot'},
-      h('input',{type:'time',value:s.s,'aria-label':'Start time',onchange:e=>{if(e.target.value){s.s=e.target.value;slotsChanged()}}}),
-      h('input',{type:'time',value:s.e,'aria-label':'End time',onchange:e=>{if(e.target.value){s.e=e.target.value;slotsChanged()}}}),ia,x,ib),h('span',{class:'rzr','data-s':s.id,title:'Drag to change this row height. Double-tap to reset.'})));
-    for(const d of days){
-      const key=iso(d)+'|'+s.id,sm=summary(key);
-      const td=h('td',{class:'cell'+(iso(d)===today?' today':'')+(d.getDate()===1?' ms':'')+offCls(iso(d))+(isOffSlot(s)?' offh':''),tabindex:'0',role:'button','aria-label':cellLabel(key),
-        onclick:()=>openCell(key),onkeydown:e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openCell(key)}}});
-      cellDnD(td,key);const rh=(S.rowH&&S.rowH[s.id])||118;td.style.height=rh+'px';
-      if(sm){treeLines(key,td);
-        const m=h('div',{class:'cm'},h('span',null,sm.total+' box'+(sm.total>1?'es':'')));
-        if(sm.pend+sm.done)m.append(h('span',{class:'tk'},sm.done+'/'+(sm.pend+sm.done)+' done'));if(sm.hi)m.append(h('span',{class:'hi'},sm.hi+' high'));
-        if(sm.att)m.append(h('span',{html:ic('clip')+sm.att}));if(sm.lnk)m.append(h('span',{html:ic('link')+sm.lnk}));
-        if(sm.drw)m.append(h('span',{html:ic('draw')+sm.drw}));if(sm.alm)m.append(h('span',{class:'al',html:ic('bell')+sm.alm}));
-        td.append(m);const inn=h('div',{class:'cinner',style:'max-height:'+(rh-14)+'px'},[...td.childNodes]);td.append(inn)}
-      spanMarks(td,spans,iso(d),s);tr.append(td)}
-    tb.append(tr)}
-  t.append(tb)}
 function updateRange(){
-  const w=$('.gridwrap'),i=Math.max(0,Math.round(w.scrollLeft/COLW)),vis=Math.max(1,Math.floor((w.clientWidth-TCOL)/COLW));
+  const w=$('.gridwrap'),i=firstDayIdx(),vis=Math.max(1,Math.floor((w.clientWidth-TCOL)/COLW));
   const a=parseISO(ui.start);a.setDate(a.getDate()+i);const e=new Date(a);e.setDate(a.getDate()+vis-1);
   $('#range').textContent=a.getDate()+(a.getMonth()!==e.getMonth()||a.getFullYear()!==e.getFullYear()?' '+MON[a.getMonth()]:'')+(a.getFullYear()!==e.getFullYear()?' '+a.getFullYear():'')+' – '+e.getDate()+' '+MON[e.getMonth()]+' '+e.getFullYear();
   ui.week=iso(mondayOf(a))}
 function renderGrid(){const w=$('.gridwrap'),sl=w.scrollLeft,st=w.scrollTop;buildGrid();w.scrollLeft=sl;w.scrollTop=st;updateRange()}
 function scrollToDate(d,smooth){d=new Date(d);d.setHours(0,0,0,0);const w=$('.gridwrap');let i=Math.round((d-parseISO(ui.start))/864e5);
   if(i<2||i>ui.count-14){const s=new Date(d);s.setDate(s.getDate()-14);ui.start=iso(s);ui.count=56;buildGrid();i=14;smooth=false}
-  w.scrollTo({left:i*COLW,behavior:smooth?'smooth':'auto'});updateRange();$('#jump').value=''}
+  w.scrollTo({left:colLeft(visCols(),colIdxOfDayIdx(i)),behavior:smooth?'smooth':'auto'});updateRange();$('#jump').value=''}
 function setWeek(d,smooth){scrollToDate(mondayOf(d),smooth)}
-function extend(side){const w=$('.gridwrap'),add=14,sl=w.scrollLeft;
-  if(side==='left'){const d=parseISO(ui.start);d.setDate(d.getDate()-add);ui.start=iso(d);ui.count+=add;if(ui.count>240)ui.count-=add;buildGrid();w.scrollLeft=sl+add*COLW}
-  else{ui.count+=add;let off=0;if(ui.count>240){const d=parseISO(ui.start);d.setDate(d.getDate()+add);ui.start=iso(d);ui.count-=add;off=add*COLW}buildGrid();w.scrollLeft=sl-off}
+function extend(side){const w=$('.gridwrap'),add=14,vc=visCols(),ci=colFloor(vc,w.scrollLeft),keep=vc[ci].date,frac=w.scrollLeft-colLeft(vc,ci);
+  if(side==='left'){const d=parseISO(ui.start);d.setDate(d.getDate()-add);ui.start=iso(d);ui.count+=add;if(ui.count>240)ui.count-=add}
+  else{ui.count+=add;if(ui.count>240){const d=parseISO(ui.start);d.setDate(d.getDate()+add);ui.start=iso(d);ui.count-=add}}
+  buildGrid();const v2=visCols(),c2=v2.findIndex(c=>c.date===keep);w.scrollLeft=colLeft(v2,c2>=0?c2:ci)+frac;
   updateRange()}
 let gridRaf=0;
-function onGridScroll(){if(gridRaf)return;gridRaf=requestAnimationFrame(()=>{gridRaf=0;const w=$('.gridwrap'),i=Math.round(w.scrollLeft/COLW),vis=Math.max(1,Math.floor((w.clientWidth-TCOL)/COLW));
+function onGridScroll(){if(gridRaf)return;gridRaf=requestAnimationFrame(()=>{gridRaf=0;const w=$('.gridwrap'),i=firstDayIdx(),vis=Math.max(1,Math.floor((w.clientWidth-TCOL)/COLW));
   updateRange();if(i<4)extend('left');else if(i+vis>ui.count-4)extend('right')})}
 
 /* ---------- helpers: toast, modal, copy ---------- */
@@ -738,7 +773,7 @@ function renderEditor(){
   $('#eup').lastChild.textContent=n.parent?(N(n.parent).key==='contacts'?'Contacts':'Parent'):'Grid';
   const back=$('#eback');back.hidden=!ui.hist.length;
   const m=$('#emain');m.textContent='';
-  if(!n.parent){m.append(h('div',null,h('h2',{class:'ptitle'},cellLabel(n.key)),h('p',{class:'psub'},n.kids.length+' text box'+(n.kids.length===1?'':'es')+' in this cell'),h('div',{style:'display:flex;gap:6px;flex-wrap:wrap;margin-top:6px'},h('button',{class:'btn',onclick:()=>moveBoxesDlg(cellBoxIds(n.key),'Copy or move boxes in this cell')},'Copy or move boxes\u2026'),h('button',{class:'btn',onclick:()=>shareTreeDlg()},'Share days\u2026'))))}
+  if(!n.parent){m.append(h('div',null,h('h2',{class:'ptitle'},cellLabel(n.key)),h('p',{class:'psub'},n.kids.length+' text box'+(n.kids.length===1?'':'es')+' in this cell'),h('div',{style:'display:flex;gap:6px;flex-wrap:wrap;margin-top:6px'},h('button',{class:'btn',onclick:()=>moveBoxesDlg(cellBoxIds(n.key),'Copy or move boxes in this cell')},'Copy or move boxes\u2026'),h('button',{class:'btn',onclick:()=>mcdDlg(cellBoxIds(n.key))},'Timer\u2026'),h('button',{class:'btn',onclick:()=>cdLinkDlg(cellBoxIds(n.key))},'Link to countdown\u2026'),h('button',{class:'btn',onclick:()=>boxFmtDlg(cellBoxIds(n.key))},'Text\u2026'),h('button',{class:'btn',onclick:()=>shareTreeDlg()},'Share days\u2026'))))}
   else{
     while(ui.sfStack.length&&!inside(n.id,ui.sfStack[ui.sfStack.length-1].h))ui.sfStack.pop();
     if(ui.sfStack.length){const t=ui.sfStack[ui.sfStack.length-1],hn=N(t.h),gg=hn&&(hn.lists||[]).find(x=>x.id===t.g);
@@ -767,7 +802,8 @@ function chips(n){
     w.append(h('span',{class:'chip'},h('button',{title:linkLabel(l),onclick:()=>goLink(l),html:ic('link',14)+' '}),x));
     const b=w.lastChild.firstChild;b.append(document.createTextNode(linkLabel(l)+(l.id&&N(l.id)?'  ('+(N(l.id).contact?'Contact':cellLabel(rootOf(l.id).key))+')':'')))});
   peopleList(n).concat((n.people||[]).filter(id=>!N(id))).forEach(id=>w.append(personChip(n,id)));
-  if(n.alarm){const x=h('button',{class:'cx','aria-label':'Clear alarm',html:ic('x')});
+  if(mcdOn(n)){const x=h('button',{class:'cx','aria-label':'Clear timer',html:ic('x')});arm(x,()=>{snap();mcdClear(n);n.alarm=null;n.fired=false;n.snz=null;dirty();refreshBox(n);renderGrid()},'Clear?');w.append(h('span',{class:'chip alm'},h('button',{onclick:()=>mcdActions(n)},h('span',{class:'mcdl','data-id':n.id},mcdText(n))),x))}
+  else if(n.alarm){const x=h('button',{class:'cx','aria-label':'Clear alarm',html:ic('x')});
     arm(x,()=>{snap();n.alarm=null;n.rep=null;n.snz=null;dirty();refreshBox(n)},'Clear?');
     const d=new Date(n.alarm);
     w.append(h('span',{class:'chip alm'},h('button',{onclick:()=>alarmDlg(n),html:ic('bell',14)+' '+(n.rep?'↻ ':'')+(n.fired?'Rang ':'')+DOW[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]+' '+pad(d.getHours())+':'+pad(d.getMinutes())+(n.rep?' · '+repText(n.rep):'')}),x))}
@@ -777,7 +813,7 @@ function chips(n){
 function refreshBox(n){const z=$('#zbox')||($('#sheet').hidden?$('#below'):$('#sheet')),el=(z&&z.querySelector('[data-id="'+n.id+'"] .meta'))||$('[data-id="'+n.id+'"] .meta');if(el)el.replaceWith(chips(n));renderTreeSoon()}
 function tbtn(icon,label,fn,cls){return h('button',{class:'tb'+(cls?' '+cls:''),title:label,'aria-label':label,onclick:fn,html:ic(icon)})}
 function boxCard(n,cur){
-  const ta=h('textarea',{class:'bt',rows:cur?3:2,placeholder:n.contact?'Notes about this contact…':'Write here…','aria-label':'Text box',value:n.text,
+  const ta=h('textarea',{class:'bt'+bfCls(n),style:bfSty(n)||null,rows:cur?3:2,placeholder:n.contact?'Notes about this contact…':'Write here…','aria-label':'Text box',value:n.text,
     oninput:()=>{n.text=ta.value;autoGrow(ta);dirty();renderTreeSoon();linkSoon(n)}});
   const pick=h('input',{type:'file',multiple:true,hidden:true,onchange:async e=>{
     for(const f of e.target.files){const a={id:uid(),name:f.name,type:f.type,size:f.size};
@@ -789,13 +825,12 @@ function boxCard(n,cur){
   arm(del,()=>{const p=n.parent;const kids=N(p).kids;N(p).kids=kids.filter(k=>k!==n.id);removeSubtree(n.id);dirty();
     if(cur){openNode(p)}else renderEditor()},'Delete'+(n.kids.length?' + inside':'')+'?');
   const ents=h('div',{class:'ents'});paintEnts(n,ents);
-  const tools=h('div',{class:'tools'},tbtn('clip','Attach files',()=>pick.click()),tbtn('link','Link to a day or another box',()=>linkDlg(n)),tbtn('href','Insert hyperlink',()=>hrefDlg(n,ta)),tbtn('users','Contacts for this box',()=>peopleDlg(n)),tbtn('cal','Copy or move to another day',()=>copyDlg(n)),
-    tbtn('pen','New scribble pad',()=>scribble(n)),tbtn('phone','Schedule a call or message',()=>actDlg(n)),tbtn('cal','Set start and end, even over several days',()=>spanDlg(n)),mic,tbtn('voice','Record voice',()=>recordDlg(n,'audio')),tbtn('video','Record video',()=>recordDlg(n,'video')),tbtn('copy','Copy text',()=>copyText(n.text||'')),
-    tbtn('checklist','Add a checklist',()=>addList(n,ents)),tbtn('steps','Add steps',()=>addStep(n,ents)),tbtn('bell','Alarm',()=>alarmDlg(n)),tbtn('share','Share this box',()=>shareBoxDlg(n)),tbtn('repeat',recOf(n)?'Repeats: '+recText(recOf(n)):'Repeat this box on a schedule',()=>recDlg(n),recOf(n)?'on':''),tbtn('pin','Location reminder',()=>geoDlg(n)),tbtn('apps','Open an app',()=>appsDlg(n,ta)),tbtn('globe','Search Google for this text',()=>openGoogle(firstLine(ta.value)||'')),tbtn('timer','Pomodoro for this box',()=>pomoOpen(n.id)),del);
+  const tools=h('div',{class:'tools'},h('button',{class:'btn primary tbmenu',title:'All options for this box','aria-label':'Box menu',onclick:()=>boxMenu(n,ta,pick,ents)},'\u2630 Menu'),mic,del);
   if(!cur)tools.append(h('button',{class:'tb open',onclick:()=>openNode(n.id),html:'Open inside'+(n.kids.length?' · '+descendants(n.id).length:'')+ic('enter')}));
   const nm=n.contact?null:autoName({class:'bname',value:n.name||'',placeholder:firstLine(n.text)||'Name this box','aria-label':'Box name',enterkeyhint:'next',
     oninput:()=>{n.name=nm.value;dirty();renderTreeSoon();if(cur){const on=$('.crumb.on');if(on)on.textContent=nodeLabel(n);const zt=$('#zbox .ztitle');if(zt)zt.textContent=(numOf(n.id)?'#'+numOf(n.id)+'  ':'')+nodeLabel(n)}},
     onkeydown:e=>{if(e.key==='Enter'){e.preventDefault();ta.focus()}}});
+  if(nm){const z0=n.nz||n.fz;if(z0&&z0!==100)nm.style.zoom=String(z0/100)}
   const zbt=ZOOMING?null:h('button',{class:'btn zbtn',title:'Open this text box in full screen','aria-label':'Open this text box in full screen',html:ic('expand')+'Full screen',onclick:()=>zoomBox(n)});
   const open=ZOOMING?true:(n.open==null?!!cur:!!n.open);
   const sibs=(!n.contact&&!n.ref&&n.parent&&N(n.parent))?N(n.parent).kids.filter(k=>N(k)&&!N(k).ref):[],si=sibs.indexOf(n.id),canMove=sibs.length>1&&si>=0&&!ZOOMING;
@@ -862,7 +897,7 @@ function bhead(n){
     [1,2,3].forEach(v=>seg.append(h('button',{class:'pb p'+v+(pr===v?' on':''),'aria-pressed':String(pr===v),title:PRI[v]+' priority. Tap again to clear.',
       onclick:()=>{n.pri=pr===v?0:v;dirty();paint();renderTreeSoon()}},v===1?'Low':v===2?'Med':'High')));
     w.append(seg);
-    const cs=h('select',{class:'catsel','aria-label':'Category',title:'Category',onchange:()=>{if(cs.value==='__new'){cs.value=n.cat||'';newCatDlg(n);return}n.cat=cs.value||null;dirty();const bx=w.closest('.box');if(bx)setCat(bx,n)}},h('option',{value:''},'No category'),(S.cats||[]).map(c=>h('option',{value:c.id},c.name)),h('option',{value:'__new'},'+ New category…'));cs.value=n.cat||'';w.append(cs);{const gs=goalSel(n);if(gs)w.append(gs)}w.append(revBtn(n));
+    const cs=h('select',{class:'catsel','aria-label':'Category',title:'Category',onchange:()=>{if(cs.value==='__new'){cs.value=n.cat||'';newCatDlg(n);return}n.cat=cs.value||null;dirty();const bx=w.closest('.box');if(bx)setCat(bx,n)}},h('option',{value:''},'No category'),(S.cats||[]).map(c=>h('option',{value:c.id},c.name)),h('option',{value:'__new'},'+ New category…'));cs.value=n.cat||'';w.append(cs);{const gs=goalSel(n);if(gs)w.append(gs);const cs2=cdSel(n);if(cs2)w.append(cs2)}w.append(revBtn(n));
     const bx=w.closest('.box');if(bx){bx.classList.toggle('done',st==='d');setCat(bx,n)}}
   paint();return w}
 function linkLabel(l){if(l.tt){const t=S.tts.find(x=>x.id===l.tt);return(l.label?l.label+' · ':'')+(t?'Timetable: '+t.name:'Missing timetable')}if(l.id){const t=N(l.id);return t?(l.label?l.label+' · ':'')+nodeLabel(t):'Missing box'}return(l.label?l.label+' · ':'')+cellLabel(l.key)}
@@ -919,7 +954,7 @@ function linkDlg(n){
       const curT=(has&&ttOfSlot(rk.split('|')[1]))||S.tts.find(x=>x.id===S.tt);
       const ts=h('select',{id:'lkt','aria-label':'Timetable'},S.tts.map(x=>h('option',{value:x.id},x.name||'Timetable')));ts.value=curT.id;
       const d=h('input',{type:'date',id:'lkd',value:dv}),s=h('select',{id:'lks'}),l=h('input',{type:'text',id:'lkn',placeholder:'Optional name'});
-      const fillS=()=>{const t=S.tts.find(x=>x.id===ts.value);s.textContent='';t.slots.forEach(x=>s.append(h('option',{value:x.id},x.s+'–'+x.e)));
+      const fillS=()=>{const t=S.tts.find(x=>x.id===ts.value);s.textContent='';t.slots.forEach(x=>s.append(h('option',{value:x.id},slotTxt(x))));
         if(has&&t.slots.some(x=>x.id===rk.split('|')[1]))s.value=rk.split('|')[1]};
       ts.addEventListener('change',fillS);fillS();
       wrap.append(S.tts.length>1?h('label',null,'Timetable',ts):null,h('label',null,'Day',d),h('label',null,'Time row',s),h('label',null,'Name',l),
@@ -1222,7 +1257,7 @@ function alarmDlg(n){
       if(rep&&rep.m==='int'&&t<=Date.now())first=nextAfter(rep,Date.now());
       if(rep&&rep.m==='days')first=nextAfter(Object.assign({},rep,{until:null}),t-1);
       if(first===null||(rep&&rep.until&&first>rep.until)){toast('Nothing would ring before the stop date.');return}
-      n.alarm=first;n.rep=rep;n.fired=false;n.snz=null;dirty();
+      mcdClear(n);n.alarm=first;n.rep=rep;n.fired=false;n.snz=null;dirty();
       try{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission()}catch(e){}
       m.close();refreshBox(n);toast('Alarm set'+(rep?', repeating '+repText(rep):''))}},'Set alarm')])}
 
@@ -1267,8 +1302,9 @@ function listBlock(host,wrap,g,gi){
     mkBtn('expand',isS?'Full screen view of these steps and sub-steps':'Full screen view of this checklist',()=>stepsFull(host,g)),
     mkBtn('up',isS?'Move steps up':'Move checklist up',()=>sw(gi,gi-1),gi===0),mkBtn('down',isS?'Move steps down':'Move checklist down',()=>sw(gi,gi+1),gi===L.length-1),
     openBtn(host,{k:'l',i:g.id},g),rmBtn(()=>{snap();arr.forEach(x=>dropEntryNode(host,x));dropEntryNode(host,g);host.lists=host.lists.filter(x=>x!==g);dirty();paintEnts(host,wrap)}));
-  const b=h('div',{class:'eblock'+(mn?' lmin':'')},hd,mn?null:arr.map((e,i)=>entryRow(host,arr,i,kd,g.id,rp,isS&&i===nowI)),
+  const b=h('div',{class:'eblock'+(mn?' lmin':''),'data-g':g.id},hd,mn?null:arr.map((e,i)=>entryRow(host,arr,i,kd,g.id,rp,isS&&i===nowI)),
     mn?null:h('div',{class:'crow2'},h('button',{class:'btn',html:ic('plus')+(isS?'Add step':'Add item'),onclick:()=>{arr.push(newEntry());dirty();rp(arr.length-1)}})));
+  {const zz=g.z||host.fz;if(zz&&zz!==100)b.querySelectorAll('textarea').forEach(t=>{t.style.zoom=String(zz/100)})}
   return b}
 function stepsBlock(host,wrap){
   const arr=host.steps,rp=fi=>paintEnts(host,wrap,fi===undefined?null:'s::'+fi),done=arr.filter(x=>x.done).length,nowI=arr.findIndex(x=>!x.done);
@@ -1419,10 +1455,10 @@ function treeRows(rootId,max){const out=[];(function walk(id,depth){for(const k 
   if(out.length>=max)return;out.push({id:k,depth,num:numOf(k),text:boxName(c)||'(empty)',st:c.st});walk(k,depth+1)}})(rootId,0);return out}
 function treeLines(key,td){const id=S.cells[key];if(!id||!N(id))return;const top=effKids(N(id)),total=descendants(id).filter(k=>N(k)&&!N(k).ref).length;
   top.slice(0,3).forEach(k=>{const c=N(k),inner=descendants(k).filter(x=>N(x)&&!N(x).ref).length;
-    const cc=catOf(c.cat),own=c.parent===id;td.append(h('p',{class:'cl'+(cc?' hascl':''),style:cc?'--cat:'+cc.color:null,draggable:own?'true':null,ondragstart:own?(e=>{DRAGID=k;try{e.dataTransfer.setData('text/plain',k);e.dataTransfer.effectAllowed='move'}catch(x){}}):null,ondragend:()=>{DRAGID=null}},h('b',{class:'cn'},numOf(k)),' '+(c.st==='d'?'\u2713 ':'')+(boxName(c)||'(empty)'),inner?h('span',{class:'inn'},' +'+inner):null,progBar(c)))});
+    const cc=catOf(c.cat),own=c.parent===id;td.append(h('p',{class:'cl'+(cc?' hascl':'')+bfCls(c),style:((cc?'--cat:'+cc.color+';':'')+bfSty(c,1))||null,draggable:own?'true':null,ondragstart:own?(e=>{DRAGID=k;try{e.dataTransfer.setData('text/plain',k);e.dataTransfer.effectAllowed='move'}catch(x){}}):null,ondragend:()=>{DRAGID=null}},h('b',{class:'cn'},numOf(k)),' '+(c.st==='d'?'\u2713 ':'')+(boxName(c)||'(empty)'),inner?h('span',{class:'inn'},' +'+inner):null,mcdOn(c)?h('span',{class:'mcdl','data-id':k,'data-sp':'1'},' '+mcdText(c)):null,progBar(c)))});
   if(top.length>3)td.append(h('p',{class:'cl more'},'+'+(top.length-3)+' more'))}
 const dateLabel=iso=>{const d=parseISO(iso);return DOW[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()};
-const slotLabel=id=>{const s=slotOf(id);return s?s.s+'\u2013'+s.e:id};
+const slotLabel=id=>{const s=slotOf(id);return s?slotTxt(s):id};
 const GT={sel:null,mode:'week',date:iso(new Date()),hide:false,col:new Set(),view:'full',fx:12,fy:80,fw:0,fh:0};
 function dayBlock(date,f,pick,curId,rerender){const els=[];let any=0;
   for(const s of S.slots){const id=S.cells[date+'|'+s.id];if(!id||!N(id))continue;const rows=[];let cnt=0;
@@ -1455,7 +1491,7 @@ function gridTree(mode){
   const list=h('div',{class:'rlist'}),q=h('input',{class:'q',type:'search',placeholder:'Filter boxes','aria-label':'Filter boxes'});
   const pick=id=>{ui.hist=[];gtKeep();openNode(id)};
   const paint=()=>{list.textContent='';const f=q.value.trim().toLowerCase();let dates;
-    if(GT.mode==='day')dates=[GT.date];else if(GT.mode==='all')dates=[...new Set(Object.keys(S.cells).filter(k=>/^\d{4}-/.test(k)).map(k=>k.split('|')[0]))].sort();else dates=dayList().map(iso);
+    if(GT.mode==='day')dates=[GT.date];else if(GT.mode==='all')dates=[...new Set(Object.keys(S.cells).filter(k=>/^\d{4}-/.test(k)).map(k=>k.split('|')[0]).filter(d=>!isXd(d)))].sort();else dates=dayList().map(iso);
     let any=0;for(const dt of dates){const els=dayBlock(dt,f,pick,null,paint);if(!els)continue;any++;list.append(h('div',{class:'gday'},dateLabel(dt),dayProgText(dt)));els.forEach(e=>list.append(e))}
     if(!any)list.append(h('p',{class:'psub'},f?'No boxes match.':'No boxes for this selection yet.'))};
   const seg=h('div',{class:'gseg'},[['day','One day'],['week','Visible days'],['all','All days']].map(a=>h('button',{class:'btn'+(GT.mode===a[0]?' primary':''),onclick:()=>gridTree(a[0])},a[1])));
@@ -1577,8 +1613,8 @@ function allIds(){const out=[];Object.keys(S.cells).forEach(k=>{if(!/^\d{4}-/.te
     const w=$('.gridwrap');try{t.setPointerCapture(e.pointerId)}catch(x){}t.classList.add('on');
     const x0=e.clientX,y0=e.clientY,c0=COLW,t0=TCOL,idx=w.scrollLeft/COLW,tr=t.closest('tr'),cell=tr&&tr.querySelector('td.cell'),r0=cell?cell.offsetHeight:118;
     const mv=ev=>{const dx=ev.clientX-x0,dy=ev.clientY-y0;
-      if(t.dataset.k==='c'){COLW=Math.max(80,Math.min(520,c0+dx));S.colW=COLW;g.style.width=(TCOL+ui.count*COLW)+'px';w.scrollLeft=idx*COLW}
-      else if(t.dataset.k==='t'){TCOL=Math.max(90,Math.min(300,t0+dx));S.tcolW=TCOL;g.style.setProperty('--tcol',TCOL+'px');g.style.width=(TCOL+ui.count*COLW)+'px';w.style.scrollPaddingLeft=TCOL+'px'}
+      if(t.dataset.k==='c'){COLW=Math.max(80,Math.min(520,c0+dx));S.colW=COLW;gridSizeApply();w.scrollLeft=idx*COLW}
+      else if(t.dataset.k==='t'){TCOL=Math.max(90,Math.min(300,t0+dx));S.tcolW=TCOL;g.style.setProperty('--tcol',TCOL+'px');gridSizeApply();w.style.scrollPaddingLeft=TCOL+'px'}
       else{const hh=Math.max(52,Math.min(700,r0+dy));S.rowH=S.rowH||{};S.rowH[t.dataset.s]=hh;$$('td.cell',tr).forEach(c=>{c.style.height=hh+'px';const i=c.querySelector('.cinner');if(i)i.style.maxHeight=(hh-14)+'px'})}};
     const up=()=>{t.removeEventListener('pointermove',mv);t.removeEventListener('pointerup',up);t.removeEventListener('pointercancel',up);t.classList.remove('on');dirty();updateRange()};
     t.addEventListener('pointermove',mv);t.addEventListener('pointerup',up);t.addEventListener('pointercancel',up)})})();
@@ -1682,10 +1718,10 @@ function itemLines(it,o){const ind=it.depth,tag=[it.st?'['+it.st+']':'',it.pri?'
 function makeXlsx(a,b,o){const D=exportData(a,b,o);
   const head=[{v:'Time',s:1}].concat(D.dates.map(d=>({v:dateLabel(d),s:1})));
   const rows=[head];
-  S.slots.forEach(s=>rows.push([{v:s.s+' - '+s.e,s:1}].concat(D.dates.map(d=>({v:D.cells[d+'|'+s.id].flatMap(it=>itemLines(it,o)).map(l=>'  '.repeat(l.ind)+l.t).join('\n'),s:2})))));
+  S.slots.forEach(s=>rows.push([{v:slotTxt(s),s:1}].concat(D.dates.map(d=>({v:D.cells[d+'|'+s.id].flatMap(it=>itemLines(it,o)).map(l=>'  '.repeat(l.ind)+l.t).join('\n'),s:2})))));
   if(D.below.length)rows.push([{v:'Below the table',s:1},{v:D.below.flatMap(it=>itemLines(it,o)).map(l=>'  '.repeat(l.ind)+l.t).join('\n'),s:2}]);
   const flat=[[ 'Date','Time','No.','Name','Level','Status','Priority','Start','End','Text'].map(v=>({v,s:1}))];
-  D.dates.forEach(d=>S.slots.forEach(s=>D.cells[d+'|'+s.id].forEach(it=>flat.push([d,s.s+' - '+s.e,it.num,it.name,it.depth+1,it.st,it.pri,dtTxt(it.start),dtTxt(it.end),it.text].map(v=>({v,s:2}))))));
+  D.dates.forEach(d=>S.slots.forEach(s=>D.cells[d+'|'+s.id].forEach(it=>flat.push([d,slotTxt(s),it.num,it.name,it.depth+1,it.st,it.pri,dtTxt(it.start),dtTxt(it.end),it.text].map(v=>({v,s:2}))))));
   D.below.forEach(it=>flat.push(['Below table','',it.num,it.name,it.depth+1,it.st,it.pri,dtTxt(it.start),dtTxt(it.end),it.text].map(v=>({v,s:2}))));
   const NS='xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"',R='xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"',H='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
   const files=[
@@ -1779,7 +1815,7 @@ function renderTTBar(){
     else bar.append(h('button',{class:'ttab',role:'tab','aria-selected':'false',title:'Open '+t.name,onclick:()=>switchTT(t.id)},t.name||'Timetable'))});
   bar.append(h('button',{class:'btn',title:'Add another timetable','aria-label':'Add another timetable',html:ic('plus')+'<span>New timetable</span>',onclick:addTT}));
   bar.append(h('button',{class:'btn ttfs',title:document.body.classList.contains('ttfull')?'Leave full screen':'Open this timetable in full screen','aria-label':'Timetable full screen',html:ic('expand')+'<span>'+(document.body.classList.contains('ttfull')?'Exit full screen':'Full screen')+'</span>',onclick:()=>ttFull()}));
-  const on=bar.querySelector('.on');if(on)on.scrollIntoView({inline:'nearest',block:'nearest'})}
+  const on=bar.querySelector('.on');if(on)on.scrollIntoView({inline:'nearest',block:'nearest'});if(typeof ttNameSync==='function')ttNameSync()}
 function switchTT(id){
   const t=S.tts.find(x=>x.id===id);if(!t||id===S.tt)return;
   if(!$('#sheet').hidden)closeEditor();
@@ -1890,6 +1926,9 @@ function gtSelUpd(){const e=$('#gtselc');if(e)e.textContent=(GT.sel?GT.sel.size:
 function gtSelBar(){if(!GT.sel)return null;
   return h('div',{class:'gseg gsel'},h('span',{id:'gtselc',class:'psub'},GT.sel.size+' selected'),
     h('button',{id:'gtselgo',class:'btn primary',disabled:!GT.sel.size,onclick:()=>{const ids=[...GT.sel];moveBoxesDlg(ids,'Copy or move '+ids.length+' box'+(ids.length===1?'':'es'))}},'Copy or move\u2026'),
+    h('button',{class:'btn',onclick:()=>mcdDlg([...GT.sel])},'Timer\u2026'),
+    h('button',{class:'btn',onclick:()=>cdLinkDlg([...GT.sel])},'Link to countdown\u2026'),
+    h('button',{class:'btn',onclick:()=>boxFmtDlg([...GT.sel])},'Text\u2026'),
     h('button',{class:'btn',onclick:()=>{document.querySelectorAll('#gtree .gcb').forEach(c=>{c.checked=true;c.dispatchEvent(new Event('change'))})}},'Select all shown'),
     h('button',{class:'btn',onclick:()=>{GT.sel.clear();document.querySelectorAll('#gtree .gcb').forEach(c=>c.checked=false);gtSelUpd()}},'Clear'))}
 
@@ -2054,7 +2093,7 @@ function pomoLog(){const p=pm();S.pomoLog=S.pomoLog||[];S.pomoLog.push({t:Date.n
 function makeHtmlDoc(a,b,o){
   const D=exportData(a,b,o),tt=S.tts.find(x=>x.id===S.tt),E=esc;
   const cell=its=>its.flatMap(it=>itemLines(it,o)).map(l=>'<div class="l'+(l.done?' d':'')+(l.sub?' s':'')+'" style="padding-left:'+(l.ind*12)+'px">'+E(l.t)+'</div>').join('');
-  const rows=S.slots.map(s=>'<tr><th scope="row">'+E(s.s+' \u2013 '+s.e)+'</th>'+D.dates.map(d=>'<td>'+cell(D.cells[d+'|'+s.id])+'</td>').join('')+'</tr>').join('');
+  const rows=S.slots.map(s=>'<tr><th scope="row">'+E(slotTxt(s))+'</th>'+D.dates.map(d=>'<td>'+cell(D.cells[d+'|'+s.id])+'</td>').join('')+'</tr>').join('');
   return new Blob(['<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+E(tt.name)+'</title><style>:root{color-scheme:light dark;--bg:#f6f7fb;--fg:#1c2033;--line:#d6dae8;--mut:#667}@media(prefers-color-scheme:dark){:root{--bg:#0e111e;--fg:#e8eaf4;--line:#2a3050;--mut:#9aa}}body{margin:0;padding:16px;background:var(--bg);color:var(--fg);font:14px/1.4 system-ui,sans-serif}h1{font-size:20px;margin:0 0 4px}p{color:var(--mut);margin:0 0 12px}.w{overflow:auto}table{border-collapse:collapse;min-width:100%}th,td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;min-width:150px;text-align:left}thead th{position:sticky;top:0;background:var(--bg)}tbody th{white-space:nowrap;position:sticky;left:0;background:var(--bg);min-width:0}.d{text-decoration:line-through;opacity:.6}.s{color:var(--mut);font-size:12px}</style></head><body><h1>'+E(tt.name)+'</h1><p>'+E(dateLabel(a)+' \u2013 '+dateLabel(b))+' \u00b7 read-only snapshot</p><div class="w"><table><thead><tr><th>Time</th>'+D.dates.map(d=>'<th>'+E(dateLabel(d))+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>'+
     (D.below.length?'<h2>Below the table</h2><div>'+cell(D.below)+'</div>':'')+'</body></html>'],{type:'text/html'})}
 
@@ -2108,6 +2147,11 @@ function planMenu(){
     it('Categories and colours','Tag boxes and filter by category',catsDlg),
     it('Daily digest','Today\u2019s agenda pop-up at a set time',digestDlg),
     it('Trash',(S.trash||[]).length+' deleted boxes kept for 30 days',openTrash),
+    it('Add a custom row','A row with a name you type, placed right below the row you last tapped',addXRow),
+    it('Add a custom column','A column with a title you type, placed right after the column you last tapped',addXCol),
+    it('Text size and rotation…','Smaller text, or turn it sideways in the grid',()=>txDlg('main')),
+    it('Select cells: merge, unmerge, text','Tick cells, then join, split, or shrink and turn their text',mgStart),
+    it('Import Excel into the timetable','Bring in an .xlsx or CSV file. Filled cells become boxes',()=>xlImportDlg('main')),
     it('Share days via apps','Pick days, or a date and time range, and send it to WhatsApp, mail and more',shareTreeDlg),
     it('Themes','Change colours: dark, light, forest, ocean and more',themeDlg),
     it('Share a read-only snapshot','Export this timetable as an HTML file',()=>exportDlg('html'))),
@@ -2210,7 +2254,7 @@ function parseQuick(raw){
   s=s.replace(/\b(on|at|by|for|due|@)\s*$/i,' ').replace(/^\s*(on|at|by|for|due|@)\s+/i,' ');
   r.title=s.replace(/\s+/g,' ').trim();r.title=r.title.charAt(0).toUpperCase()+r.title.slice(1);return r}
 function slotFor(time,date){
-  const so=S.slots.slice().sort((a,b)=>a.s<b.s?-1:1);if(!so.length)return null;
+  const so=S.slots.filter(s=>!s.x).slice().sort((a,b)=>a.s<b.s?-1:1);if(!so.length)return null;
   const nowT=(()=>{const d=new Date();return hhmm(d.getHours(),d.getMinutes())})();
   const t=time||(date===iso(new Date())?nowT:null);
   if(!t)return so[0];return so.find(x=>x.s<=t&&t<x.e)||so.find(x=>x.s>t)||so[so.length-1]}
@@ -2223,14 +2267,14 @@ function quickCreate(p,toInbox){
   if(!toInbox&&p.time){n.start=date+'T'+p.time;const e=new Date(date+'T'+p.time);e.setMinutes(e.getMinutes()+60);n.end=iso(e)+'T'+pad(e.getHours())+':'+pad(e.getMinutes())}
   dirty();renderGrid();if(toInbox)renderInboxBtn();return{n,date,slot}}
 function qaPreview(p){if(!p.title&&!p.date&&!p.time)return '';
-  const q=quickPlan(p);return '→ '+(q.slot?dateLabel(q.date)+' · '+q.slot.s+'–'+q.slot.e+' row':'no time rows')+(p.time?' · at '+p.time:'')+(p.pri?' · '+PRIN[p.pri]+' priority':'')+(p.cat?' · #'+catOf(p.cat).name:'')}
+  const q=quickPlan(p);return '→ '+(q.slot?dateLabel(q.date)+' · '+slotTxt(q.slot)+' row':'no time rows')+(p.time?' · at '+p.time:'')+(p.pri?' · '+PRIN[p.pri]+' priority':'')+(p.cat?' · #'+catOf(p.cat).name:'')}
 function qaInit(){
   const f=$('#qa'),inp=$('#qain'),pv=$('#qaprev'),mic=$('#qamic');if(!f)return;
   const upd=()=>{const t=qaPreview(parseQuick(inp.value));pv.textContent=t;pv.hidden=!t};
   inp.addEventListener('input',upd);
   const submit=toInbox=>{const txt=inp.value.trim();if(!txt)return;const p=parseQuick(txt);if(!p.title&&!toInbox){toast('Add a title, e.g. “Dentist tomorrow 3pm”.');return}
     const r=quickCreate(toInbox?{title:txt,pri:p.pri,cat:p.cat}:p,toInbox);if(!r)return;inp.value='';upd();
-    toast(toInbox?'Added to Inbox':'Added “'+(p.title||'box')+'” to '+dateLabel(r.date)+' · '+r.slot.s+'–'+r.slot.e+'. Undo is in the header.');
+    toast(toInbox?'Added to Inbox':'Added “'+(p.title||'box')+'” to '+dateLabel(r.date)+' · '+slotTxt(r.slot)+'. Undo is in the header.');
     if(!toInbox){try{scrollToDate(parseISO(r.date),true)}catch(e){}setTimeout(()=>checkSchedule(r.n),120)}};
   f.addEventListener('submit',e=>{e.preventDefault();submit(false)});
   $('#qainbox').addEventListener('click',()=>{if(inp.value.trim())submit(true);else openInbox()});
@@ -2299,7 +2343,7 @@ function cdText(c){const d=daysTo(c.date);return c.name+' · '+(d===0?'today':d>
 function renderStrip(){
   const s=$('#gstrip');if(!s)return;s.textContent='';const G=S.goals||[],C=(S.cds||[]).slice().sort((a,b)=>a.date<b.date?-1:1);
   s.hidden=!S.showStrip||(!G.length&&!C.length);
-  C.forEach(c=>{const d=daysTo(c.date);s.append(h('button',{class:'gchip2 cd'+(d<0?' past':d<=3?' soon':''),onclick:cdDlg,title:'Countdowns'},h('b',null,d===0?'Today':d>0?d:Math.abs(d)),h('span',null,d===0?c.name:(d>0?' day'+(d===1?'':'s')+' to ':' day'+(d===-1?'':'s')+' since ')+c.name)))});
+  C.forEach(c=>{const d=daysTo(c.date);s.append(h('button',{class:'gchip2 cd'+(d<0?' past':d<=3?' soon':''),onclick:()=>cdDetail(c),title:'Open countdown'},h('b',null,d===0?'Today':d>0?d:Math.abs(d)),h('span',null,d===0?c.name:(d>0?' day'+(d===1?'':'s')+' to ':' day'+(d===-1?'':'s')+' since ')+c.name,cdLinkTxt(c))))});
   G.forEach(g=>{const st=goalStats(g);s.append(h('button',{class:'gchip2 goal',onclick:()=>goalDlg(g),title:'Open goal'},
     h('span',{class:'gt1'},h('b',null,g.name),h('span',{class:'psub'},st.t?st.pc+'%':'nothing linked'+(g.due?' · due '+dateLabel(g.due):'')),(()=>{const gs=goalStatus(g);return gs.txt?h('span',{class:'gst '+gs.k},gs.txt):null})()),
     h('span',{class:'mbar'},h('i',{style:'width:'+st.pc+'%'})),
@@ -2326,7 +2370,7 @@ function cdDlg(){
   const nm=h('input',{type:'text',class:'cin',placeholder:'e.g. Exam','aria-label':'Countdown name'}),dt=h('input',{type:'date',class:'cin','aria-label':'Date',style:'flex:0 1 11em'});
   const list=h('div',{style:'display:flex;flex-direction:column;gap:6px'});
   const paint=()=>{list.textContent='';(S.cds||[]).slice().sort((a,b)=>a.date<b.date?-1:1).forEach(c=>list.append(h('div',{class:'res crow'},h('span',{class:'rmain'},h('span',{class:'cname'},cdText(c)),h('small',null,dateLabel(c.date))),
-    cbtn({class:'btn','aria-label':'Delete countdown',html:ic('trash')},()=>{S.cds=S.cds.filter(x=>x!==c);dirty();paint();renderStrip()},'Delete?'))));if(!(S.cds||[]).length)list.append(h('p',{class:'psub',style:'margin:0'},'No countdowns yet.'))};
+    h('button',{class:'btn',onclick:()=>{m.close();cdDetail(c)}},'Boxes'),cbtn({class:'btn','aria-label':'Delete countdown',html:ic('trash')},()=>{S.cds=S.cds.filter(x=>x!==c);for(const n of Object.values(S.nodes))if(n.cdk===c.id)n.cdk=null;dirty();paint();renderStrip()},'Delete?'))));if(!(S.cds||[]).length)list.append(h('p',{class:'psub',style:'margin:0'},'No countdowns yet.'))};
   paint();
   const m=modal('Countdowns',h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('div',{class:'crow2'},nm,dt,h('button',{class:'btn primary',onclick:()=>{const v=nm.value.trim();if(!v||!dt.value)return;S.cds.push({id:'d'+uid(),name:v,date:dt.value});dirty();nm.value='';dt.value='';paint();renderStrip()}},'Add')),list,
     h('p',{class:'psub',style:'margin:0'},'Countdowns show above the grid and at the top of the Agenda.')),[h('button',{class:'btn primary',onclick:()=>m.close()},'Close')])}
@@ -2401,7 +2445,7 @@ const validISO=s=>/^\d{4}-\d{2}-\d{2}$/.test(s)&&iso(parseISO(s))===s;
 /* --- holidays and working hours --- */
 const holOf=day=>(S.hol||[]).find(x=>x.date===day);
 const isOffDay=day=>{if(holOf(day))return true;const w=S.work;return!!(w&&w.on&&!w.days.includes(parseISO(day).getDay()))};
-const isOffSlot=s=>{const w=S.work;if(!w||!w.on||!s)return false;return tmin(s.e)<=tmin(w.s)||tmin(s.s)>=tmin(w.e)};
+const isOffSlot=s=>{const w=S.work;if(!w||!w.on||!s||s.x)return false;return tmin(s.e)<=tmin(w.s)||tmin(s.s)>=tmin(w.e)};
 const offCls=day=>(isOffDay(day)?' dayoff':'')+(holOf(day)?' hol':'');
 const holSpan=day=>{const x=holOf(day);return x?h('span',{class:'hn',title:'Holiday: '+x.name},x.name):null};
 
@@ -2429,7 +2473,7 @@ function placeBox(n,day,slotId,keepTime){
   const ns=slotOf(slotId);let delta=0;
   if(old){const oldMs=new Date(old.day+'T'+hmS(old.a)).getTime(),nt=keepTime?hmS(old.a):(ns?ns.s:hmS(old.a)),newMs=new Date(day+'T'+nt).getTime();delta=newMs-oldMs}
   if(delta)shiftTree(n.id,delta)}
-function slotAtMin(n,m){const r=rootOf(n.id),sk=r.key&&r.key.indexOf('|')>0?r.key.split('|')[1]:null,tt=sk&&ttOfSlot(sk),sl=(tt?tt.slots:S.slots).slice().sort((x,y)=>x.s<y.s?-1:1);
+function slotAtMin(n,m){const r=rootOf(n.id),sk=r.key&&r.key.indexOf('|')>0?r.key.split('|')[1]:null,tt=sk&&ttOfSlot(sk),sl=(tt?tt.slots:S.slots).filter(s=>!s.x).slice().sort((x,y)=>x.s<y.s?-1:1);
   return sl.find(s=>tmin(s.s)<=m&&m<tmin(s.e))||sl.filter(s=>tmin(s.s)<=m).pop()||sl[0]||null}
 function setTimes(n,day,a,b){const old=ivOf(n),sl=slotAtMin(n,a),top=n.parent&&rootOf(n.id).id===n.parent;
   if(top&&sl)placeBox(n,day,sl.id,true);
@@ -2459,14 +2503,14 @@ function checkSchedule(n){
 /* quick reschedule: Later today / Tomorrow / Next week */
 function reschedule(n,mode){
   const now=new Date(),today=iso(now),nowM=now.getHours()*60+now.getMinutes(),iv=ivOf(n),r=rootOf(n.id),sk=r.key&&r.key.indexOf('|')>0?r.key.split('|')[1]:null;
-  const tt=sk&&ttOfSlot(sk),slots=(tt?tt.slots:S.slots).slice().sort((a,b)=>a.s<b.s?-1:1);if(!slots.length){toast('Add a time row first.');return}
+  const tt=sk&&ttOfSlot(sk),slots=(tt?tt.slots:S.slots).filter(s=>!s.x).slice().sort((a,b)=>a.s<b.s?-1:1);if(!slots.length){toast('Add a time row first.');return}
   let day,slot=sk&&slotOf(sk)||null,keep=true;
   if(mode==='later'){const nx=slots.find(s=>tmin(s.s)>nowM);if(!nx){toast('No later time row today. Try Tomorrow.');return}day=today;slot=nx;keep=false}
   else if(mode==='tom')day=addDaysISO(today,1);
   else{const b=iv&&iv.day>today?iv.day:today;day=addDaysISO(b,7)}
   if(!slot)slot=slots[0];
   snap();if(n.st==='d')n.st=null;placeBox(n,day,slot.id,keep);afterSched();
-  toast('Moved to '+dateLabel(day)+' · '+slot.s+'–'+slot.e+'. Undo is in the header.');setTimeout(()=>checkSchedule(n),80)}
+  toast('Moved to '+dateLabel(day)+' · '+slotTxt(slot)+'. Undo is in the header.');setTimeout(()=>checkSchedule(n),80)}
 function resRow(n){
   if(n.contact||n.ref||!n.parent||(rootOf(n.id).key||'').indexOf('tpl:')===0)return null;
   const b=(l,t,m)=>h('button',{class:'btn rsb',title:t,onclick:()=>reschedule(n,m)},l);
@@ -2563,7 +2607,7 @@ function recDlg(n){
   const st={pat:r.pat,days:new Set(r.days),n:r.n||1,doms:new Set(r.doms&&r.doms.length?r.doms:[r.dom]),slots:new Set(recSlots(r)),until:r.until||'',times:(r.times||[]).map(x=>({s:x.s,e:x.e}))};
   const body=h('div',{style:'display:flex;flex-direction:column;gap:10px'}),sec=h('div',{style:'display:flex;flex-direction:column;gap:10px'});
   const pat=h('select',{class:'cin',onchange:()=>{st.pat=pat.value;paint()}},h('option',{value:'dow'},'Every week on chosen days'),h('option',{value:'int'},'Every few days'),h('option',{value:'dom'},'Every month on chosen dates'));pat.value=st.pat;
-  const tt=ttOfSlot(sslot),slots=tt?tt.slots:S.slots,sl=h('div',{class:'crow2',role:'group','aria-label':'Time rows'});
+  const tt=ttOfSlot(sslot),slots=(tt?tt.slots:S.slots).filter(s=>!s.x),sl=h('div',{class:'crow2',role:'group','aria-label':'Time rows'});
   const paintSl=()=>{sl.textContent='';slots.forEach(x=>sl.append(h('button',{class:'btn'+(st.slots.has(x.id)?' primary':''),'aria-pressed':String(st.slots.has(x.id)),onclick:()=>{if(st.slots.has(x.id)){if(st.slots.size>1)st.slots.delete(x.id)}else st.slots.add(x.id);paintSl()}},x.s+'–'+x.e)))};paintSl();
   const until=h('input',{type:'date',class:'cin',value:st.until,onchange:()=>{st.until=until.value}});
   const siv0=ivOf(src);let tmEd=null;const tmBox=h('div',{style:'display:flex;flex-direction:column;gap:8px'});
@@ -2973,7 +3017,7 @@ function importBoxDlg(){
   const ta=h('textarea',{rows:'4',placeholder:'Or paste the contents of a .ttbox.json file here','aria-label':'Box file contents',spellcheck:'false'}),
     fi=h('input',{type:'file',accept:'.json,application/json',onchange:async()=>{if(fi.files[0]){try{ta.value=await fi.files[0].text()}catch(e){toast('Could not read that file.')}}}});
   const dest=h('select',{class:'cin'},h('option',{value:'inbox'},'Inbox (sort it into a day later)'),h('option',{value:'day'},'A day and time row'));
-  const dt=h('input',{type:'date',class:'cin',value:iso(new Date()),hidden:true}),sl=h('select',{class:'cin',hidden:true},S.slots.map(x=>h('option',{value:x.id},x.s+'–'+x.e)));
+  const dt=h('input',{type:'date',class:'cin',value:iso(new Date()),hidden:true}),sl=h('select',{class:'cin',hidden:true},S.slots.map(x=>h('option',{value:x.id},slotTxt(x))));
   dest.addEventListener('change',()=>{dt.hidden=sl.hidden=dest.value!=='day'});
   const m=modal('Import a shared box',h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('p',{class:'psub',style:'margin:0'},'Choose a .ttbox.json file that someone shared with you, or paste its text.'),fi,ta,h('label',null,'Put it in',dest),h('div',{class:'crow2'},dt,sl)),
     [h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',onclick:async()=>{
@@ -3047,14 +3091,14 @@ function phoneSetupOnce(){const A=NBR();if(!A||!A.alarmStatus||S.phoneAsked)retu
 
 $('#morem').prepend(h('button',{class:'btn',id:'albtn',onclick:()=>{$('#morem').hidden=true;alarmsDlg()}},'Alarms'));
 /* ===== v40: span bars, copy/move to many dates and times, revise sessions, scheduled calls and messages ===== */
-const slotForMin=(a,ref)=>{const tt=ref&&ttOfSlot(ref),sl=(tt?tt.slots:S.slots).slice().sort((x,y)=>x.s<y.s?-1:1);let pick=sl[0];for(const s of sl)if(tmin(s.s)<=a)pick=s;return pick};
+const slotForMin=(a,ref)=>{const tt=ref&&ttOfSlot(ref),sl=(tt?tt.slots:S.slots).filter(s=>!s.x).slice().sort((x,y)=>x.s<y.s?-1:1);let pick=sl[0];for(const s of sl)if(tmin(s.s)<=a)pick=s;return pick};
 const hmNow=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())};
 const clampT=m=>hmS(Math.max(0,Math.min(1439,m)));
 const dtMs=(d,t)=>new Date(d+'T'+(t||'00:00')+':00').getTime();
 
 const effS=n=>n.start||(cellDefaults(n).start)||'';
 /* --- a box that covers several time rows gets a coloured bar from its start to its end --- */
-function spanMap(days){const out={},sl=S.slots;
+function spanMap(days){const out={},sl=S.slots.filter(s=>!s.x);
   for(const d of days){const day=iso(d),list=[];
     dayBoxes(day).forEach(n=>{const iv=ivOf(n);if(!iv||iv.day!==day)return;
       const cov=sl.filter(s=>iv.a<tmin(s.e)&&tmin(s.s)<iv.b),multi=!!(n.end&&effS(n)&&n.end.slice(0,10)>effS(n).slice(0,10));if(cov.length<2&&!multi)return;if(!cov.length)return;
@@ -3355,11 +3399,11 @@ function xrowEl(t,left,rerender,minor){
   return h('div',{class:'xrow'+(t.done?' xd':'')+(t.go?' go':''),style:'margin-left:'+left+'px',role:t.go?'button':null,tabindex:t.go?'0':null,title:t.go?'Open':null,onclick:t.go?(()=>{const g=$('#gtree');if(g&&!g.hidden){ui.hist=[];gtKeep()}t.go()}):null},car,(t.num?h('b',{class:'cn'},t.num):null),h('b',null,' '+t.k),' '+(t.done?'\u2713 ':'')+t.t+(t.col?'  \u2026':''))}
 /* ---------- simple tables: only time lines and days, edited right in the grid ---------- */
 const SDN=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],SDL=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-const STS={id:null,win:false};
+const STS={id:null,view:'full',prev:'full',fx:12,fy:80,fw:0,fh:0};
 const stList=()=>(S.simple=S.simple||[]);
 const stMeta=(t,k,mk)=>{t.meta=t.meta||{};return mk?(t.meta[k]=t.meta[k]||{}):t.meta[k]};
 function stMake(name,from){const t=from?JSON.parse(JSON.stringify(from)):{cols:[0,1,2,3,4].map(d=>({id:uid(),d,date:''})),rows:[],cells:{},meta:{}};
-  if(from){const mp={},mc={};t.rows.forEach(r=>{const o=r.id;r.id=uid();mp[o]=r.id});t.cols.forEach(c=>{const o=c.id;c.id=uid();mc[o]=c.id});const cc={},mm={};Object.keys(t.cells).forEach(k=>{const[a,b]=k.split('|');if(mp[a]&&mc[b])cc[mp[a]+'|'+mc[b]]=t.cells[k]});Object.keys(t.meta||{}).forEach(k=>{const[a,b]=k.split('|');if(mp[a]&&mc[b]&&t.meta[k].done)mm[mp[a]+'|'+mc[b]]={done:true}});t.cells=cc;t.meta=mm}
+  if(from){const mp={},mc={};t.rows.forEach(r=>{const o=r.id;r.id=uid();mp[o]=r.id});t.cols.forEach(c=>{const o=c.id;c.id=uid();mc[o]=c.id});const cc={},mm={};Object.keys(t.cells).forEach(k=>{const[a,b]=k.split('|');if(mp[a]&&mc[b])cc[mp[a]+'|'+mc[b]]=t.cells[k]});Object.keys(t.meta||{}).forEach(k=>{const[a,b]=k.split('|');if(mp[a]&&mc[b]&&t.meta[k].done)mm[mp[a]+'|'+mc[b]]={done:true}});const cw2={},rh2={};Object.keys(t.cw||{}).forEach(k=>{if(mc[k])cw2[mc[k]]=t.cw[k]});Object.keys(t.rh||{}).forEach(k=>{if(mp[k])rh2[mp[k]]=t.rh[k]});t.cw=cw2;t.rh=rh2;const mg={};Object.keys(t.merge||{}).forEach(k=>{const[a,b]=k.split('|');if(mp[a]&&mc[b])mg[mp[a]+'|'+mc[b]]=t.merge[k]});t.merge=mg;t.cells=cc;t.meta=mm}
   else for(let i=0;i<8;i++)t.rows.push({id:uid(),s:pad(9+i)+':00',e:pad(10+i)+':00'});
   t.id=uid();t.name=name||('Table '+(stList().length+1));stList().push(t);return t}
 function stCur(){const L=stList();let t=L.find(x=>x.id===STS.id);if(!t){t=L[0]||stMake('My timetable')}STS.id=t.id;stFix(t);return t}
@@ -3368,42 +3412,21 @@ function stFix(t){if(t.cols)return;const ds=(t.days||[0,1,2,3,4]).slice().sort((
   const cc={};Object.keys(t.cells||{}).forEach(k=>{const[a,b]=k.split('|');if(mc[b])cc[a+'|'+mc[b]]=t.cells[k]});t.cells=cc;delete t.days}
 const stWd=iso=>(parseISO(iso).getDay()+6)%7;
 const stCols=t=>{stFix(t);return t.cols};
-const stColDay=c=>c.date?stWd(c.date):c.d;
-const stColLbl=(c,long)=>(long?SDL:SDN)[stColDay(c)]+(c.date?(long?' ':' ')+(()=>{const d=parseISO(c.date);return d.getDate()+' '+MON[d.getMonth()]+(long?' '+d.getFullYear():'')})():'');
-const stRange=r=>(r.s||'')+(r.e?'–'+r.e:'');
+const stColDay=c=>c.x?0:c.date?stWd(c.date):c.d;
+const stColLbl=(c,long)=>c.x?(c.title||'Column'):(long?SDL:SDN)[stColDay(c)]+(c.date?(long?' ':' ')+(()=>{const d=parseISO(c.date);return d.getDate()+' '+MON[d.getMonth()]+(long?' '+d.getFullYear():'')})():'');
+const stRange=r=>r.x?(r.label||'Row'):(r.s||'')+(r.e?'–'+r.e:'');
 function stEl(){let p=$('#stbl');if(!p){p=h('div',{id:'stbl',class:'srch stbl',hidden:true});document.body.append(p)}return p}
 function openSimple(){const p=stEl();p.hidden=false;stPaint();try{const b=$('#tblbtn');if(b)b.setAttribute('aria-expanded','true')}catch(e){}}
 function closeSimple(){const p=stEl();p.hidden=true;try{if(document.fullscreenElement)document.exitFullscreen()}catch(e){}}
 let stT=0;const stSave=()=>{clearTimeout(stT);stT=setTimeout(dirty,300)};
-function stPaint(){const p=stEl(),t=stCur();p.textContent='';p.classList.toggle('stwin',STS.win);
-  const fsBtn=h('button',{class:'btn gwb',title:STS.win?'Full screen':'Smaller window','aria-label':STS.win?'Full screen':'Smaller window',onclick:()=>{STS.win=!STS.win;if(!STS.win){try{p.requestFullscreen&&p.requestFullscreen().catch(()=>{})}catch(e){}}else{try{if(document.fullscreenElement)document.exitFullscreen()}catch(e){}}stPaint()}},STS.win?'⛶':'❐');
-  p.append(h('div',{class:'ehead'},h('strong',null,'Simple tables'),h('span',{class:'grow'}),
-    h('button',{class:'btn',onclick:()=>stPrint(t)},'Print'),h('button',{class:'btn',onclick:()=>stShare(t)},'Share'),fsBtn,h('button',{class:'btn gwb','aria-label':'Close',onclick:closeSimple},'✕')));
-  const sel=h('select',{class:'cin','aria-label':'Choose a table',style:'flex:1 1 9em;min-width:0',onchange:()=>{STS.id=sel.value;stPaint()}},stList().map(x=>h('option',{value:x.id},x.name||'(unnamed)')));sel.value=t.id;
-  const del=h('button',{class:'btn',html:'Delete'});arm(del,()=>{snap();S.simple=stList().filter(x=>x!==t);STS.id=null;dirty();stPaint()},'Delete?');
-  p.append(h('div',{class:'gseg'},sel,h('button',{class:'btn primary',onclick:()=>{const n=stMake();STS.id=n.id;dirty();stPaint()}},'+ New'),
-    h('button',{class:'btn',onclick:()=>stRename(t)},'Rename'),h('button',{class:'btn',onclick:()=>{const n=stMake(t.name+' copy',t);STS.id=n.id;dirty();stPaint();toast('Copied')}},'Copy'),del));
-  const addCol=()=>{const cs=t.cols,l=cs[cs.length-1];let c;if(l&&l.date){const d=addDaysISO(l.date,1);c={id:uid(),d:stWd(d),date:d}}else c={id:uid(),d:l?(l.d+1)%7:0,date:''};cs.push(c);dirty();stPaint()};
-  p.append(h('div',{class:'gseg'},h('button',{class:'btn',onclick:addCol},'+ Day column'),
-    h('button',{class:'btn',title:'Give every column its date, counting forward from a start date',onclick:()=>stFillDates(t)},'Fill dates'),
-    h('button',{class:'btn',onclick:()=>{t.cols.forEach(c=>{c.date=''});dirty();stPaint()}},'Clear dates'),h('span',{class:'grow'}),
-    h('button',{class:'btn',onclick:()=>{const l=t.rows[t.rows.length-1];let s='09:00',e='10:00';if(l&&l.e){const a=tmin(l.s||l.e),b=tmin(l.e),d=b>a?b-a:60,n=Math.min(1439,b+d);s=l.e;e=pad(Math.floor(n/60))+':'+pad(n%60)}t.rows.push({id:uid(),s,e});dirty();stPaint()}},'+ Time row'),
-    h('button',{class:'btn',title:'Order rows by start time',onclick:()=>{t.rows.sort((a,b)=>(a.s||'')<(b.s||'')?-1:(a.s||'')>(b.s||'')?1:0);dirty();stPaint()}},'Sort by time')));
-  const wrap=h('div',{class:'stwrap'});wrap.append(stGrid(t,true));p.append(wrap);
-  p.append(h('p',{class:'psub',style:'margin:6px 0 0'},'Type straight into the grid. Times and text save as you go.'))}
-function stHead(t,c){
-  const sel=h('select',{class:'stds','aria-label':'Day',onchange:()=>{const nd=+sel.value;if(c.date){const delta=nd-stWd(c.date);c.date=addDaysISO(c.date,delta)}c.d=nd;dirty();stPaint()}},SDN.map((n,i)=>h('option',{value:i},n)));sel.value=String(stColDay(c));
-  const di=h('input',{type:'date',class:'stdi',value:c.date||'','aria-label':'Date for '+stColLbl(c,true),onchange:()=>{c.date=di.value||'';if(c.date)c.d=stWd(c.date);dirty();stPaint()}});
-  const rm=h('button',{class:'tb eb',title:'Remove this column','aria-label':'Remove column',html:'\u2715'});arm(rm,()=>{snap();const k=t.cols.indexOf(c);t.cols.splice(k,1);Object.keys(t.cells).concat(Object.keys(t.meta||{})).forEach(x=>{if(x.split('|')[1]===c.id){delete t.cells[x];if(t.meta)delete t.meta[x]}});dirty();stPaint()},'?');
-  return h('th',null,h('div',{class:'sthd'},sel,rm),di)}
-function stFillDates(t){
+function stFillDates(t){const dcn=t.cols.filter(c=>!c.x).length;
   const i=h('input',{type:'date',class:'cin',value:(t.cols.find(c=>c.date)||{}).date||iso(new Date()),'aria-label':'First date'});
-  const n=h('input',{type:'number',class:'cin',min:String(t.cols.length),max:'31',value:String(t.cols.length),'aria-label':'Number of day columns',style:'width:6em'});
+  const n=h('input',{type:'number',class:'cin',min:String(dcn),max:'31',value:String(dcn),'aria-label':'Number of day columns',style:'width:6em'});
   const mode=h('select',{class:'cin','aria-label':'Which days'},h('option',{value:'all'},'Every day, one after another'),h('option',{value:'wk'},'Weekdays only (skip Sat and Sun)'),h('option',{value:'keep'},'Keep each column\u2019s day (Mon, Tue\u2026)'));
-  const go=()=>{if(!i.value)return;const want=Math.max(t.cols.length,Math.min(31,parseInt(n.value,10)||t.cols.length));
-    while(t.cols.length<want)t.cols.push({id:uid(),d:0,date:''});
+  const go=()=>{if(!i.value)return;const want=Math.max(dcn,Math.min(31,parseInt(n.value,10)||dcn));
+    while(t.cols.filter(c=>!c.x).length<want)t.cols.push({id:uid(),d:0,date:''});
     let cur=i.value;
-    t.cols.forEach(c=>{
+    t.cols.filter(c=>!c.x).forEach(c=>{
       if(mode.value==='wk'){while(stWd(cur)>4)cur=addDaysISO(cur,1)}
       else if(mode.value==='keep'){for(let k=0;k<7&&stWd(cur)!==c.d;k++)cur=addDaysISO(cur,1)}
       c.date=cur;c.d=stWd(cur);cur=addDaysISO(cur,1)});
@@ -3411,25 +3434,6 @@ function stFillDates(t){
   const lab=(x,el)=>h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px'},x,el);
   const m=modal('Fill dates',h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('p',{class:'psub',style:'margin:0'},'Gives each column a date. The day name follows the date, and you can still edit any date afterwards.'),lab('First date',i),lab('Number of day columns',n),lab('Which days',mode)),
     [h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',onclick:go},'Fill dates')])}
-function stGrid(t,edit){const ds=stCols(t);
-  const tb=h('table',{class:'stg',style:edit?'min-width:'+(132+ds.length*132)+'px':null}),hd=h('tr',null,h('th',null,'Time'),ds.map(c=>edit?stHead(t,c):h('th',null,stColLbl(c,true))));tb.append(h('thead',null,hd));
-  const body=h('tbody');
-  t.rows.forEach((r,ri)=>{
-    const tr=h('tr');
-    if(edit){
-      const si=h('input',{type:'time',value:r.s||'','aria-label':'Start',onchange:()=>{r.s=si.value;stSave()}}),ei=h('input',{type:'time',value:r.e||'','aria-label':'End',onchange:()=>{r.e=ei.value;stSave()}});
-      const mv=(d)=>()=>{const j=ri+d;if(j<0||j>=t.rows.length)return;const x=t.rows[ri];t.rows[ri]=t.rows[j];t.rows[j]=x;dirty();stPaint()};
-      const rm=h('button',{class:'tb eb',title:'Remove row','aria-label':'Remove row',html:'✕'});arm(rm,()=>{snap();t.rows.splice(ri,1);ds.forEach(c=>{delete t.cells[r.id+'|'+c.id];if(t.meta)delete t.meta[r.id+'|'+c.id]});dirty();stPaint()},'?');
-      tr.append(h('td',{class:'stt'},h('div',{class:'sttr'},si,ei),h('div',{class:'sttb'},h('button',{class:'tb eb','aria-label':'Move row up',onclick:mv(-1),html:'↑'}),h('button',{class:'tb eb','aria-label':'Move row down',onclick:mv(1),html:'↓'}),rm)));
-      ds.forEach(c=>{const k=r.id+'|'+c.id,m=stMeta(t,k),ta=h('textarea',{class:'stc'+(m&&m.done?' sdn':''),rows:'2','aria-label':stColLbl(c,true)+' '+stRange(r),value:t.cells[k]||'',oninput:()=>{t.cells[k]=ta.value;if(!ta.value)delete t.cells[k];autoGrow(ta);stSave()}});
-        const done=h('button',{class:'stab'+(m&&m.done?' on':''),title:m&&m.done?'Undo strike off':'Strike off','aria-label':'Strike off','aria-pressed':String(!!(m&&m.done)),onclick:()=>{const mm=stMeta(t,k,1);mm.done=!mm.done;if(!mm.done&&!mm.al)delete t.meta[k];dirty();ta.classList.toggle('sdn',!!mm.done);done.classList.toggle('on',!!mm.done);done.setAttribute('aria-pressed',String(!!mm.done))},html:'\u2713'});
-        const al=h('button',{class:'stab'+(m&&m.al&&!m.fired?' on':''),title:'Alarm for this cell','aria-label':'Alarm for this cell',onclick:()=>stAlarmDlg(t,r,c)},'\u23f0'+(m&&m.al&&!m.fired?' '+stFmt(m.al):''));
-        const sh=h('button',{class:'stab',title:'Share this cell to WhatsApp, mail or any app','aria-label':'Share this cell',onclick:()=>stShareCell(t,r,c)},'\u2197');
-        const pm2=h('button',{class:'stab',title:'Pomodoro for this cell','aria-label':'Pomodoro for this cell',onclick:()=>stPomo(t,r,c)},'\u23f1');
-        tr.append(h('td',null,ta,h('div',{class:'stba'},done,al,pm2,sh)))})}
-    else{tr.append(h('td',{class:'stt'},stRange(r)));ds.forEach(c=>tr.append(h('td',{style:(t.meta&&t.meta[r.id+'|'+c.id]&&t.meta[r.id+'|'+c.id].done)?'text-decoration:line-through;opacity:.6':null},(t.cells[r.id+'|'+c.id]||'').split('\n').flatMap((ln,i)=>i?[h('br'),ln]:[ln]))))}
-    body.append(tr)});
-  tb.append(body);if(edit)setTimeout(()=>tb.querySelectorAll('textarea').forEach(autoGrow),0);return tb}
 function stRename(t){const i=h('input',{class:'cin',value:t.name||'','aria-label':'Table name'});
   const go=()=>{t.name=i.value.trim()||t.name;dirty();m.close();stPaint()};i.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
   const m=modal('Rename table',i,[h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',onclick:go},'Save')]);i.select()}
@@ -3479,8 +3483,8 @@ function stAlarmDlg(t,r,c){const k=r.id+'|'+c.id,m=stMeta(t,k),cur=m&&m.al?new D
   const di=h('input',{type:'date',class:'cin',value:cur?iso(cur):def.date,'aria-label':'Alarm date'}),ti=h('input',{type:'time',class:'cin',value:cur?pad(cur.getHours())+':'+pad(cur.getMinutes()):def.time,'aria-label':'Alarm time'});
   const pre=h('select',{class:'cin','aria-label':'Ring before the cell time'},[[0,'At that time'],[5,'5 minutes before'],[10,'10 minutes before'],[15,'15 minutes before'],[30,'30 minutes before'],[60,'1 hour before']].map(x=>h('option',{value:x[0]},x[1])));
   const go=()=>{if(!di.value||!ti.value){toast('Pick a date and time');return}const p=ti.value.split(':'),d=parseISO(di.value);d.setHours(+p[0],+p[1],0,0);const ms=d.getTime()-(+pre.value)*60000;
-    if(ms<=Date.now()){toast('That time has already passed');return}const mm=stMeta(t,k,1);mm.al=ms;mm.fired=false;dirty();m2.close();stPaint();toast('Alarm set for '+stFmt(ms))};
-  const clr=h('button',{class:'btn',onclick:()=>{const mm=stMeta(t,k);if(mm){delete mm.al;delete mm.fired;if(!mm.done)delete t.meta[k]}dirty();m2.close();stPaint()}},'Clear alarm');
+    if(ms<=Date.now()){toast('That time has already passed');return}const mm=stMeta(t,k,1);stCdClear(mm);mm.al=ms;mm.fired=false;dirty();m2.close();stPaint();toast('Alarm set for '+stFmt(ms))};
+  const clr=h('button',{class:'btn',onclick:()=>{const mm=stMeta(t,k);if(mm){delete mm.al;delete mm.fired;stCdClear(mm);if(!mm.done)delete t.meta[k]}dirty();m2.close();stPaint()}},'Clear alarm');
   const lab=(x,el)=>h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px'},x,el);
   const m2=modal('Alarm for '+stCellWhen(t,r.id,c.id),h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('p',{class:'psub',style:'margin:0'},((t.cells[k]||'').trim().split('\n')[0]||'This cell')+'. The alarm rings on this phone even when the app is closed.'),lab('Date',di),lab('Time',ti),lab('Ring',pre)),
     [h('button',{class:'btn',onclick:()=>m2.close()},'Cancel')].concat(cur?[clr]:[],[h('button',{class:'btn primary',onclick:go},'Set alarm')]))}
@@ -3488,7 +3492,7 @@ let stLast=0;
 function stTick(){const now=Date.now();if(now-stLast<2000)return;stLast=now;
   for(const t of stList()){for(const k of Object.keys(t.meta||{})){const m=t.meta[k];if(!m||!m.al||m.fired||m.al>now)continue;m.fired=true;dirty();
     if(now-m.al<120000){const[rid,cid]=k.split('|'),tx=((t.cells||{})[k]||'').trim().split('\n')[0]||'Simple table';
-      window.stRingCell={tid:t.id,key:k};ringNode=null;$('#rtext').textContent=tx+' \u2022 '+(t.name||'')+' '+stCellWhen(t,rid,cid);$('#ring').hidden=false;beep(4);clearInterval(ringT);ringT=setInterval(()=>beep(4),2200);notify('Alarm',tx)}}}}
+      window.stRingCell={tid:t.id,key:k};ringNode=null;$('#rtext').textContent=tx+' \u2022 '+(t.name||'')+' '+stCellWhen(t,rid,cid);$('#ring').hidden=false;beep(4);clearInterval(ringT);ringT=setInterval(()=>beep(4),2200);notify(m.cd?'Timer finished':'Alarm',tx)}}}}
 function stSnooze(){const c=window.stRingCell;if(!c)return;const t=stList().find(x=>x.id===c.tid),m=t&&stMeta(t,c.key);if(m){m.al=Date.now()+300000;m.fired=false;dirty()}}
 function stOpenRung(){const c=window.stRingCell;window.stRingCell=null;if(c){STS.id=c.tid;openSimple()}}
 function stPomo(t,r,c){const k=r.id+'|'+c.id,tx=(t.cells[k]||'').trim().split('\n')[0];pm().node=null;pm().label=(tx||'Simple table')+' \u00b7 '+stCellWhen(t,r.id,c.id);dirty();pomoOpen()}
@@ -3535,7 +3539,7 @@ function moveBoxesDlg(ids,title){ids=ids.filter(id=>N(id)&&N(id).parent&&!N(id).
   const list=h('div',{style:'display:flex;flex-direction:column;gap:2px;max-height:34vh;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:4px'},checks.map(x=>h('label',{style:'display:flex;gap:8px;align-items:center;padding:4px;min-width:0'},x.c,h('span',{style:'min-width:0;overflow-wrap:anywhere'},(numOf(x.id)?numOf(x.id)+'  ':'')+nodeLabel(N(x.id)),(()=>{const k=descendants(x.id).filter(q=>N(q)&&!N(q).ref).length;return k?h('small',{class:'psub'},'  +'+k+' inside'):null})()))));
   const all=h('button',{class:'btn',onclick:()=>{const on=checks.some(x=>!x.c.checked);checks.forEach(x=>x.c.checked=on)}},'Select all / none');
   const di=h('input',{type:'date',class:'cin',value:fd,'aria-label':'Destination date'});
-  const sl=h('select',{class:'cin','aria-label':'Destination time row'},S.slots.map(s=>h('option',{value:s.id},s.s+'–'+s.e+(s.label?'  '+s.label:''))));sl.value=S.slots.some(s=>s.id===fs)?fs:S.slots[0].id;
+  const sl=h('select',{class:'cin','aria-label':'Destination time row'},S.slots.map(s=>h('option',{value:s.id},slotTxt(s)+(s.x?'':s.label?'  '+s.label:''))));sl.value=S.slots.some(s=>s.id===fs)?fs:S.slots[0].id;
   let mode='copy';const mk=(v,t)=>h('button',{class:'btn'+(mode===v?' primary':''),'aria-pressed':String(mode===v),onclick:e=>{mode=v;[...e.target.parentNode.children].forEach(b=>{b.classList.remove('primary');b.setAttribute('aria-pressed','false')});e.target.classList.add('primary');e.target.setAttribute('aria-pressed','true')}},t);
   const lab=(x,el)=>h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px'},x,el);
   const go=async()=>{const pick=topSel(checks.filter(x=>x.c.checked).map(x=>x.id));if(!pick.length){toast('Tick at least one box');return}if(!di.value){toast('Pick a date');return}
@@ -3559,7 +3563,7 @@ function treeText(dates,from,to){const L=[];
     sl.forEach(s=>{const id=S.cells[dt+'|'+s.id];if(!id||!N(id))return;
       if(from!=null){const a=stMs(dt,s.s),b=stMs(dt,s.e,tmin(s.e)<=tmin(s.s)?864e5:0);if(!(a<=to&&b>=from))return}
       const rows=flatTree(id);if(!rows.length)return;
-      blocks.push('  '+s.s+'–'+s.e+(s.label?'  '+s.label:''));
+      blocks.push('  '+slotTxt(s)+(s.x?'':s.label?'  '+s.label:''));
       rows.forEach(r=>{const pad2='    '+'  '.repeat(Math.min(r.d,8));
         if(r.x)blocks.push(pad2+(r.x.num?r.x.num+' ':'')+r.x.k.toLowerCase()+': '+(r.x.done?'✓ ':'')+r.x.t);
         else blocks.push(pad2+(numOf(r.b)?numOf(r.b)+' ':'')+(r.c.st==='d'?'✓ ':r.c.st==='p'?'○ ':'')+(boxName(r.c)||'(empty)'))})});
@@ -3586,6 +3590,693 @@ function shareTreeDlg(){
     [h('button',{class:'btn',onclick:()=>m.close()},'Close'),h('button',{class:'btn',onclick:async()=>{const v=txt();if(!v){toast('Nothing to copy');return}await copyText(v);toast('Copied')}},'Copy'),
      h('button',{class:'btn primary',onclick:()=>{const v=txt();if(!v){toast('Nothing to share');return}shareOut('My timetable',v)}},'Share via apps…')]);
   m.firstChild.classList.add('wide');paintDays();show()}
+
+/* ---- simple tables: confirm, selection, merge, own rows/columns, entry mode ---- */
+const stAsk=()=>{try{return localStorage.getItem('tt-stconf')!=='0'}catch(e){return true}};
+function stConfirm(msg,fn,label){if(!stAsk()){fn();return}
+  const m=modal('Please confirm',h('p',{style:'margin:0'},msg),[h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',onclick:()=>{m.close();fn()}},label||'Delete')])}
+function stPos(t,k){const a=k.split('|');return[t.rows.findIndex(r=>r.id===a[0]),stCols(t).findIndex(c=>c.id===a[1])]}
+function stSelKeys(t){if(!STS.sel)return[];return[...STS.sel].filter(k=>{const p=stPos(t,k);return p[0]>=0&&p[1]>=0})}
+function stLayout(t){const ds=stCols(t),M=t.merge=t.merge||{},span={},cov=new Set();
+  Object.keys(M).forEach(k=>{const p=stPos(t,k),ri=p[0],ci=p[1];if(ri<0||ci<0){delete M[k];return}
+    const rs=Math.min(M[k].rs,t.rows.length-ri),cs=Math.min(M[k].cs,ds.length-ci);let bad=rs*cs<2;const ks=[];
+    for(let i=0;i<rs&&!bad;i++)for(let j=0;j<cs;j++){const kk=t.rows[ri+i].id+'|'+ds[ci+j].id;if(cov.has(kk)||span[kk]){bad=true;break}ks.push(kk)}
+    if(bad){delete M[k];return}span[k]={rs,cs};ks.forEach(kk=>{if(kk!==k)cov.add(kk)})});
+  return{span,cov}}
+function stBreak(t,kind,a,b){const M=t.merge||{};Object.keys(M).forEach(k=>{const p=stPos(t,k),s=M[k],lo=kind==='r'?p[0]:p[1],n=kind==='r'?s.rs:s.cs;if((a>=lo&&a<lo+n)||(b>=lo&&b<lo+n))delete M[k]})}
+function stMoveCol(t,c,d){const i=t.cols.indexOf(c),j=i+d;if(j<0||j>=t.cols.length)return;stBreak(t,'c',i,j);const x=t.cols[i];t.cols[i]=t.cols[j];t.cols[j]=x;dirty();stPaint()}
+/* manual sizes: drag the handle on a column's right edge or a row's bottom edge */
+function stSizeApply(tbl,t){const ds=stCols(t),dw=t.dw||132,tw=t.tw||132,cols=tbl.querySelectorAll('col');if(!cols.length)return;cols[0].style.width=tw+'px';let sum=tw;ds.forEach((c,i)=>{const w=(t.cw&&t.cw[c.id])||dw;if(cols[i+1])cols[i+1].style.width=w+'px';sum+=w});tbl.style.width=sum+'px'}
+function stRowApply(tr,px){tr.style.height=px?px+'px':'';tr.querySelectorAll('textarea.stc').forEach(ta=>{ta.style.minHeight=px?Math.max(30,px-36)+'px':'';if(tr.isConnected)autoGrow(ta)})}
+function stDrag(el,axis,get,set,reset){
+  el.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();const p0=axis==='x'?e.clientX:e.clientY,v0=get();try{el.setPointerCapture(e.pointerId)}catch(x){}
+    const mv=ev=>set(v0+(axis==='x'?ev.clientX:ev.clientY)-p0),up=()=>{el.removeEventListener('pointermove',mv);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up);dirty()};
+    el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up)});
+  el.addEventListener('dblclick',e=>{e.stopPropagation();reset();dirty()});el.addEventListener('click',e=>e.stopPropagation())}
+function stColHandle(t,c){const hd=h('span',{class:'stzc',title:'Drag to change this column\u2019s width. Double-tap to reset.','aria-label':'Resize column'});
+  stDrag(hd,'x',()=>(t.cw&&t.cw[c.id])||t.dw||132,v=>{t.cw=t.cw||{};t.cw[c.id]=Math.max(70,Math.min(640,Math.round(v)));stSizeApply(hd.closest('table'),t)},()=>{if(t.cw)delete t.cw[c.id];stSizeApply(hd.closest('table'),t)});return hd}
+function stTimeHandle(t){const hd=h('span',{class:'stzc',title:'Drag to change the width of the time column. Double-tap to reset.','aria-label':'Resize time column'});
+  stDrag(hd,'x',()=>t.tw||132,v=>{t.tw=Math.max(90,Math.min(320,Math.round(v)));stSizeApply(hd.closest('table'),t)},()=>{delete t.tw;stSizeApply(hd.closest('table'),t)});return hd}
+function stRowHandle(t,r){const hd=h('span',{class:'stzr',title:'Drag to change this row\u2019s height. Double-tap to reset.','aria-label':'Resize row'});
+  stDrag(hd,'y',()=>(t.rh&&t.rh[r.id])||hd.closest('tr').offsetHeight,v=>{t.rh=t.rh||{};t.rh[r.id]=Math.max(44,Math.min(900,Math.round(v)));stRowApply(hd.closest('tr'),t.rh[r.id])},()=>{if(t.rh)delete t.rh[r.id];stRowApply(hd.closest('tr'),0)});return hd}
+function stSizesDlg(t){const mk=(lab,min,max,val,on)=>{const out=h('span',{class:'psub'},val?val+' px':'automatic'),rg=h('input',{type:'range',min:String(min),max:String(max),value:String(val||Math.max(min,60)),'aria-label':lab,oninput:()=>{out.textContent=rg.value+' px';on(+rg.value)}});return h('label',{style:'display:flex;flex-direction:column;gap:4px;font-size:13px'},h('span',null,lab+'  ',out),rg)};
+  const m=modal('Row and column sizes',h('div',{style:'display:flex;flex-direction:column;gap:12px'},h('p',{class:'psub',style:'margin:0'},'You can also drag the thin handle on a column\u2019s right edge or a row\u2019s bottom edge. Double-tap a handle to reset that one.'),
+    mk('Time column width',90,320,t.tw||132,v=>{t.tw=v;stSave();stPaint()}),mk('All day columns width',70,400,t.dw||132,v=>{t.dw=v;t.cw={};stSave();stPaint()}),mk('All rows height',44,400,0,v=>{t.rh={};t.rows.forEach(x=>{t.rh[x.id]=v});stSave();stPaint()})),
+    [h('button',{class:'btn',onclick:()=>{delete t.dw;delete t.tw;delete t.cw;delete t.rh;dirty();m.close();stPaint()}},'Reset sizes'),h('button',{class:'btn primary',onclick:()=>m.close()},'Done')])}
+function stRowRemove(t,r){stConfirm('Delete the row “'+stRange(r)+'” and everything typed in it?',()=>{snap();const i=t.rows.indexOf(r);t.rows.splice(i,1);stCols(t).forEach(c=>{const k=r.id+'|'+c.id;delete t.cells[k];if(t.meta)delete t.meta[k]});dirty();stPaint()})}
+function stColRemove(t,c){stConfirm('Delete the column “'+stColLbl(c,true)+'” and everything typed in it?',()=>{snap();t.cols.splice(t.cols.indexOf(c),1);Object.keys(t.cells).concat(Object.keys(t.meta||{})).forEach(x=>{if(x.split('|')[1]===c.id){delete t.cells[x];if(t.meta)delete t.meta[x]}});dirty();stPaint()})}
+function stSelUpd(){const p=stEl(),t=stCur(),n=stSelKeys(t).length,c=$('#stselc');if(c)c.textContent=n+' selected';
+  p.querySelectorAll('td[data-k]').forEach(td=>{const on=!!(STS.sel&&STS.sel.has(td.dataset.k));td.classList.toggle('sts',on);const cb=td.querySelector('.stsel');if(cb)cb.checked=on});
+  p.querySelectorAll('input[data-grp]').forEach(cb=>{const ks=cb.dataset.grp.split(',');cb.checked=ks.length>0&&ks.every(k=>STS.sel&&STS.sel.has(k))})}
+function stGrpBox(t,keys,label){const cb=h('input',{type:'checkbox',class:'stsel','aria-label':label,'data-grp':keys.join(',')});
+  cb.onchange=()=>{keys.forEach(k=>cb.checked?STS.sel.add(k):STS.sel.delete(k));stSelUpd()};return cb}
+function stHead(t,c){const dayKeys=t.rows.map(r=>r.id+'|'+c.id),ord=h('div',{class:'sttb'},h('button',{class:'tb eb','aria-label':'Move column left',title:'Move column left',onclick:()=>stMoveCol(t,c,-1),html:'\u2039'}),h('button',{class:'tb eb','aria-label':'Move column right',title:'Move column right',onclick:()=>stMoveCol(t,c,1),html:'\u203a'})),rm=h('button',{class:'tb eb',title:'Delete this column','aria-label':'Delete column',html:'✕',onclick:()=>stColRemove(t,c)});
+  const cb=STS.sel?stGrpBox(t,dayKeys,'Select column '+stColLbl(c,true)):null;
+  if(c.x){const ti=h('input',{class:'stds',value:c.title||'',placeholder:'Column title','aria-label':'Column title',onchange:()=>{c.title=ti.value.trim();dirty();stPaint()}});
+    return h('th',null,h('div',{class:'sthd'},cb,ti,rm),ord,stColHandle(t,c))}
+  const sel=h('select',{class:'stds','aria-label':'Day',onchange:()=>{const nd=+sel.value;if(c.date){c.date=addDaysISO(c.date,nd-stWd(c.date))}c.d=nd;dirty();stPaint()}},SDN.map((n,i)=>h('option',{value:i},n)));sel.value=String(stColDay(c));
+  const di=h('input',{type:'date',class:'stdi',value:c.date||'','aria-label':'Date for '+stColLbl(c,true),onchange:()=>{c.date=di.value||'';if(c.date)c.d=stWd(c.date);dirty();stPaint()}});
+  return h('th',null,h('div',{class:'sthd'},cb,sel,rm),di,ord,stColHandle(t,c))}
+function stRowHead(t,r,ri,ds){
+  const cb=STS.sel?stGrpBox(t,ds.map(c=>r.id+'|'+c.id),'Select row '+stRange(r)):null;
+  const mv=d=>()=>{const j=ri+d;if(j<0||j>=t.rows.length)return;stBreak(t,'r',ri,j);const x=t.rows[ri];t.rows[ri]=t.rows[j];t.rows[j]=x;dirty();stPaint()};
+  const rm=h('button',{class:'tb eb',title:'Delete this row','aria-label':'Delete row',html:'✕',onclick:()=>stRowRemove(t,r)});
+  let top;
+  if(r.x){const li=h('input',{value:r.label||'',placeholder:'Row label','aria-label':'Row label',onchange:()=>{r.label=li.value.trim();dirty()}});top=h('div',{class:'sttr'},li)}
+  else{const si=h('input',{type:'time',value:r.s||'','aria-label':'Start',onchange:()=>{r.s=si.value;stSave()}}),ei=h('input',{type:'time',value:r.e||'','aria-label':'End',onchange:()=>{r.e=ei.value;stSave()}});top=h('div',{class:'sttr'},si,ei)}
+  return h('td',{class:'stt'},cb,top,h('div',{class:'sttb'},h('button',{class:'tb eb','aria-label':'Move row up',onclick:mv(-1),html:'↑'}),h('button',{class:'tb eb','aria-label':'Move row down',onclick:mv(1),html:'↓'}),rm),stRowHandle(t,r))}
+function stCellDone(t,k){const m=t.meta&&t.meta[k];return !!(m&&m.done)}
+function stToggleDone(t,k){const mm=stMeta(t,k,1);mm.done=!mm.done;if(!mm.done&&!mm.al)delete t.meta[k];dirty();return !!mm.done}
+function stCell(t,r,c,k,sp){const m=stMeta(t,k),
+  ta=h('textarea',{class:'stc'+(m&&m.done?' sdn':''),rows:'2','aria-label':stColLbl(c,true)+' '+stRange(r),value:t.cells[k]||'',oninput:()=>{t.cells[k]=ta.value;if(!ta.value)delete t.cells[k];autoGrow(ta);stSave()}});
+  const done=h('button',{class:'stab'+(m&&m.done?' on':''),title:m&&m.done?'Undo strike off':'Strike off','aria-label':'Strike off','aria-pressed':String(!!(m&&m.done)),onclick:()=>{const d=stToggleDone(t,k);ta.classList.toggle('sdn',d);done.classList.toggle('on',d);done.setAttribute('aria-pressed',String(d))},html:'✓'});
+  const al=h('button',{class:'stab'+(m&&m.al&&!m.fired&&!m.cd?' on':''),title:'Alarm for this cell','aria-label':'Alarm for this cell',onclick:()=>stAlarmDlg(t,r,c)},'⏰'+(m&&m.al&&!m.fired&&!m.cd?' '+stFmt(m.al):''));
+  const cdb=m&&m.cd?h('button',{class:'stab on stcd','data-k':k,title:'Countdown timer. Tap to pause, restart or clear','aria-label':'Countdown timer',onclick:()=>stCdActions(t,r,c)},stCdText(m)):null;
+  const sh=h('button',{class:'stab',title:'Share this cell to WhatsApp, mail or any app','aria-label':'Share this cell',onclick:()=>stShareCell(t,r,c)},'↗');
+  const pm2=h('button',{class:'stab',title:'Pomodoro for this cell','aria-label':'Pomodoro for this cell',onclick:()=>stPomo(t,r,c)},'⏱');
+  const fs=h('button',{class:'stab',title:'Open this cell full screen','aria-label':'Open this cell full screen',onclick:()=>stEntry(t,r,c)},'⛶');
+  const td=h('td',{'data-k':k,class:STS.sel&&STS.sel.has(k)?'sts':null,rowspan:sp&&sp.rs>1?String(sp.rs):null,colspan:sp&&sp.cs>1?String(sp.cs):null});
+  if(STS.sel){const cb=h('input',{type:'checkbox',class:'stsel','aria-label':'Select cell '+stColLbl(c,true)+' '+stRange(r),checked:STS.sel.has(k)?true:null});cb.onchange=()=>{cb.checked?STS.sel.add(k):STS.sel.delete(k);stSelUpd()};td.append(cb)}
+  td.append(ta,h('div',{class:'stba'},done,cdb,al,pm2,sh,fs));return td}
+function stGrid(t,edit){const ds=stCols(t),L=stLayout(t);
+  const tb=h('table',{class:'stg'}),hd=h('tr',null,h('th',null,'Time',edit?stTimeHandle(t):null),ds.map(c=>edit?stHead(t,c):h('th',null,stColLbl(c,true))));if(edit){tb.append(h('colgroup',null,h('col'),ds.map(()=>h('col'))));stSizeApply(tb,t)}tb.append(h('thead',null,hd));
+  const body=h('tbody');
+  t.rows.forEach((r,ri)=>{const tr=h('tr');
+    if(edit){tr.append(stRowHead(t,r,ri,ds));ds.forEach(c=>{const k=r.id+'|'+c.id;if(L.cov.has(k))return;tr.append(stCell(t,r,c,k,L.span[k]))})}
+    else{tr.append(h('td',{class:'stt'},stRange(r)));ds.forEach(c=>{const k=r.id+'|'+c.id;if(L.cov.has(k))return;const sp=L.span[k];
+      tr.append(h('td',{rowspan:sp&&sp.rs>1?String(sp.rs):null,colspan:sp&&sp.cs>1?String(sp.cs):null,style:stCellDone(t,k)?'text-decoration:line-through;opacity:.6':null},(t.cells[k]||'').split('\n').flatMap((ln,i)=>i?[h('br'),ln]:[ln])))})}
+    if(edit&&t.rh&&t.rh[r.id])stRowApply(tr,t.rh[r.id]);
+    body.append(tr)});
+  tb.append(body);if(edit)setTimeout(()=>tb.querySelectorAll('textarea').forEach(autoGrow),0);return tb}
+function stMerge(t){const ks=stSelKeys(t);if(ks.length<2){toast('Tick two or more cells to merge');return}
+  const ds=stCols(t),ps=ks.map(k=>stPos(t,k)),r0=Math.min(...ps.map(x=>x[0])),r1=Math.max(...ps.map(x=>x[0])),c0=Math.min(...ps.map(x=>x[1])),c1=Math.max(...ps.map(x=>x[1])),M=t.merge=t.merge||{};
+  snap();Object.keys(M).forEach(a=>{const p=stPos(t,a);if(p[0]<0){delete M[a];return}const s=M[a];if(!(p[0]>r1||p[0]+s.rs-1<r0||p[1]>c1||p[1]+s.cs-1<c0))delete M[a]});
+  const ak=t.rows[r0].id+'|'+ds[c0].id,tx=[];
+  for(let i=r0;i<=r1;i++)for(let j=c0;j<=c1;j++){const k=t.rows[i].id+'|'+ds[j].id,v=(t.cells[k]||'').trim();if(v)tx.push(v);if(k!==ak){delete t.cells[k];if(t.meta)delete t.meta[k]}}
+  if(tx.length)t.cells[ak]=tx.join('\n');else delete t.cells[ak];
+  M[ak]={rs:r1-r0+1,cs:c1-c0+1};STS.sel=new Set([ak]);dirty();stPaint();toast('Merged '+((r1-r0+1)*(c1-c0+1))+' cells')}
+function stUnmerge(t){const ks=stSelKeys(t).map(k=>stPos(t,k)),M=t.merge||{},hit=Object.keys(M).filter(a=>{const p=stPos(t,a),s=M[a];return ks.some(q=>q[0]>=p[0]&&q[0]<p[0]+s.rs&&q[1]>=p[1]&&q[1]<p[1]+s.cs)});
+  if(!hit.length){toast('No merged cells in the selection');return}snap();hit.forEach(a=>delete M[a]);dirty();stPaint();toast('Unmerged')}
+function stDelSel(t){const ks=stSelKeys(t);if(!ks.length){toast('Tick the cells first');return}
+  stConfirm('Delete what is typed in '+ks.length+' cell'+(ks.length>1?'s':'')+', including strike-offs and alarms?',()=>{snap();ks.forEach(k=>{delete t.cells[k];if(t.meta)delete t.meta[k]});dirty();stPaint();toast('Deleted')})}
+function stXferDlg(t,move){const lay=stLayout(t),ks=stSelKeys(t).filter(k=>!lay.cov.has(k));if(!ks.length){toast('Tick the cells first');return}
+  const ps=ks.map(k=>({k,p:stPos(t,k)})),r0=Math.min(...ps.map(x=>x.p[0])),c0=Math.min(...ps.map(x=>x.p[1]));
+  const tsel=h('select',{class:'cin','aria-label':'Destination table'},stList().map(x=>h('option',{value:x.id},x.name||'(unnamed)')));tsel.value=t.id;
+  const rsel=h('select',{class:'cin','aria-label':'Destination row'}),csel=h('select',{class:'cin','aria-label':'Destination column'});
+  const dst=()=>stList().find(x=>x.id===tsel.value);
+  const fill=()=>{const d=dst();stFix(d);rsel.textContent='';csel.textContent='';d.rows.forEach((r,i)=>rsel.append(h('option',{value:i},(i+1)+'. '+stRange(r))));stCols(d).forEach((c,i)=>csel.append(h('option',{value:i},stColLbl(c,true))))};
+  tsel.onchange=fill;fill();
+  const run=(d,put)=>{snap();const vals=put.map(x=>({dst:x.dst,tx:t.cells[x.src],mt:t.meta&&t.meta[x.src]?JSON.parse(JSON.stringify(t.meta[x.src])):null}));
+    if(move)put.forEach(x=>{delete t.cells[x.src];if(t.meta)delete t.meta[x.src]});
+    d.meta=d.meta||{};vals.forEach(v=>{if(v.tx)d.cells[v.dst]=v.tx;else delete d.cells[v.dst];if(v.mt){if(!move){delete v.mt.al;delete v.mt.fired;delete v.mt.cd;delete v.mt.cdp;delete v.mt.cdl}else if(v.mt.al)v.mt.fired=false;d.meta[v.dst]=v.mt}else delete d.meta[v.dst]});
+    if(d!==t)STS.id=d.id;STS.sel=new Set();dirty();m.close();stPaint();toast((move?'Moved ':'Copied ')+put.length+' cell'+(put.length>1?'s':''))};
+  const go=()=>{const d=dst(),R=+rsel.value,C=+csel.value,dcs=stCols(d),put=[];let skip=0;
+    ps.forEach(x=>{const rr=R+x.p[0]-r0,cc=C+x.p[1]-c0;if(rr>=d.rows.length||cc>=dcs.length){skip++;return}put.push({src:x.k,dst:d.rows[rr].id+'|'+dcs[cc].id})});
+    if(!put.length){toast('Nothing fits there. Pick an earlier row or column.');return}
+    const over=put.filter(x=>(d.cells[x.dst]||'').trim()&&x.dst!==x.src).length;
+    const doit=()=>{run(d,put);if(skip)toast('Done. '+skip+' cell'+(skip>1?'s':'')+' did not fit and were left out.')};
+    if(over)stConfirm(over+' filled cell'+(over>1?'s':'')+' in the destination will be replaced.',doit,'Replace');else doit()};
+  const lab=(x,el)=>h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px'},x,el);
+  const m=modal((move?'Move ':'Copy ')+ks.length+' cell'+(ks.length>1?'s':''),h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('p',{class:'psub',style:'margin:0'},'Pick where the top-left of your selection should land. The cells keep their layout, with text and strike-offs. '+(move?'Alarms move with them.':'Alarms are not copied.')),lab('Table',tsel),lab('Starting row',rsel),lab('Starting column',csel)),
+    [h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',onclick:go},move?'Move':'Copy')])}
+function stSelBar(t){const lay=stLayout(t);
+  const all=()=>{t.rows.forEach(r=>stCols(t).forEach(c=>{if(!lay.cov.has(r.id+'|'+c.id))STS.sel.add(r.id+'|'+c.id)}));stSelUpd()};
+  return h('div',{class:'gseg stselbar'},h('span',{id:'stselc',class:'psub'},stSelKeys(t).length+' selected'),
+    h('button',{class:'btn',onclick:all},'Select all'),h('button',{class:'btn',onclick:()=>stXferDlg(t,false)},'Copy…'),h('button',{class:'btn',onclick:()=>stXferDlg(t,true)},'Move…'),
+    h('button',{class:'btn',title:'Start a countdown on the ticked cells',onclick:()=>stTimerSel(t)},'Timer\u2026'),h('button',{class:'btn',onclick:()=>stDelSel(t)},'Delete'),h('button',{class:'btn',title:'Join the ticked cells into one. Their text is combined.',onclick:()=>stMerge(t)},'Merge'),h('button',{class:'btn',onclick:()=>stUnmerge(t)},'Unmerge'),h('button',{class:'btn',title:'Smaller or turned text in the ticked cells',onclick:()=>fmtDlg('st',stSelKeys(t))},'Text\u2026'),
+    h('button',{class:'btn',onclick:()=>{STS.sel.clear();stSelUpd()}},'Clear ticks'))}
+function stAddDayCol(t){const cs=t.cols,l=[...cs].reverse().find(x=>!x.x);let c;if(l&&l.date){const d=addDaysISO(l.date,1);c={id:uid(),d:stWd(d),date:d}}else c={id:uid(),d:l?(l.d+1)%7:0,date:''};cs.push(c);dirty();stPaint()}
+function stAddTimeRow(t){const l=[...t.rows].reverse().find(x=>!x.x);let s='09:00',e='10:00';if(l&&l.e){const a=tmin(l.s||l.e),b=tmin(l.e),d=b>a?b-a:60,n=Math.min(1439,b+d);s=l.e;e=pad(Math.floor(n/60))+':'+pad(n%60)}t.rows.push({id:uid(),s,e});dirty();stPaint()}
+function stSortTime(t){const idx=[];t.rows.forEach((r,i)=>{if(!r.x)idx.push(i)});const so=idx.map(i=>t.rows[i]).sort((a,b)=>(a.s||'')<(b.s||'')?-1:(a.s||'')>(b.s||'')?1:0);if(idx.some((i,j)=>t.rows[i]!==so[j])){t.merge={};idx.forEach((i,j)=>{t.rows[i]=so[j]})}dirty();stPaint()}
+function stDataEntry(t){const lay=stLayout(t),ds=stCols(t);let f=null;if(STS.sel){const k=stSelKeys(t)[0];if(k){const q=stPos(t,k);f=[t.rows[q[0]],ds[q[1]]]}}
+  if(!f){for(const r of t.rows){const c=ds.find(c=>!lay.cov.has(r.id+'|'+c.id));if(c){f=[r,c];break}}}if(!f){toast('Add a row and a column first');return}stEntry(t,f[0],f[1])}
+function stDelTable(t){stConfirm('Delete the whole table “'+(t.name||'unnamed')+'”?',()=>{snap();S.simple=stList().filter(x=>x!==t);STS.id=null;STS.sel=STS.sel?new Set():null;dirty();stPaint()})}
+function stTimerSel(t){const ks=stSelKeys(t);if(!ks.length){if(!STS.sel){STS.sel=new Set();stPaint()}toast('Tick the cells that need a timer, then open the menu again or press Timer…');return}stCdDlg(t,ks)}
+/* the table menu: everything that used to crowd the screen */
+function stMenu(t){const ask=stAsk(),it=(l,sub,fn)=>h('button',{class:'res',onclick:()=>{m.close();fn()}},h('span',null,l),h('small',null,sub)),sc=x=>h('p',{class:'sect',style:'margin:8px 2px 0'},x);
+  const m=modal('Table menu',h('div',{class:'rlist',style:'padding:0;max-height:64vh'},
+    sc('This table'),
+    it('Rename table',t.name||'Unnamed',()=>stRename(t)),
+    it('Copy table','Make a duplicate with everything in it',()=>{const n=stMake(t.name+' copy',t);STS.id=n.id;dirty();stPaint();toast('Copied')}),
+    it('Print','Clean preview, then the print dialog',()=>stPrint(t)),
+    it('Share','Pick days and send to WhatsApp, mail or any app',()=>stShare(t)),
+    it('Delete table','Asks first',()=>stDelTable(t)),
+    sc('Days and times'),
+    it('Add a day column','Continues from the last date',()=>stAddDayCol(t)),
+    it('Fill dates','Give every day column its date',()=>stFillDates(t)),
+    it('Clear dates','Keep the day names, remove the dates',()=>{t.cols.forEach(c=>{if(!c.x)c.date=''});dirty();stPaint()}),
+    it('Add a time row','Starts where the last one ends',()=>stAddTimeRow(t)),
+    it('Sort by time','Orders the time rows. Your own rows stay put',()=>stSortTime(t)),
+    sc('Your own rows and columns'),
+    it('Add an own row','A row with a name you type, such as Notes',()=>{t.rows.push({id:uid(),x:true,label:''});dirty();stPaint()}),
+    it('Add an own column','A column with a title you type, such as Homework',()=>{t.cols.push({id:uid(),x:true,title:''});dirty();stPaint()}),
+    it('Sizes…','Width of columns and height of rows',()=>stSizesDlg(t)),
+    it('Text size and rotation…','Smaller text, or turn it sideways',()=>txDlg('st')),
+    sc('Cells'),
+    it(STS.sel?'Stop selecting cells':'Select cells','Tick cells to copy, move, delete, merge or set a timer',()=>{STS.sel=STS.sel?null:new Set();stPaint()}),
+    it('Timer for selected cells','A countdown on each ticked cell. It rings when it ends',()=>stTimerSel(t)),
+    it('Data entry','Fill one cell at a time, full screen',()=>stDataEntry(t)),
+    it('Confirm deletes: '+(ask?'on':'off'),'Ask before anything is deleted',()=>{try{localStorage.setItem('tt-stconf',ask?'0':'1')}catch(e){}stPaint();toast(ask?'Deleting will not ask first':'Deleting will ask first')}),
+    sc('Files'),
+    it('Import Excel','Bring in an .xlsx or CSV file as a new table',()=>xlImportDlg('simple')),
+    it('Export / import JSON','Save, share or load tables as a JSON file',()=>stJsonDlg(t))),
+    [h('button',{class:'btn',onclick:()=>m.close()},'Close')])}
+function stApply(p){p.classList.remove('dock','float','min','stwin');if(STS.view!=='full')p.classList.add(STS.view);
+  if(STS.view==='float'){p.style.left=STS.fx+'px';p.style.top=STS.fy+'px';p.style.width=(STS.fw||Math.min(innerWidth*.94,440))+'px';p.style.height=(STS.fh||Math.round(innerHeight*.62))+'px'}else{p.style.left=p.style.top=p.style.width=p.style.height=''}}
+function stPaint(){const p=stEl(),t=stCur(),old=p.querySelector('.stwrap'),sy=old?old.scrollTop:0,sx=old?old.scrollLeft:0;p.textContent='';
+  stApply(p);
+  const bt=(sym,label,fn,on)=>h('button',{class:'btn gwb'+(on?' primary':''),title:label,'aria-label':label,'aria-pressed':on?'true':null,onclick:fn},sym),set=v=>()=>{STS.view=v;stPaint()};
+  const hd=h('div',{class:'ehead stthead'},h('strong',null,'Simple tables'),h('span',{class:'grow'}),h('button',{class:'btn primary',onclick:()=>stMenu(t)},'☰ Menu'),
+    bt('▁',STS.view==='min'?'Restore':'Minimise',()=>{if(STS.view==='min'){STS.view=STS.prev&&STS.prev!=='min'?STS.prev:'full'}else{STS.prev=STS.view;STS.view='min'}stPaint()},STS.view==='min'),
+    bt('⧉','Undock into a movable window',set('float'),STS.view==='float'),bt('⬓','Dock to the bottom of the screen',set('dock'),STS.view==='dock'),bt('⛶','Full screen',set('full'),STS.view==='full'),bt('✕','Close',closeSimple));
+  let dg=null;
+  hd.addEventListener('pointerdown',e=>{if(STS.view!=='float'||e.target.closest('button'))return;dg={x:e.clientX-STS.fx,y:e.clientY-STS.fy};try{hd.setPointerCapture(e.pointerId)}catch(x){}});
+  hd.addEventListener('pointermove',e=>{if(!dg)return;STS.fx=Math.max(0,Math.min(innerWidth-80,e.clientX-dg.x));STS.fy=Math.max(0,Math.min(innerHeight-40,e.clientY-dg.y));p.style.left=STS.fx+'px';p.style.top=STS.fy+'px'});
+  const dend=()=>{dg=null;if(STS.view==='float'){STS.fw=p.offsetWidth;STS.fh=p.offsetHeight}};hd.addEventListener('pointerup',dend);hd.addEventListener('pointercancel',dend);
+  if(!p._rz){p._rz=1;p.addEventListener('pointerup',()=>{if(STS.view==='float'&&!p.hidden){STS.fw=p.offsetWidth;STS.fh=p.offsetHeight}})}
+  p.append(hd);
+  const sel=h('select',{class:'cin','aria-label':'Choose a table',style:'flex:1 1 5em;min-width:0',onchange:()=>{STS.id=sel.value;STS.sel=STS.sel?new Set():null;stPaint()}},stList().map(x=>h('option',{value:x.id},x.name||'(unnamed)')));sel.value=t.id;
+  p.append(h('div',{class:'gseg'},sel,h('button',{class:'btn',onclick:()=>{const n=stMake();STS.id=n.id;dirty();stPaint()}},'+ New'),
+    h('button',{class:'btn'+(STS.sel?' primary':''),'aria-pressed':String(!!STS.sel),title:'Tick one or many cells to copy, move, delete, merge or set a timer',onclick:()=>{STS.sel=STS.sel?null:new Set();stPaint()}},STS.sel?'Done selecting':'Select cells'),
+    h('button',{class:'btn',title:'Fill the table one cell at a time, full screen',onclick:()=>stDataEntry(t)},'Data entry')));
+  if(STS.sel)p.append(stSelBar(t));
+  const ti=h('input',{class:'stname',value:t.name||'',placeholder:'Table name','aria-label':'Table name',onchange:()=>{t.name=ti.value.trim()||t.name||'Table';dirty();stPaint()}});
+  p.append(ti);
+  const wrap=h('div',{class:'stwrap'});wrap.append(stGrid(t,true));p.append(wrap);wrap.scrollTop=sy;wrap.scrollLeft=sx;
+  p.append(h('p',{class:'psub',style:'margin:6px 0 0'},'Type straight into the grid. Use ⛶ on a cell, or Data entry, to fill it one cell at a time.'));
+  if(STS.view==='float')p.append(wGrip(p,STS))}
+/* ---- the cell window: minimise, dock, undock, resize ---- */
+/* a corner grip that works with a finger: drag it to resize an undocked window */
+function wGrip(p,st){const g=h('div',{class:'wgrip',title:'Drag to resize','aria-label':'Resize window'});let o=null;
+  g.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();o={x:e.clientX,y:e.clientY,w:p.offsetWidth,h:p.offsetHeight};try{g.setPointerCapture(e.pointerId)}catch(x){}});
+  g.addEventListener('pointermove',e=>{if(!o)return;const w=Math.max(250,Math.min(innerWidth-st.fx,o.w+e.clientX-o.x)),hh=Math.max(170,Math.min(innerHeight-st.fy,o.h+e.clientY-o.y));st.fw=Math.round(w);st.fh=Math.round(hh);p.style.width=st.fw+'px';p.style.height=st.fh+'px'});
+  const end=()=>{o=null};g.addEventListener('pointerup',end);g.addEventListener('pointercancel',end);return g}
+function stLive(k){const p=$('#stbl'),t=stList().find(x=>x.id===STS.id);if(!p||!t)return;const ta=p.querySelector('td[data-k="'+k+'"] textarea.stc');if(ta){const v=t.cells[k]||'';if(ta.value!==v){ta.value=v;autoGrow(ta)}}}
+const STE={view:'full',prev:'full',fx:12,fy:80,fw:0,fh:0};
+function steApply(p){p.classList.remove('dock','float','min');if(STE.view!=='full')p.classList.add(STE.view);
+  if(STE.view==='float'){p.style.left=STE.fx+'px';p.style.top=STE.fy+'px';p.style.width=(STE.fw||Math.min(innerWidth*.94,420))+'px';p.style.height=(STE.fh||Math.round(innerHeight*.58))+'px'}else{p.style.left=p.style.top=p.style.width=p.style.height=''}}
+function steHead(p,close,t,i,n){
+  const bt=(sym,label,fn,on)=>h('button',{class:'btn gwb'+(on?' primary':''),title:label,'aria-label':label,'aria-pressed':on?'true':null,onclick:fn},sym),set=v=>()=>{STE.view=v;steApply(p);hd2()};
+  const hd2=()=>{const o=p.querySelector('.stehead');if(o)o.replaceWith(steHead(p,close,t,i,n));const gr=p.querySelector('.wgrip');if(gr)gr.remove();if(STE.view==='float')p.append(wGrip(p,STE))};
+  const hd=h('div',{class:'ehead stehead'},h('strong',{class:'ztitle'},t.name||'Timetable'),h('span',{class:'grow'}),h('span',{class:'psub'},(i+1)+' of '+n),
+    bt('\u2581',STE.view==='min'?'Restore':'Minimise',()=>{if(STE.view==='min'){STE.view=STE.prev&&STE.prev!=='min'?STE.prev:'full'}else{STE.prev=STE.view;STE.view='min'}steApply(p);hd2()},STE.view==='min'),
+    bt('\u29c9','Undock into a movable window',set('float'),STE.view==='float'),bt('\u2b13','Dock to the bottom of the screen',set('dock'),STE.view==='dock'),bt('\u26f6','Full screen',set('full'),STE.view==='full'),bt('\u2715','Close',close));
+  let dg=null;
+  hd.addEventListener('pointerdown',e=>{if(STE.view!=='float'||e.target.closest('button'))return;dg={x:e.clientX-STE.fx,y:e.clientY-STE.fy};try{hd.setPointerCapture(e.pointerId)}catch(x){}});
+  hd.addEventListener('pointermove',e=>{if(!dg)return;STE.fx=Math.max(0,Math.min(innerWidth-80,e.clientX-dg.x));STE.fy=Math.max(0,Math.min(innerHeight-40,e.clientY-dg.y));p.style.left=STE.fx+'px';p.style.top=STE.fy+'px'});
+  const end=()=>{dg=null;if(STE.view==='float'){STE.fw=p.offsetWidth;STE.fh=p.offsetHeight}};hd.addEventListener('pointerup',end);hd.addEventListener('pointercancel',end);
+  if(!p._rz){p._rz=1;p.addEventListener('pointerup',()=>{if(STE.view==='float'){STE.fw=p.offsetWidth;STE.fh=p.offsetHeight}})}
+  return hd}
+/* ---- data entry: one cell, full screen, forward and backward ---- */
+function stEntry(t,r0,c0){let ov=$('#stent');if(ov)ov.remove();ov=h('div',{id:'stent',class:'srch stent'});document.body.append(ov);STS.eo=STS.eo||'row';
+  const seqf=()=>{const lay=stLayout(t),ds=stCols(t),out=[],add=(r,c)=>{const k=r.id+'|'+c.id;if(!lay.cov.has(k))out.push({r,c,k})};
+    if(STS.eo==='col')ds.forEach(c=>t.rows.forEach(r=>add(r,c)));else t.rows.forEach(r=>ds.forEach(c=>add(r,c)));return out};
+  let seq=seqf(),i=Math.max(0,seq.findIndex(x=>x.r===r0&&x.c===c0));
+  const close=()=>{ov.remove();if(!stEl().hidden)stPaint()};
+  const draw=()=>{steApply(ov);seq=seqf();if(!seq.length){close();return}i=Math.max(0,Math.min(i,seq.length-1));const e=seq[i],{r,c,k}=e;ov.textContent='';
+    const ta=h('textarea',{class:'stbig','aria-label':stColLbl(c,true)+' '+stRange(r),placeholder:'Type here',value:t.cells[k]||'',oninput:()=>{t.cells[k]=ta.value;if(!ta.value)delete t.cells[k];stSave();stLive(k)}});
+    ta.classList.toggle('sdn',stCellDone(t,k));
+    const goRC=(dr,dc)=>{const lay=stLayout(t),ds=stCols(t);let ri=t.rows.indexOf(r),ci=ds.indexOf(c);
+      for(;;){ri+=dr;ci+=dc;if(ri<0||ci<0||ri>=t.rows.length||ci>=ds.length){toast(dr?(dr>0?'No more rows below':'No more rows above'):(dc>0?'No more columns to the right':'No more columns to the left'));return}
+        if(!lay.cov.has(t.rows[ri].id+'|'+ds[ci].id))break}
+      const kk=t.rows[ri].id+'|'+ds[ci].id,j=seq.findIndex(x=>x.k===kk);if(j>=0){i=j;draw()}};
+    const go=d=>{const j=i+d;if(j<0||j>=seq.length){toast(d>0?'That was the last cell':'That is the first cell');return}i=j;draw()};
+    ta.addEventListener('keydown',ev=>{if(ev.key==='Enter'&&(ev.ctrlKey||ev.metaKey)){ev.preventDefault();go(1)}});
+    const m=t.meta&&t.meta[k];
+    const done=h('button',{class:'btn'+(stCellDone(t,k)?' primary':''),'aria-pressed':String(stCellDone(t,k)),onclick:()=>{const d=stToggleDone(t,k);ta.classList.toggle('sdn',d);done.classList.toggle('primary',d);done.setAttribute('aria-pressed',String(d));if(!$('#stbl').hidden)stPaint()}},'✓ Strike off');
+    ov.append(steHead(ov,close,t,i,seq.length),
+      h('div',{class:'stprog'},h('i',{style:'width:'+Math.round((i+1)/seq.length*100)+'%'})),
+      h('div',{class:'stwhere'},h('strong',null,stColLbl(c,true)),h('span',{class:'psub'},stRange(r))),ta,
+      h('div',{class:'gseg'},done,h('button',{class:'btn',onclick:()=>{stAlarmDlg(t,r,c)}},'⏰ Alarm'+(m&&m.al&&!m.fired?' '+stFmt(m.al):'')),h('button',{class:'btn',onclick:()=>{ov.remove();stPomo(t,r,c)}},'⏱ Pomodoro'),h('button',{class:'btn',onclick:()=>stShareCell(t,r,c)},'Share ↗')),
+      h('div',{class:'gseg stdir'},h('button',{class:'btn',onclick:()=>goRC(0,-1)},'\u2190 Column'),h('button',{class:'btn',onclick:()=>goRC(-1,0)},'\u2191 Row'),h('button',{class:'btn',onclick:()=>goRC(1,0)},'Row \u2193'),h('button',{class:'btn',onclick:()=>goRC(0,1)},'Column \u2192')),
+      h('div',{class:'gseg'},h('button',{class:'btn',title:'Across: next time slot, then next day. Down: next slot in the same day first.',onclick:()=>{STS.eo=STS.eo==='col'?'row':'col';const cur=seq[i];seq=seqf();i=Math.max(0,seq.findIndex(x=>x.k===cur.k));draw()}},'Order: '+(STS.eo==='col'?'down each day':'across each time')),
+        h('span',{class:'grow'}),h('button',{class:'btn stnav',onclick:()=>go(-1),disabled:i===0?true:null},'‹ Back'),h('button',{class:'btn primary stnav',onclick:()=>go(1),disabled:i===seq.length-1?true:null},'Next ›')),
+      h('p',{class:'psub',style:'margin:4px 0 0'},'Ctrl+Enter moves to the next cell. Everything saves as you type.'));
+    if(STE.view==='float')ov.append(wGrip(ov,STE));
+    setTimeout(()=>{try{ta.focus({preventScroll:true})}catch(e){}ov.scrollTop=0},0)};
+  draw()}
+
+/* ---- main timetable: own rows and columns, merged cells, name on top ---- */
+const isXd=d=>typeof d==='string'&&d>='2900';
+const xcols=()=>(S.xcols=S.xcols||[]);
+const xcolOf=date=>xcols().find(c=>c.date===date);
+const slotTxt=s=>s.x?(s.label||'Row'):s.s+'–'+s.e;
+function xdate(){const n=S.xn||0;S.xn=n+1;return(2999-Math.floor(n/336))+'-'+pad(1+Math.floor(n/28)%12)+'-'+pad(1+n%28)}
+/* custom columns sit right after the day column they were added beside */
+function visCols(){const days=dayList().map(iso),xs=xcols(),out=[],first=days[0],last=days[days.length-1],pre=[],post=[],at={};
+  xs.forEach(c=>{const a=c.after;if(!a||a<first)pre.push(c);else if(a>last)post.push(c);else(at[a]=at[a]||[]).push(c)});
+  pre.forEach(c=>out.push({date:c.date,x:c}));days.forEach(d=>{out.push({date:d});(at[d]||[]).forEach(c=>out.push({date:c.date,x:c}))});post.forEach(c=>out.push({date:c.date,x:c}));return out}
+const mgCols=()=>visCols().map(v=>v.date);
+const colW=v=>v.x?(v.x.w||COLW):COLW;
+function colLeft(vc,i){let s=0;for(let k=0;k<i&&k<vc.length;k++)s+=colW(vc[k]);return s}
+function colNear(vc,px){let s=0,best=0,bd=1e9;for(let k=0;k<vc.length;k++){const d=Math.abs(s-px);if(d<bd){bd=d;best=k}s+=colW(vc[k])}return best}
+function colFloor(vc,px){let s=0;for(let k=0;k<vc.length;k++){s+=colW(vc[k]);if(s>px)return k}return Math.max(0,vc.length-1)}
+function gridSizeApply(){const t=$('#grid'),vc=visCols(),cols=t.querySelectorAll('colgroup col');if(cols.length!==vc.length+1)return;cols[0].style.width=TCOL+'px';let sum=TCOL;vc.forEach((v,i)=>{const w=colW(v);cols[i+1].style.width=w+'px';sum+=w});t.style.width=sum+'px'}
+function firstDayIdx(){const w=$('.gridwrap'),vc=visCols(),k=colNear(vc,w.scrollLeft);let n=0;for(let q=0;q<k;q++)if(!vc[q].x)n++;return n}
+function colIdxOfDayIdx(i){const vc=visCols();let n=0;for(let q=0;q<vc.length;q++){if(vc[q].x)continue;if(n===i)return q;n++}return Math.max(0,vc.length-1)}
+function mgLayout(cd){const M=S.merge=S.merge||{},span={},cov=new Set();
+  Object.keys(M).forEach(k=>{const a=k.split('|'),ri=S.slots.findIndex(s=>s.id===a[1]),ci=cd.indexOf(a[0]);if(ri<0||ci<0)return;
+    const rs=Math.min(M[k].rs,S.slots.length-ri),cs=Math.min(M[k].cs,cd.length-ci);if(rs*cs<2)return;
+    const ks=[];let bad=false;
+    for(let i=0;i<rs&&!bad;i++)for(let j=0;j<cs;j++){const kk=cd[ci+j]+'|'+S.slots[ri+i].id;if(cov.has(kk)||span[kk]){bad=true;break}ks.push(kk)}
+    if(bad)return;span[k]={rs,cs};ks.forEach(kk=>{if(kk!==k)cov.add(kk)})});
+  return{span,cov}}
+/* a merge that touches a moved or removed row or column is undone, so it never covers the wrong cells */
+function mgDrop(rowIds,dates){const M=S.merge||{},cd=mgCols();
+  Object.keys(M).forEach(k=>{const a=k.split('|'),ri=S.slots.findIndex(s=>s.id===a[1]),ci=cd.indexOf(a[0]);if(ri<0||ci<0)return;const m=M[k];
+    const rows=S.slots.slice(ri,ri+m.rs).map(s=>s.id),cols=cd.slice(ci,ci+m.cs);
+    if(rows.some(x=>rowIds&&rowIds.has(x))||cols.some(x=>dates&&dates.has(x)))delete M[k]})}
+function moveSlot(s,d){const i=S.slots.indexOf(s),j=i+d;if(j<0||j>=S.slots.length)return;mgDrop(new Set([s.id,S.slots[j].id]),null);const x=S.slots[i];S.slots[i]=S.slots[j];S.slots[j]=x;dirty();renderGrid()}
+function slotsChanged(){const idx=[];S.slots.forEach((s,i)=>{if(!s.x)idx.push(i)});const so=idx.map(i=>S.slots[i]).sort((a,b)=>a.s<b.s?-1:a.s>b.s?1:a.e<b.e?-1:a.e>b.e?1:0);
+  if(idx.some((i,j)=>S.slots[i]!==so[j]))mgDrop(new Set(S.slots.map(s=>s.id)),null);idx.forEach((i,j)=>{S.slots[i]=so[j]});dirty();renderGrid()}
+function selKey(){return ui.lastKey&&ui.lastKey.indexOf('|')>0?ui.lastKey:null}
+function addXRow(afterId){const sk=selKey(),ref=afterId||(sk?sk.split('|')[1]:null),i=ref?S.slots.findIndex(s=>s.id===ref):-1,row={id:'s'+uid(),x:true,label:'',s:'23:58',e:'23:59'};
+  S.slots.splice(i>=0?i+1:S.slots.length,0,row);dirty();renderGrid();
+  setTimeout(()=>{const th=document.querySelector('#grid th[data-sid="'+row.id+'"]');if(th){th.scrollIntoView({block:'nearest',inline:'nearest'});const inp=th.querySelector('input');if(inp)inp.focus()}},60);
+  toast(i>=0?'Custom row added right below the selected row. Type its name on the left.':'Custom row added. Type its name on the left.')}
+function addXCol(afterDate){const sel=afterDate||(selKey()?selKey().split('|')[0]:null),L=xcols(),days=dayList().map(iso),c={id:'x'+uid(),title:'',date:xdate()};
+  if(sel&&isXd(sel)&&xcolOf(sel)){const o=xcolOf(sel);c.after=o.after||null;L.splice(L.indexOf(o)+1,0,c)}
+  else if(sel&&days.includes(sel)){c.after=sel;L.unshift(c)}
+  else{c.after=days[Math.max(0,Math.min(days.length-1,firstDayIdx()))];L.unshift(c)}
+  dirty();renderGrid();
+  setTimeout(()=>{const w=$('.gridwrap'),vc=visCols(),ci=vc.findIndex(v=>v.x===c),x0=colLeft(vc,ci);if(x0<w.scrollLeft||x0+colW(vc[ci])+TCOL>w.scrollLeft+w.clientWidth)w.scrollLeft=colLeft(vc,Math.max(0,w.clientWidth-TCOL>=2*COLW?ci-1:ci));const inp=document.querySelector('#grid th.xcol[data-xid="'+c.id+'"] input');if(inp)inp.focus()},60);
+  toast('Custom column added right beside the selected one. Type its title in the header.')}
+function moveXCol(c,dir){const vc=visCols(),i=vc.findIndex(v=>v.x===c),j=i+dir;if(i<0||j<0||j>=vc.length)return;const o=vc[j],L=xcols();mgDrop(null,new Set([c.date,o.date]));
+  if(o.x){const a=L.indexOf(c),b=L.indexOf(o.x);L[a]=o.x;L[b]=c}
+  else{const days=dayList().map(iso),k=days.indexOf(o.date);L.splice(L.indexOf(c),1);if(dir<0){c.after=k>0?days[k-1]:null;L.push(c)}else{c.after=o.date;L.unshift(c)}}
+  dirty();renderGrid()}
+function delXCol(c){stConfirm('Delete the column “'+(c.title||'Column')+'” and every box in it?',()=>{snap();mgDrop(null,new Set([c.date]));for(const k of Object.keys(S.cells))if(k.split('|')[0]===c.date)purgeCell(k);S.xcols=xcols().filter(x=>x!==c);dirty();renderGrid()})}
+function delSlot(s){snap();mgDrop(new Set([s.id]),null);for(const k of Object.keys(S.cells))if(k.split('|')[1]===s.id)purgeCell(k);const i=S.slots.indexOf(s);if(i>=0)S.slots.splice(i,1);dirty();renderGrid()}
+function xHead(c){
+  const ti=h('input',{class:'xti',value:c.title||'',placeholder:'Column title','aria-label':'Custom column title',onchange:()=>{c.title=ti.value.trim();dirty()}});
+  const b=(t,l,f,dis)=>h('button',{class:'xs',title:l,'aria-label':l,onclick:f,disabled:dis?true:null,html:t});
+  const vc=visCols(),vi=vc.findIndex(v=>v.x===c),sk=selKey();const rz=h('span',{class:'rzx',title:'Drag to change this column\u2019s width. Double-tap to reset.','aria-label':'Resize custom column'});stDrag(rz,'x',()=>c.w||COLW,v=>{c.w=Math.max(80,Math.min(640,Math.round(v)));gridSizeApply()},()=>{delete c.w;gridSizeApply()});
+  return h('th',{class:'xcol'+(sk&&sk.split('|')[0]===c.date?' selc':''),'data-xid':c.id},h('div',{class:'xhd'},ti),h('div',{class:'xbt'},b('‹','Move column left',()=>moveXCol(c,-1),vi<=0),b('›','Move column right',()=>moveXCol(c,1),vi<0||vi>=vc.length-1),b('+','Add another custom column beside this one',()=>addXCol(c.date)),b(ic('trash',12),'Delete column',()=>delXCol(c))),rz)}
+function rowHead(s,tick){
+  const x=h('button',{class:'xs','aria-label':'Remove row',title:'Remove row',html:ic('trash',12)});arm(x,()=>delSlot(s),'Delete row?');
+  const rz=h('span',{class:'rzr','data-s':s.id,title:'Drag to change this row height. Double-tap to reset.'});
+  if(s.x){const li=h('input',{class:'xli',value:s.label||'',placeholder:'Row name','aria-label':'Custom row name',onchange:()=>{s.label=li.value.trim();dirty()}});
+    const b=(t,l,f)=>h('button',{class:'xs',title:l,'aria-label':l,onclick:f,html:t});
+    return h('th',{class:'tcol xrow'+(selKey()&&selKey().split('|')[1]===s.id?' selr':''),scope:'row','data-sid':s.id},h('div',{class:'tslot'},li,h('div',{class:'xbt'},b('↑','Move row up',()=>moveSlot(s,-1)),b('↓','Move row down',()=>moveSlot(s,1)),b('≡+','Add another custom row below',()=>addXRow(s.id)),x)),rz)}
+  const ia=h('button',{class:'ins a','aria-label':'Insert row above',title:'Insert row above',html:ic('plus',12),onclick:()=>insertSlot(s,-1)});
+  const ib=h('button',{class:'ins b','aria-label':'Insert row below',title:'Insert row below',html:ic('plus',12),onclick:()=>insertSlot(s,1)});
+  return h('th',{class:'tcol'+(selKey()&&selKey().split('|')[1]===s.id?' selr':''),scope:'row','data-sid':s.id},h('div',{class:'tslot'},
+    h('input',{type:'time',value:s.s,'aria-label':'Start time',onchange:e=>{if(e.target.value){s.s=e.target.value;slotsChanged()}}}),
+    h('input',{type:'time',value:s.e,'aria-label':'End time',onchange:e=>{if(e.target.value){s.e=e.target.value;slotsChanged()}}}),ia,x,ib,h('button',{class:'xs xown',title:'Add a custom row right below this one','aria-label':'Add a custom row below this row',onclick:()=>addXRow(s.id)},'≡+')),rz)}
+function cellAct(key,td){ui.lastKey=key;if(ui.msel){if(ui.msel.has(key))ui.msel.delete(key);else ui.msel.add(key);paintSel();return}openCell(key)}
+function paintSel(){document.querySelectorAll('#grid td.cell[data-k]').forEach(td=>td.classList.toggle('msel',!!(ui.msel&&ui.msel.has(td.dataset.k))));const c=$('#mscnt');if(c)c.textContent=(ui.msel?ui.msel.size:0)+' ticked'}
+function mkCell(ds,d,s,L,today,spans){const key=ds+'|'+s.id;if(L.cov.has(key))return null;const sm=summary(key),sp=L.span[key];
+  const td=h('td',{class:'cell'+(d&&ds===today?' today':'')+(d&&d.getDate()===1?' ms':'')+(d?offCls(ds):'')+(isOffSlot(s)?' offh':'')+(ui.msel&&ui.msel.has(key)?' msel':'')+(sp?' merged':''),tabindex:'0',role:'button','aria-label':cellLabel(key),'data-k':key,
+    rowspan:sp&&sp.rs>1?String(sp.rs):null,colspan:sp&&sp.cs>1?String(sp.cs):null,
+    onclick:()=>cellAct(key,td),onkeydown:e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();cellAct(key,td)}}});
+  cellDnD(td,key);const rh=(S.rowH&&S.rowH[s.id])||118,mh=rh*(sp?sp.rs:1);td.style.height=rh+'px';
+  if(sm){treeLines(key,td);
+    const m=h('div',{class:'cm'},h('span',null,sm.total+' box'+(sm.total>1?'es':'')));
+    if(sm.pend+sm.done)m.append(h('span',{class:'tk'},sm.done+'/'+(sm.pend+sm.done)+' done'));if(sm.hi)m.append(h('span',{class:'hi'},sm.hi+' high'));
+    if(sm.att)m.append(h('span',{html:ic('clip')+sm.att}));if(sm.lnk)m.append(h('span',{html:ic('link')+sm.lnk}));
+    if(sm.drw)m.append(h('span',{html:ic('draw')+sm.drw}));if(sm.alm)m.append(h('span',{class:'al',html:ic('bell')+sm.alm}));
+    td.append(m);const inn=h('div',{class:'cinner',style:'max-height:'+(mh-14)+'px'},[...td.childNodes]);td.append(inn);cfApply(inn,key)}
+  if(d&&!s.x)spanMarks(td,spans,ds,s);return td}
+function dayTh(d,today,sk){const ds=iso(d);return h('th',{class:(ds===today?'today':'')+(d.getDate()===1?' ms':'')+offCls(ds)+(sk&&sk.split('|')[0]===ds?' selc':''),title:holOf(ds)?'Holiday: '+holOf(ds).name:null},
+    h('button',{class:'xs xadd',title:'Add a custom column right after this day','aria-label':'Add a custom column after this day',onclick:e=>{e.stopPropagation();addXCol(ds)}},'+'),
+    h('span',{class:'dn'},DOW[d.getDay()]),h('span',{class:'dd'},String(d.getDate())),h('span',{class:'dm'},MON[d.getMonth()]+(d.getDate()===1||d.getMonth()===0&&d.getDate()===1?' '+d.getFullYear():'')),holSpan(ds),dayProg(ds),h('span',{class:'rzc','data-k':'c',title:'Drag to resize all day columns. Double-tap to reset.'}))}
+function buildGrid(){
+  COLW=S.colW||136;TCOL=S.tcolW||138;const days=dayList(),today=iso(new Date()),t=$('#grid'),vc=visCols(),dm={};days.forEach(d=>dm[iso(d)]=d);t.textContent='';t.append(h('colgroup',null,h('col'),vc.map(()=>h('col'))));t.style.setProperty('--tcol',TCOL+'px');$('.gridwrap').style.scrollPaddingLeft=TCOL+'px';
+  const cd=vc.map(v=>v.date),L=mgLayout(cd),sk=selKey();
+  t.append(h('thead',null,h('tr',null,h('th',{class:'tcol'},'Time',h('span',{class:'rzc','data-k':'t',title:'Drag to resize. Double-tap to reset.'})),vc.map(v=>v.x?xHead(v.x):dayTh(dm[v.date],today,sk)))));
+  const tb=h('tbody'),spans=spanMap(days);
+  for(const s of S.slots){const tr=h('tr',null,rowHead(s));
+    vc.forEach(v=>{const td=mkCell(v.date,v.x?null:dm[v.date],s,L,today,spans);if(td)tr.append(td)});
+    tb.append(tr)}
+  t.append(tb);gridSizeApply()}
+/* tick cells, then merge them into one or split them again */
+function mselBar(){let b=$('#msbar');if(!ui.msel){if(b)b.remove();return}
+  if(!b){b=h('div',{id:'msbar',class:'msbar'});document.body.append(b)}b.textContent='';
+  b.append(h('span',{id:'mscnt',class:'psub'},ui.msel.size+' ticked'),h('button',{class:'btn',title:'Join the ticked cells into one. Boxes in them are gathered into the top-left cell.',onclick:mgDoMerge},'Merge'),h('button',{class:'btn',onclick:mgDoUnmerge},'Unmerge'),h('button',{class:'btn',title:'Smaller or turned text in the ticked cells',onclick:()=>fmtDlg('main',[...ui.msel])},'Text\u2026'),
+    h('button',{class:'btn',onclick:()=>{ui.msel.clear();paintSel()}},'Clear'),h('button',{class:'btn primary',onclick:()=>{ui.msel=null;mselBar();renderGrid()}},'Done'))}
+function mgStart(){if(!ui.msel)ui.msel=new Set();mselBar();renderGrid();toast('Tap cells to tick them, then press Merge, Unmerge or Text.')}
+function mgPos(keys){const cd=mgCols();return keys.map(k=>{const a=k.split('|');return{k,r:S.slots.findIndex(s=>s.id===a[1]),c:cd.indexOf(a[0])}}).filter(p=>p.r>=0&&p.c>=0)}
+function mgDoMerge(){const ps=mgPos(ui.msel?[...ui.msel]:[]);if(ps.length<2){toast('Tick two or more cells to merge');return}
+  const cd=mgCols(),r0=Math.min(...ps.map(p=>p.r)),r1=Math.max(...ps.map(p=>p.r)),c0=Math.min(...ps.map(p=>p.c)),c1=Math.max(...ps.map(p=>p.c));
+  if(cd.slice(c0,c1+1).some(d=>isXd(d)!==isXd(cd[c0]))){toast('Custom columns and day columns cannot be merged together');return}
+  if(S.slots.slice(r0,r1+1).some(s=>s.x)&&S.slots.slice(r0,r1+1).some(s=>!s.x)){/* allowed: rows are just rows */}
+  snap();const M=S.merge=S.merge||{};
+  Object.keys(M).forEach(a=>{const p=a.split('|'),ri=S.slots.findIndex(s=>s.id===p[1]),ci=cd.indexOf(p[0]);if(ri<0||ci<0)return;const m=M[a];if(!(ri>r1||ri+m.rs-1<r0||ci>c1||ci+m.cs-1<c0))delete M[a]});
+  const ak=cd[c0]+'|'+S.slots[r0].id,root=cellRoot(ak);let n=0;
+  for(let i=r0;i<=r1;i++)for(let j=c0;j<=c1;j++){const kk=cd[j]+'|'+S.slots[i].id;if(kk===ak)continue;const sid=S.cells[kk],src=sid&&N(sid);if(!src||!src.kids.length)continue;
+    const shift=(isXd(cd[j])||isXd(cd[c0]))?0:dayDiffMs(parseISO(cd[j]),parseISO(cd[c0]));
+    src.kids.slice().forEach(kid=>{const kn=N(kid);if(!kn)return;src.kids=src.kids.filter(x=>x!==kid);kn.parent=root.id;root.kids.push(kid);if(shift)shiftTree(kid,shift);n++})}
+  M[ak]={rs:r1-r0+1,cs:c1-c0+1};ui.msel=new Set([ak]);dirty();afterSched();renderGrid();mselBar();toast('Merged '+((r1-r0+1)*(c1-c0+1))+' cells'+(n?', '+n+' box'+(n>1?'es':'')+' gathered in the top-left one':''))}
+function mgDoUnmerge(){const ps=mgPos(ui.msel?[...ui.msel]:[]),cd=mgCols(),M=S.merge||{};
+  const hit=Object.keys(M).filter(a=>{const p=a.split('|'),ri=S.slots.findIndex(s=>s.id===p[1]),ci=cd.indexOf(p[0]);if(ri<0||ci<0)return false;const m=M[a];return ps.some(q=>q.r>=ri&&q.r<ri+m.rs&&q.c>=ci&&q.c<ci+m.cs)});
+  if(!hit.length){toast('No merged cells ticked');return}snap();hit.forEach(a=>delete M[a]);dirty();renderGrid();mselBar();toast('Unmerged. The boxes stay in the top-left cell.')}
+/* timetable name, large, above the table */
+function ttNameSync(){const i=$('#ttname');if(!i||!S)return;const t=S.tts&&S.tts.find(x=>x.id===S.tt);i.value=t?t.name:(S.ttName||'');}
+(function(){const i=$('#ttname');if(!i)return;
+  i.addEventListener('input',()=>{const t=S.tts&&S.tts.find(x=>x.id===S.tt);if(t)t.name=i.value;else S.ttName=i.value;dirty()});
+  i.addEventListener('blur',()=>{const t=S.tts&&S.tts.find(x=>x.id===S.tt);if(t&&!t.name.trim()){t.name='Timetable';i.value=t.name;dirty()}if(typeof renderTTBar==='function')renderTTBar()})})();
+
+/* ---- reading Excel (.xlsx) and CSV files on the device, no network needed ---- */
+const xlNS=(el,n)=>Array.from(el.getElementsByTagNameNS('*',n));
+async function xlZip(buf){const dv=new DataView(buf.buffer,buf.byteOffset,buf.byteLength);let e=buf.length-22;while(e>=0&&dv.getUint32(e,true)!==0x06054b50)e--;if(e<0)throw new Error('zip');
+  const n=dv.getUint16(e+10,true);let p=dv.getUint32(e+16,true);const out={};
+  for(let i=0;i<n;i++){if(dv.getUint32(p,true)!==0x02014b50)break;const nl=dv.getUint16(p+28,true),el=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true);
+    out[new TextDecoder().decode(buf.subarray(p+46,p+46+nl))]={method:dv.getUint16(p+10,true),csz:dv.getUint32(p+20,true),lo:dv.getUint32(p+42,true)};p+=46+nl+el+cl}
+  const read=async name=>{const en=out[name];if(!en)return null;const nl=dv.getUint16(en.lo+26,true),el=dv.getUint16(en.lo+28,true),st=en.lo+30+nl+el,data=buf.subarray(st,st+en.csz);
+    if(en.method===0)return new TextDecoder().decode(data);if(en.method!==8)throw new Error('zip');if(typeof DecompressionStream==='undefined')throw new Error('nodecomp');
+    const ab=await new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer();return new TextDecoder().decode(ab)};
+  return{names:Object.keys(out),read}}
+function xlSerial(v){const d=new Date(Math.round((v-25569)*864e5));return{iso:d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()),hm:pad(d.getUTCHours())+':'+pad(d.getUTCMinutes())}}
+const xlColNo=ref=>{let n=0;const m=/^[A-Z]+/i.exec(ref)[0].toUpperCase();for(const ch of m)n=n*26+ch.charCodeAt(0)-64;return n-1};
+function xlDateFmt(id,codes){if((id>=14&&id<=22)||(id>=45&&id<=47))return true;const c=codes[id];if(!c)return false;return /[ymdhs]/i.test(c.replace(/"[^"]*"/g,'').replace(/\[[^\]]*\]/g,'').replace(/\\./g,''))}
+async function xlParseXlsx(buf){const z=await xlZip(buf),dom=s=>new DOMParser().parseFromString(s,'application/xml');
+  const wb=dom(await z.read('xl/workbook.xml')),rel=dom((await z.read('xl/_rels/workbook.xml.rels'))||'<r/>'),rm={};xlNS(rel,'Relationship').forEach(r=>{rm[r.getAttribute('Id')]=r.getAttribute('Target')});
+  const ss=[];const sx=await z.read('xl/sharedStrings.xml');if(sx)xlNS(dom(sx),'si').forEach(si=>{ss.push(xlNS(si,'t').filter(t=>!(t.parentNode&&t.parentNode.localName==='rPh')).map(t=>t.textContent).join(''))});
+  const codes={},xfs=[];const sty=await z.read('xl/styles.xml');if(sty){const sd=dom(sty);xlNS(sd,'numFmt').forEach(n=>{codes[+n.getAttribute('numFmtId')]=n.getAttribute('formatCode')});const cx=xlNS(sd,'cellXfs')[0];if(cx)xlNS(cx,'xf').forEach(x=>xfs.push(+x.getAttribute('numFmtId')||0))}
+  const sheets=[];
+  for(const s of xlNS(wb,'sheet')){const rid=s.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships','id')||s.getAttribute('r:id');let tg=rm[rid];if(!tg)continue;tg=tg.replace(/^\//,'');const path=tg.startsWith('xl/')?tg:'xl/'+tg,xml=await z.read(path);if(!xml)continue;
+    const sd=dom(xml),rows=[],kinds=[];let maxc=0;
+    xlNS(sd,'c').forEach(c=>{const ref=c.getAttribute('r');if(!ref)return;const ci=xlColNo(ref),ri=(+/\d+/.exec(ref)[0])-1;if(ri>=600||ci>=120)return;
+      const t=c.getAttribute('t'),v=xlNS(c,'v')[0],raw=v?v.textContent:'';let txt='',kind=null;
+      if(t==='s')txt=ss[+raw]||'';else if(t==='inlineStr')txt=xlNS(c,'t').map(x=>x.textContent).join('');else if(t==='str')txt=raw;else if(t==='b')txt=raw==='1'?'TRUE':'FALSE';else if(t==='e')txt='';
+      else if(raw!==''){const num=parseFloat(raw);if(isFinite(num)){const st=+c.getAttribute('s')||0;if(xlDateFmt(xfs[st]||0,codes)){const d=xlSerial(num);if(num<1){kind={k:'t',hm:d.hm};txt=d.hm}else if(Math.abs(num-Math.round(num))<1e-6){kind={k:'d',iso:d.iso};txt=d.iso}else{kind={k:'dt',iso:d.iso,hm:d.hm};txt=d.iso+' '+d.hm}}else txt=String(parseFloat(num.toPrecision(12)))}else txt=raw}
+      (rows[ri]=rows[ri]||[])[ci]=txt.trim();if(kind)(kinds[ri]=kinds[ri]||[])[ci]=kind;if(ci+1>maxc)maxc=ci+1});
+    const merges=xlNS(sd,'mergeCell').map(m=>{const a=(m.getAttribute('ref')||'').split(':');if(a.length!==2)return null;const r1=(+/\d+/.exec(a[0])[0])-1,c1=xlColNo(a[0]),r2=(+/\d+/.exec(a[1])[0])-1,c2=xlColNo(a[1]);return{r:r1,c:c1,rs:r2-r1+1,cs:c2-c1+1}}).filter(Boolean);
+    const n=rows.length;for(let i=0;i<n;i++){const r=rows[i]=rows[i]||[];for(let j=0;j<maxc;j++)if(r[j]==null)r[j]=''}
+    sheets.push({name:s.getAttribute('name')||'Sheet',rows,kinds,merges})}
+  return{sheets}}
+function xlParseCsv(text){text=text.replace(/^\uFEFF/,'');const first=text.split(/\r?\n/)[0]||'',cnt=ch=>(first.match(new RegExp(ch==='\t'?'\t':'\\'+ch,'g'))||[]).length,dl=cnt('\t')>cnt(',')&&cnt('\t')>=cnt(';')?'\t':cnt(';')>cnt(',')?';':',';
+  const rows=[];let row=[],cur='',q=false;for(let i=0;i<text.length;i++){const ch=text[i];
+    if(q){if(ch==='"'){if(text[i+1]==='"'){cur+='"';i++}else q=false}else cur+=ch}
+    else if(ch==='"')q=true;else if(ch===dl){row.push(cur.trim());cur=''}else if(ch==='\n'||ch==='\r'){if(ch==='\r'&&text[i+1]==='\n')i++;row.push(cur.trim());rows.push(row);row=[];cur=''}else cur+=ch}
+  if(cur!==''||row.length){row.push(cur.trim());rows.push(row)}
+  const mc=Math.max(0,...rows.map(r=>r.length));rows.forEach(r=>{while(r.length<mc)r.push('')});return{sheets:[{name:'CSV',rows:rows.slice(0,600),kinds:[],merges:[]}]}}
+async function xlReadFile(file){const buf=new Uint8Array(await file.arrayBuffer());
+  if(buf[0]===0x50&&buf[1]===0x4b)return xlParseXlsx(buf);
+  if(buf[0]===0xD0&&buf[1]===0xCF)throw new Error('xls');
+  return xlParseCsv(new TextDecoder().decode(buf))}
+/* ---- turning cells into days, dates and times ---- */
+const XLMON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+function xlIso(y,m,d){const x=new Date(y,m-1,d);return x.getFullYear()===y&&x.getMonth()===m-1&&x.getDate()===d?iso(x):null}
+function xlDate(sh,r,c){const k=sh.kinds[r]&&sh.kinds[r][c];if(k&&(k.k==='d'||k.k==='dt'))return k.iso;const s=String(sh.rows[r]&&sh.rows[r][c]||'').trim();if(!s)return null;let m;
+  if((m=/^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(s)))return xlIso(+m[1],+m[2],+m[3]);
+  if((m=/^(?:[A-Za-z]+,?\s+)?(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{2,4})$/.exec(s)))return xlIso(+m[3]<100?2000+ +m[3]:+m[3],+m[2],+m[1]);
+  if((m=/(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,})\.?,?\s*(\d{4})?/.exec(s))){const mo=XLMON.indexOf(m[2].slice(0,3).toLowerCase());if(mo>=0)return xlIso(m[3]?+m[3]:new Date().getFullYear(),mo+1,+m[1])}
+  return null}
+function xlWeekday(s){const m=/^(mon|tue|wed|thu|fri|sat|sun)/i.exec(String(s||'').trim());return m?['mon','tue','wed','thu','fri','sat','sun'].indexOf(m[1].toLowerCase()):-1}
+function xlRowTime(sh,r,c){const k=sh.kinds[r]&&sh.kinds[r][c],plus=hm=>{const n=Math.min(1439,tmin(hm)+60);return pad(Math.floor(n/60))+':'+pad(n%60)};
+  if(k&&k.k==='t')return{s:k.hm,e:plus(k.hm)};const str=String(sh.rows[r]&&sh.rows[r][c]||'').trim();if(!str)return null;
+  const re=/(\d{1,2})[:.](\d{2})\s*([ap]\.?m\.?)?|(\d{1,2})\s*([ap]\.?m\.?)/gi,tk=[];let x;
+  while((x=re.exec(str))&&tk.length<2){let hh=+(x[1]||x[4]),mm=+(x[2]||0);const ap=(x[3]||x[5]||'').toLowerCase();if(ap){hh=hh%12+(ap[0]==='p'?12:0)}if(hh>23||mm>59)return null;tk.push(pad(hh)+':'+pad(mm))}
+  if(!tk.length)return null;const rest=str.replace(re,'').replace(/\bto\b|[-\u2013\u2014\s]/gi,'');if(/[a-z]{3,}/i.test(rest))return null;
+  return{s:tk[0],e:tk[1]||plus(tk[0])}}
+/* ---- import into a simple table ---- */
+function xlTrim(sh,r0,c0){const R=sh.rows,nr=R.length,nc=Math.max(0,...R.map(r=>r.length));const rk=[],ck=[];
+  for(let r=r0;r<nr;r++){if(R[r].some((v,c)=>c>=c0&&v)||String(R[r][0]||'').trim()&&c0>0)rk.push(r)}
+  for(let c=c0;c<nc;c++){let any=false;for(let r=0;r<nr;r++)if(r>=r0&&R[r][c]){any=true;break}if(!any&&r0>0&&R[0][c])any=true;if(any)ck.push(c)}
+  return{rk:rk.slice(0,300),ck:ck.slice(0,60)}}
+function stImportSheet(sh,o,name){const R=sh.rows,r0=o.hr?1:0,c0=o.hc?1:0,tr=xlTrim(sh,r0,c0);if(!tr.rk.length||!tr.ck.length){toast('That sheet has nothing to import');return null}
+  const t=stMake(name);t.rows=[];t.cols=[];t.cells={};t.meta={};t.merge={};const rmap={},cmap={};
+  tr.ck.forEach(c=>{const txt=o.hr?String(R[0][c]||'').trim():'',dt=o.hr?xlDate(sh,0,c):null,wd=o.hr?xlWeekday(txt):-1;
+    const col=dt?{id:uid(),d:stWd(dt),date:dt}:wd>=0?{id:uid(),d:wd,date:''}:{id:uid(),x:true,title:txt};t.cols.push(col);cmap[c]=col});
+  tr.rk.forEach(r=>{const txt=o.hc?String(R[r][0]||'').trim():'',tm=o.hc?xlRowTime(sh,r,0):null;const row=tm?{id:uid(),s:tm.s,e:tm.e}:{id:uid(),x:true,label:txt};t.rows.push(row);rmap[r]=row});
+  tr.rk.forEach(r=>tr.ck.forEach(c=>{let v=String(R[r][c]||'');if(!v)return;const k=rmap[r].id+'|'+cmap[c].id;if(/^[\u2713\u2714\u2611]\s*/.test(v)){v=v.replace(/^[\u2713\u2714\u2611]\s*/,'');t.meta[k]={done:true}}if(v)t.cells[k]=v}));
+  sh.merges.forEach(m=>{if(m.rs*m.cs<2)return;const a=rmap[m.r],b=cmap[m.c];if(!a||!b)return;let rs=0,cs=0;for(let i=0;i<m.rs;i++)if(rmap[m.r+i])rs++;else break;for(let j=0;j<m.cs;j++)if(cmap[m.c+j])cs++;else break;if(rs*cs>=2)t.merge[a.id+'|'+b.id]={rs,cs}});
+  stFix(t);return t}
+/* ---- import into the main timetable: every filled cell becomes boxes ---- */
+function mainImportSheet(sh,o){const R=sh.rows,tr=xlTrim(sh,1,1);if(!tr.rk.length||!tr.ck.length){toast('That sheet has nothing to import');return}
+  snap();let lastReal=null,nbox=0,nrow=0,ncol=0,skippedRows=0;const cmap={},rmap={},xs=xcols();
+  tr.ck.forEach(c=>{const txt=String(R[0][c]||'').trim(),dt=xlDate(sh,0,c),wd=xlWeekday(txt);let date;
+    if(dt){date=dt;lastReal=dt}else if(wd>=0){date=addDaysISO(o.week,wd);lastReal=date}
+    else{let x=txt&&xs.find(z=>z.title===txt);if(!x){x={id:'x'+uid(),title:txt,date:xdate(),after:lastReal};xs.push(x);ncol++}date=x.date}cmap[c]=date});
+  tr.rk.forEach(r=>{const txt=String(R[r][0]||'').trim(),tm=xlRowTime(sh,r,0);let s;
+    if(tm){s=S.slots.find(z=>!z.x&&z.s===tm.s);if(!s&&o.mk){s={id:'s'+uid(),s:tm.s,e:tm.e};S.slots.push(s);nrow++}}
+    else{s=S.slots.find(z=>z.x&&z.label===txt);if(!s){s={id:'s'+uid(),x:true,label:txt,s:'23:58',e:'23:59'};S.slots.push(s);nrow++}}
+    if(!s)skippedRows++;else rmap[r]=s});
+  const idx=[];S.slots.forEach((s,i)=>{if(!s.x)idx.push(i)});const so=idx.map(i=>S.slots[i]).sort((a,b)=>a.s<b.s?-1:a.s>b.s?1:a.e<b.e?-1:a.e>b.e?1:0);idx.forEach((i,j)=>{S.slots[i]=so[j]});
+  tr.rk.forEach(r=>{const s=rmap[r];if(!s)return;tr.ck.forEach(c=>{const v=String(R[r][c]||'');if(!v)return;const root=cellRoot(cmap[c]+'|'+s.id);
+    v.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).forEach(l=>{let dn=false;if(/^[\u2713\u2714\u2611]\s*/.test(l)){dn=true;l=l.replace(/^[\u2713\u2714\u2611]\s*/,'')}const b=newNode(root.id);b.text=l;if(dn)b.st='d';nbox++})})});
+  /* merged ranges, when the new cells sit next to each other */
+  let nm=0;const M=S.merge=S.merge||{},cd=mgCols();
+  sh.merges.forEach(m=>{if(m.rs*m.cs<2||!rmap[m.r]||cmap[m.c]==null)return;const r1=S.slots.indexOf(rmap[m.r]),c1=cd.indexOf(cmap[m.c]);if(r1<0||c1<0)return;let ok=true;
+    for(let i=1;i<m.rs;i++)if(S.slots[r1+i]!==rmap[m.r+i])ok=false;for(let j=1;j<m.cs;j++)if(cd[c1+j]!==cmap[m.c+j])ok=false;
+    if(!ok||cd.slice(c1,c1+m.cs).some(d=>isXd(d)!==isXd(cd[c1])))return;
+    const keys=[];for(let i=0;i<m.rs;i++)for(let j=0;j<m.cs;j++)keys.push(cd[c1+j]+'|'+S.slots[r1+i].id);
+    const lay=mgLayout(cd);if(keys.some(k=>lay.cov.has(k)||lay.span[k]))return;
+    const ak=keys[0],root=cellRoot(ak);keys.slice(1).forEach(k=>{const id=S.cells[k],src=id&&N(id);if(src)src.kids.slice().forEach(kid=>{const kn=N(kid);src.kids=src.kids.filter(x=>x!==kid);kn.parent=root.id;root.kids.push(kid)})});
+    M[ak]={rs:m.rs,cs:m.cs};nm++});
+  dirty();afterSched();renderGrid();toast('Imported '+nbox+' box'+(nbox===1?'':'es')+(nrow?', '+nrow+' new row'+(nrow>1?'s':''):'')+(ncol?', '+ncol+' new custom column'+(ncol>1?'s':''):'')+(nm?', '+nm+' merged':'')+(skippedRows?'. '+skippedRows+' row'+(skippedRows>1?'s':'')+' skipped (no matching time)':''))}
+/* ---- the import window ---- */
+function xlImportDlg(kind){let book=null;const simple=kind==='simple';
+  const fi=h('input',{type:'file',accept:'.xlsx,.xlsm,.csv,.tsv,.txt,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv'});
+  const info=h('p',{class:'psub',style:'margin:0'},simple?'Choose an Excel (.xlsx) or CSV file. It becomes a new simple table. Merged cells come across too.':'Choose an Excel (.xlsx) or CSV file. Each filled cell becomes one box per line, in the day and time it sits under.');
+  const opt=h('div',{hidden:true,style:'display:flex;flex-direction:column;gap:10px'}),prev=h('div',{style:'overflow:auto;max-height:180px;border:1px solid var(--line);border-radius:8px'});
+  const sel=h('select',{class:'cin','aria-label':'Sheet',style:'height:42px'}),hr=h('input',{type:'checkbox',checked:true}),hc=h('input',{type:'checkbox',checked:true}),mk=h('input',{type:'checkbox',checked:true}),wk=h('input',{type:'date',class:'cin',value:iso(mondayOf(new Date()))});
+  const sh=()=>book.sheets[+sel.value];
+  const paint=()=>{prev.textContent='';const s=sh(),tb=h('table',{class:'xlprev'});s.rows.slice(0,8).forEach((r,i)=>tb.append(h('tr',null,r.slice(0,7).map(v=>h(i===0&&hr.checked?'th':'td',null,String(v).slice(0,16))))));prev.append(tb)};
+  const lab=(el,t)=>h('label',{class:'chk'},el,t);
+  opt.append(h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px'},'Sheet',sel),
+    simple?h('div',{style:'display:flex;flex-direction:column;gap:6px'},lab(hr,'First row has the day names, dates or column titles'),lab(hc,'First column has the times or row labels')):
+      h('div',{style:'display:flex;flex-direction:column;gap:8px'},h('p',{class:'psub',style:'margin:0'},'The first row should hold days (Mon, Tuesday) or dates, and the first column the times such as 09:00-10:00. Anything else becomes a custom column or row.'),
+        h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px'},'Week to use when the headings are only day names (Monday of that week)',wk),lab(mk,'Add a time row when the timetable has none for that time')),
+    h('p',{class:'psub',style:'margin:0'},'Preview'),prev);
+  sel.onchange=paint;hr.onchange=paint;
+  fi.onchange=async()=>{const f=fi.files[0];if(!f)return;info.textContent='Reading '+f.name+'\u2026';
+    try{book=await xlReadFile(f)}catch(e){book=null;info.textContent=e.message==='xls'?'Old .xls files cannot be read. Open it in Excel, choose Save As .xlsx or .csv, and pick that file.':e.message==='nodecomp'?'This device cannot unzip Excel files. Save the sheet as CSV and pick that instead.':'That file could not be read. Try saving it again as .xlsx or .csv.';opt.hidden=true;ib.disabled=true;return}
+    if(!book.sheets.length||!book.sheets.some(s=>s.rows.length)){info.textContent='That file has no cells.';opt.hidden=true;ib.disabled=true;return}
+    sel.textContent='';book.sheets.forEach((s,i)=>sel.append(h('option',{value:i},s.name+' ('+s.rows.length+' rows)')));
+    info.textContent=f.name;opt.hidden=false;ib.disabled=false;paint()};
+  const ib=h('button',{class:'btn primary',disabled:true,onclick:()=>{if(!book)return;const s=sh();
+    if(simple){const nm=s.name&&s.name!=='CSV'?s.name:(fi.files[0].name.replace(/\.[^.]+$/,'')||'Imported table'),t=stImportSheet(s,{hr:hr.checked,hc:hc.checked},nm);if(!t)return;snap();STS.id=t.id;dirty();m.close();stPaint();toast('Imported as \u201c'+t.name+'\u201d')}
+    else{m.close();mainImportSheet(s,{week:wk.value||iso(mondayOf(new Date())),mk:mk.checked})}}},'Import');
+  const m=modal(simple?'Import Excel into a simple table':'Import Excel into the timetable',h('div',{style:'display:flex;flex-direction:column;gap:10px'},info,fi,opt),[h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),ib])}
+/* ---- simple tables as a JSON file: save, share, load ---- */
+function stExportObj(list){return{app:'nested-timetable',type:'simple-tables',v:1,exported:new Date().toISOString(),tables:JSON.parse(JSON.stringify(list))}}
+function stImportJson(text){let o;try{o=JSON.parse(text)}catch(e){toast('That is not valid JSON');return 0}
+  const arr=o&&Array.isArray(o.tables)?o.tables:o&&o.table?[o.table]:o&&Array.isArray(o.rows)&&Array.isArray(o.cols)?[o]:null;if(!arr||!arr.length){toast('That file is not a simple table');return 0}
+  const bad=x=>!x||!Array.isArray(x.rows)||!Array.isArray(x.cols)||x.rows.length>400||x.cols.length>120||x.rows.some(r=>!r||typeof r.id!=='string')||x.cols.some(c=>!c||typeof c.id!=='string');
+  if(arr.some(bad)){toast('That table file looks damaged');return 0}
+  snap();let n=0,last=null;
+  arr.forEach(x=>{const c={};Object.keys(x.cells||{}).forEach(k=>{if(typeof x.cells[k]==='string')c[k]=x.cells[k]});
+    const src={rows:x.rows.map(r=>Object.assign({},r)),cols:x.cols.map(c2=>Object.assign({},c2)),cells:c,meta:x.meta&&typeof x.meta==='object'?x.meta:{},merge:x.merge&&typeof x.merge==='object'?x.merge:{},cw:x.cw||{},rh:x.rh||{}};
+    if(x.dw)src.dw=+x.dw||undefined;if(x.tw)src.tw=+x.tw||undefined;
+    let nm=String(x.name||'Imported table').slice(0,80);if(stList().some(z=>z.name===nm))nm+=' (imported)';
+    const t=stMake(nm,src);stFix(t);last=t;n++});
+  if(last)STS.id=last.id;dirty();stPaint();toast('Imported '+n+' table'+(n>1?'s':''));return n}
+function stJsonDlg(t){const ta=h('textarea',{rows:'4',placeholder:'Or paste table JSON here',spellcheck:'false',style:'width:100%'}),fi=h('input',{type:'file',accept:'.json,application/json'});
+  const cur=()=>JSON.stringify(stExportObj([t]),null,1),all=()=>JSON.stringify(stExportObj(stList()),null,1);
+  const save=(txt,nm)=>saveBlob(nm+'.json',new Blob([txt],{type:'application/json'}));
+  const m=modal('Export and import (JSON)',h('div',{style:'display:flex;flex-direction:column;gap:10px'},
+    h('p',{class:'psub',style:'margin:0'},'A JSON file keeps everything: text, days, dates, merged cells, strike-offs, alarms and sizes. Load it again here or on another phone.'),
+    h('div',{class:'gseg'},h('button',{class:'btn primary',onclick:()=>save(cur(),stFile(t))},'Save this table'),h('button',{class:'btn',onclick:()=>save(all(),'simple-tables')},'Save all tables'),
+      h('button',{class:'btn',onclick:()=>shareOut(t.name||'Simple table',cur())},'Share via apps\u2026'),h('button',{class:'btn',onclick:async()=>{await copyText(cur());toast('Copied')}},'Copy JSON')),
+    h('p',{class:'sect'},'Import (adds new tables, nothing is replaced)'),fi,ta,
+    h('button',{class:'btn primary',onclick:async()=>{let txt=ta.value.trim();if(!txt&&fi.files[0])txt=await fi.files[0].text();if(!txt){toast('Choose a file or paste the JSON first');return}if(stImportJson(txt))m.close()}},'Import')),
+    [h('button',{class:'btn',onclick:()=>m.close()},'Close')])}
+
+/* ---- countdown timers on simple-table cells (they ring like alarms, even when the app is closed) ---- */
+function stCdClear(m){if(m){delete m.cd;delete m.cdp;delete m.cdl}}
+function stCdState(m,now){if(m.cdp)return'paused';if(m.fired||!m.al)return'done';if(m.cd&&m.cd.st&&now<m.cd.st)return'wait';return'run'}
+function stCdLeft(m,now){const s=stCdState(m,now);if(s==='paused')return m.cdl||0;if(s==='wait')return m.cd.dur*1000;if(s==='run')return Math.max(0,m.al-now);return 0}
+function stCdFmt(ms){const s=Math.ceil(ms/1000),hh=Math.floor(s/3600),mm=Math.floor(s%3600/60),ss=s%60;return hh?hh+':'+pad(mm)+':'+pad(ss):mm+':'+pad(ss)}
+function stCdText(m){const now=Date.now(),s=stCdState(m,now);return s==='done'?'⌛ Time is up':(s==='paused'?'⏸ ':'⏳ ')+stCdFmt(stCdLeft(m,now))+(s==='wait'?' next':'')}
+function stCdPaint(){const p=$('#stbl');if(!p||p.hidden)return;const els=p.querySelectorAll('.stcd');if(!els.length)return;const t=stList().find(x=>x.id===STS.id);if(!t)return;
+  els.forEach(el=>{const m=t.meta&&t.meta[el.dataset.k];if(m&&m.cd){const tx=stCdText(m);if(el.textContent!==tx)el.textContent=tx}})}
+setInterval(stCdPaint,1000);
+function stCdActions(t,r,c){const k=r.id+'|'+c.id,m=stMeta(t,k);if(!m||!m.cd)return;const now=Date.now(),s=stCdState(m,now),chained=!!m.cd.st;
+  const act=fn=>()=>{fn();dirty();m2.close();stPaint()};
+  const btns=[h('button',{class:'btn',onclick:()=>m2.close()},'Close'),h('button',{class:'btn',onclick:act(()=>{stCdClear(m);delete m.al;delete m.fired;if(!m.done)delete t.meta[k]})},'Clear timer')];
+  if(s==='run'&&!chained)btns.push(h('button',{class:'btn',onclick:act(()=>{m.cdl=Math.max(0,m.al-Date.now());delete m.al;m.cdp=true})},'Pause'));
+  if(s==='paused')btns.push(h('button',{class:'btn primary',onclick:act(()=>{m.al=Date.now()+(m.cdl||m.cd.dur*1000);m.fired=false;delete m.cdp;delete m.cdl})},'Start'));
+  if(!chained&&s!=='paused')btns.push(h('button',{class:'btn'+(s==='done'?' primary':''),onclick:act(()=>{m.al=Date.now()+m.cd.dur*1000;m.fired=false;delete m.cdp;delete m.cdl})},'Restart'));
+  const big=h('p',{class:'cdlive',style:'margin:0;font-size:28px;font-weight:700'},stCdText(m));
+  big._upd=()=>{const mm=t.meta&&t.meta[k];if(!mm||!mm.cd){m2.close();return}if(stCdState(mm,Date.now())!==s){m2.close();stCdActions(t,r,c);return}big.textContent=stCdText(mm)};
+  const m2=modal('Timer for '+stCellWhen(t,r.id,c.id),h('div',{style:'display:flex;flex-direction:column;gap:8px'},big,
+    h('p',{class:'psub',style:'margin:0'},((t.cells[k]||'').trim().split('\n')[0]||'This cell')+'. Set for '+stCdFmt(m.cd.dur*1000)+(chained?'. It is part of a one-after-another run, so it cannot be paused.':''))),btns)}
+function stCdDlg(t,keys){const ps=keys.map(k=>({k,p:stPos(t,k)})).filter(x=>x.p[0]>=0&&x.p[1]>=0).sort((a,b)=>a.p[0]-b.p[0]||a.p[1]-b.p[1]);if(!ps.length){toast('Tick the cells first');return}
+  const num=(v,mx,l)=>h('input',{type:'number',class:'cin',min:'0',max:String(mx),value:String(v),'aria-label':l,style:'width:78px;height:42px;flex:none'}),hhI=num(0,99,'Hours'),mmI=num(10,999,'Minutes'),ssI=num(0,59,'Seconds');
+  const dur=()=>Math.max(0,(+hhI.value||0)*3600+(+mmI.value||0)*60+(+ssI.value||0)),mode=h('select',{class:'cin','aria-label':'How to start',style:'height:42px;flex:none'},[['all','Start all now, together'],['seq','One after another, starting now'],['later','Set up only, start each one later']].map(x=>h('option',{value:x[0]},x[1])));
+  const sum=h('p',{class:'psub',style:'margin:0'}),upd=()=>{const d=dur(),n=ps.length;sum.textContent=n+' cell'+(n>1?'s':'')+', '+stCdFmt(d*1000)+' each'+(mode.value==='seq'&&n>1?'. All done after '+stCdFmt(d*n*1000):'')+'.'};
+  [hhI,mmI,ssI].forEach(i=>i.oninput=upd);mode.onchange=upd;
+  const pre=h('div',{style:'display:flex;flex-wrap:wrap;gap:6px;flex:none'},[1,5,10,15,25,45,60].map(x=>h('button',{class:'btn',onclick:()=>{hhI.value='0';mmI.value=String(x);ssI.value='0';upd()}},x+' min')));
+  const had=ps.some(x=>{const m=stMeta(t,x.k);return m&&m.cd}),lab=(x,el)=>h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px;flex:none'},x,el);
+  const go=()=>{const d=dur();if(d<5){toast('Make it at least 5 seconds');return}snap();const now=Date.now(),md=mode.value;
+    ps.forEach((x,i)=>{const m=stMeta(t,x.k,1);stCdClear(m);delete m.al;m.fired=false;
+      if(md==='all'){m.cd={dur:d};m.al=now+d*1000}
+      else if(md==='seq'){const st=now+i*d*1000;m.cd={dur:d,st:st};m.al=st+d*1000}
+      else{m.cd={dur:d};m.cdp=true;m.cdl=d*1000}});
+    dirty();m3.close();stPaint();toast(md==='later'?'Timers set. Tap one to start it.':'Timers started')};
+  const clr=h('button',{class:'btn',onclick:()=>{snap();ps.forEach(x=>{const m=stMeta(t,x.k);if(m&&m.cd){stCdClear(m);delete m.al;delete m.fired;if(!m.done)delete t.meta[x.k]}});dirty();m3.close();stPaint();toast('Timers cleared')}},'Clear timers');
+  const m3=modal('Countdown timer',h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('p',{class:'psub',style:'margin:0'},'Each ticked cell gets its own countdown. It rings when time is up, even if the app is closed.'),pre,
+    h('div',{style:'display:flex;gap:8px;align-items:flex-end;flex:none'},lab('Hours',hhI),lab('Minutes',mmI),lab('Seconds',ssI)),lab('How should they run?',mode),sum),
+    [h('button',{class:'btn',onclick:()=>m3.close()},'Cancel')].concat(had?[clr]:[],[h('button',{class:'btn primary',onclick:go},'Start')]));upd()}
+/* ===== v81: main-table cell window, live grid and goals, box countdowns, text size and rotation ===== */
+/* ---- window controls for the cell view opened from the main grid ---- */
+const SHT={view:'full',prev:'full',fx:12,fy:80,fw:0,fh:0};
+function shTitle(){const el=$('#sheet .shtitle');if(!el)return;const n=ed&&ed.node&&N(ed.node);const r=n&&rootOf(n.id);el.textContent=r&&r.key?cellLabel(r.key):'Cell'}
+function shApply(){const p=$('#sheet');if(!p)return;p.classList.remove('dock','float','min');if(SHT.view!=='full')p.classList.add(SHT.view);
+  if(SHT.view==='float'){p.style.left=SHT.fx+'px';p.style.top=SHT.fy+'px';p.style.width=(SHT.fw||Math.min(innerWidth*.94,420))+'px';p.style.height=(SHT.fh||Math.round(innerHeight*.58))+'px'}else{p.style.left=p.style.top=p.style.width=p.style.height=''}
+  const g=p.querySelector(':scope>.wgrip');if(g)g.remove();if(SHT.view==='float')p.append(wGrip(p,SHT));
+  p.querySelectorAll('.shwb').forEach(b=>{const on=b.dataset.v===SHT.view;b.classList.toggle('primary',on);b.setAttribute('aria-pressed',String(on))});shTitle()}
+(function(){const hd=$('#sheet .ehead');if(!hd)return;
+  const bt=(sym,label,v,fn)=>h('button',{class:'btn gwb shwb',title:label,'aria-label':label,'data-v':v,onclick:fn},sym),set=v=>()=>{SHT.view=v;shApply()};
+  hd.append(h('strong',{class:'shtitle'},''),h('span',{class:'shwin'},
+    bt('▁','Minimise or restore','min',()=>{if(SHT.view==='min'){SHT.view=SHT.prev&&SHT.prev!=='min'?SHT.prev:'full'}else{SHT.prev=SHT.view;SHT.view='min'}shApply()}),
+    bt('⧉','Undock into a movable window','float',set('float')),bt('⬓','Dock to the bottom of the screen','dock',set('dock')),bt('⛶','Full screen','full',set('full'))));
+  const p=$('#sheet');let dg=null;
+  hd.addEventListener('pointerdown',e=>{if(SHT.view!=='float'||e.target.closest('button,select,input'))return;dg={x:e.clientX-SHT.fx,y:e.clientY-SHT.fy};try{hd.setPointerCapture(e.pointerId)}catch(x){}});
+  hd.addEventListener('pointermove',e=>{if(!dg)return;SHT.fx=Math.max(0,Math.min(innerWidth-80,e.clientX-dg.x));SHT.fy=Math.max(0,Math.min(innerHeight-40,e.clientY-dg.y));p.style.left=SHT.fx+'px';p.style.top=SHT.fy+'px'});
+  const end=()=>{dg=null;if(SHT.view==='float'){SHT.fw=p.offsetWidth;SHT.fh=p.offsetHeight}};hd.addEventListener('pointerup',end);hd.addEventListener('pointercancel',end);
+  shApply()})();
+{const _on=openNode;openNode=function(id,f){_on(id,f);shTitle()}}
+/* ---- changes show in the grid and goal cards at once ---- */
+let glT=0;
+function gridLive(){clearTimeout(glT);glT=setTimeout(()=>{if(!S)return;try{renderStrip()}catch(e){}const sh=$('#sheet');if(sh&&!sh.hidden&&SHT.view!=='full'){try{renderGrid()}catch(e){}}},200)}
+setInterval(()=>{if(S)try{renderStrip()}catch(e){}},30000);
+/* ---- countdown timers on boxes in the main table (they reuse the alarm, so they ring even when the app is closed) ---- */
+const mcdOn=n=>!!(n&&n.cd&&(n.alarm||n.cdp));
+function mcdClear(n){if(n){delete n.cd;delete n.cdp;delete n.cdl}}
+function mcdState(n,now){if(n.cdp)return'paused';if(n.fired||!n.alarm)return'done';if(n.cd.st&&now<n.cd.st)return'wait';return'run'}
+function mcdLeft(n,now){const s=mcdState(n,now);return s==='paused'?(n.cdl||0):s==='wait'?n.cd.dur*1000:s==='run'?Math.max(0,n.alarm-now):0}
+function mcdText(n){const now=Date.now(),s=mcdState(n,now);return s==='done'?'⌛ Time is up':(s==='paused'?'⏸ ':'⏳ ')+stCdFmt(mcdLeft(n,now))+(s==='wait'?' next':'')}
+function mcdPaint(){document.querySelectorAll('.mcdl').forEach(el=>{const n=N(el.dataset.id);if(!n||!mcdOn(n)){if(el.textContent)el.textContent='';return}const tx=(el.dataset.sp?' ':'')+mcdText(n);if(el.textContent!==tx)el.textContent=tx});
+  document.querySelectorAll('.cdlive').forEach(el=>{if(el._upd)el._upd()})}
+setInterval(mcdPaint,1000);
+function mcdBoxName(n){return(boxName(n)||'(empty)').split('\n')[0].slice(0,40)}
+function mcdActions(n){if(!mcdOn(n)){mcdDlg([n.id]);return}const s=mcdState(n,Date.now()),chained=!!n.cd.st;
+  const act=fn=>()=>{snap();fn();dirty();m2.close();renderGrid();if(ed.node)renderEditor()};
+  const btns=[h('button',{class:'btn',onclick:()=>m2.close()},'Close'),h('button',{class:'btn',onclick:act(()=>{mcdClear(n);n.alarm=null;n.fired=false;n.snz=null})},'Clear timer')];
+  if(s==='run'&&!chained)btns.push(h('button',{class:'btn',onclick:act(()=>{n.cdl=Math.max(0,n.alarm-Date.now());n.alarm=null;n.cdp=true})},'Pause'));
+  if(s==='paused')btns.push(h('button',{class:'btn primary',onclick:act(()=>{n.alarm=Date.now()+(n.cdl||n.cd.dur*1000);n.fired=false;delete n.cdp;delete n.cdl})},'Start'));
+  if(!chained&&s!=='paused')btns.push(h('button',{class:'btn'+(s==='done'?' primary':''),onclick:act(()=>{n.alarm=Date.now()+n.cd.dur*1000;n.fired=false;n.snz=null;delete n.cdp;delete n.cdl})},'Restart'));
+  const big=h('p',{class:'cdlive',style:'margin:0;font-size:28px;font-weight:700'},mcdText(n));
+  big._upd=()=>{if(!mcdOn(n)){m2.close();return}if(mcdState(n,Date.now())!==s){m2.close();mcdActions(n);return}big.textContent=mcdText(n)};
+  const m2=modal('Timer for '+mcdBoxName(n),h('div',{style:'display:flex;flex-direction:column;gap:8px'},big,h('p',{class:'psub',style:'margin:0'},'Set for '+stCdFmt(n.cd.dur*1000)+(chained?'. It is part of a one-after-another run, so it cannot be paused.':''))),btns)}
+function mcdDlg(ids){const ns=ids.map(N).filter(n=>n&&n.parent&&!n.ref&&!n.contact);if(!ns.length){toast('Pick the boxes first');return}
+  const ord=n=>{const r=rootOf(n.id),k=(r&&r.key)||'|',a=k.split('|');return a[0]+' '+pad(Math.max(0,S.slots.findIndex(s=>s.id===a[1])))};
+  const L=ns.map((n,i)=>({n,i,o:ord(n)}));L.sort((a,b)=>a.o<b.o?-1:a.o>b.o?1:a.i-b.i);const bx=L.map(x=>x.n);
+  const num=(v,mx,l)=>h('input',{type:'number',class:'cin',min:'0',max:String(mx),value:String(v),'aria-label':l,style:'width:78px;height:42px;flex:none'}),hhI=num(0,99,'Hours'),mmI=num(10,999,'Minutes'),ssI=num(0,59,'Seconds');
+  const dur=()=>Math.max(0,(+hhI.value||0)*3600+(+mmI.value||0)*60+(+ssI.value||0)),mode=h('select',{class:'cin','aria-label':'How to start',style:'height:42px;flex:none'},[['all','Start all now, together'],['seq','One after another, starting now'],['later','Set up only, start each one later']].map(x=>h('option',{value:x[0]},x[1])));
+  const rows=bx.map(n=>{const i=h('input',{type:'number',class:'cin',min:'0',step:'any',value:'10','aria-label':'Minutes for '+mcdBoxName(n),style:'width:84px;height:42px;flex:none'});return{n,i}});
+  const sum=h('p',{class:'psub',style:'margin:0'}),durs=()=>rows.map(r=>Math.round((+r.i.value||0)*60)),
+    upd=()=>{const d=durs(),tot=d.reduce((a,b)=>a+b,0);sum.textContent=bx.length+' box'+(bx.length>1?'es':'')+(mode.value==='seq'&&bx.length>1?'. All done after '+stCdFmt(tot*1000):'')+'.'};
+  const setAll=()=>{const d=dur();rows.forEach(r=>{r.i.value=String(Math.round(d/60*100)/100)});upd()};
+  [hhI,mmI,ssI].forEach(i=>i.oninput=setAll);mode.onchange=upd;rows.forEach(r=>r.i.oninput=upd);setAll();
+  const pre=h('div',{style:'display:flex;flex-wrap:wrap;gap:6px;flex:none'},[1,5,10,15,25,45,60].map(x=>h('button',{class:'btn',onclick:()=>{hhI.value='0';mmI.value=String(x);ssI.value='0';setAll()}},x+' min')));
+  const list=h('div',{style:'display:flex;flex-direction:column;gap:6px;max-height:34vh;overflow:auto;flex:none'},rows.map(r=>h('label',{style:'display:flex;flex-direction:row;align-items:center;gap:8px;font-size:13px;flex:none'},h('span',{style:'flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'},mcdBoxName(r.n)),r.i,h('span',{class:'psub'},'min'))));
+  const had=bx.some(mcdOn),lab=(x,el)=>h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px;flex:none'},x,el);
+  const go=()=>{const d=durs();if(d.some(x=>x<5)){toast('Make every timer at least 5 seconds');return}snap();const now=Date.now(),md=mode.value;let off=0;
+    rows.forEach((r,i)=>{const n=r.n,dd=d[i];mcdClear(n);n.fired=false;n.snz=null;n.rep=null;
+      if(md==='all'){n.cd={dur:dd};n.alarm=now+dd*1000}
+      else if(md==='seq'){const st=now+off*1000;n.cd={dur:dd,st:st};n.alarm=st+dd*1000;off+=dd}
+      else{n.cd={dur:dd};n.alarm=null;n.cdp=true;n.cdl=dd*1000}});
+    dirty();m3.close();renderGrid();if(ed.node)renderEditor();toast(md==='later'?'Timers set. Open a box to start it.':'Timers started')};
+  const clr=h('button',{class:'btn',onclick:()=>{snap();bx.forEach(n=>{if(mcdOn(n)){mcdClear(n);n.alarm=null;n.fired=false}});dirty();m3.close();renderGrid();if(ed.node)renderEditor();toast('Timers cleared')}},'Clear timers');
+  const m3=modal('Countdown timer',h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('p',{class:'psub',style:'margin:0'},'Each box gets its own countdown, shown on the box. It rings when time is up, even if the app is closed.'),pre,
+    h('div',{style:'display:flex;gap:8px;align-items:flex-end;flex:none'},lab('Hours',hhI),lab('Minutes',mmI),lab('Seconds',ssI)),bx.length>1?h('p',{class:'psub',style:'margin:0'},'Change the time of any box below:'):null,list,lab('How should they run?',mode),sum),
+    [h('button',{class:'btn',onclick:()=>m3.close()},'Cancel')].concat(had?[clr]:[],[h('button',{class:'btn primary',onclick:go},'Start')]));upd()}
+/* ---- smaller and rotated text in the tables ---- */
+function txApply(){const w=$('.gridwrap');if(!w||!S)return;const x=S.tx||{};w.style.setProperty('--tz',String((x.z||100)/100));w.classList.toggle('rotu',x.r==='u');w.classList.toggle('rotd',x.r==='d')}
+{const _bg=buildGrid;buildGrid=function(){_bg();txApply()}}
+function stTxApply(p){const t=stCur();const x=(t&&t.tx)||{};p.style.setProperty('--stfs',((x.z||100)*.14)+'px');p.style.setProperty('--strh',(x.rh||110)+'px');p.classList.toggle('strtu',x.r==='u');p.classList.toggle('strtd',x.r==='d')}
+{const _sa=stApply;stApply=function(p){_sa(p);stTxApply(p)}}
+function txDlg(kind){const t=kind==='st'?stCur():null;if(kind==='st'&&!t)return;const o=()=>kind==='st'?(t.tx=t.tx||{}):(S.tx=S.tx||{});
+  const live=()=>{if(kind==='st'){stTxApply(stEl())}else{txApply()}},save=()=>{dirty();live()};
+  const sl=h('input',{type:'range',min:'40',max:'130',step:'5',value:String(o().z||100),'aria-label':'Text size percent',style:'width:100%'}),rd=h('strong',null,(o().z||100)+'%');
+  sl.oninput=()=>{o().z=+sl.value;rd.textContent=sl.value+'%';save()};
+  const segs=[['','Normal'],['u','Turn up'],['d','Turn down']],seg=h('div',{class:'crow2',role:'group','aria-label':'Rotate text'}),paint=()=>{seg.textContent='';segs.forEach(s=>seg.append(h('button',{class:'btn'+((o().r||'')===s[0]?' primary':''),'aria-pressed':String((o().r||'')===s[0]),onclick:()=>{o().r=s[0];save();paint()}},s[1])))};paint();
+  const m=modal('Text size and rotation',h('div',{style:'display:flex;flex-direction:column;gap:12px'},h('p',{class:'psub',style:'margin:0'},'Applies to the text in the cells of '+(kind==='st'?'this simple table':'the timetable')+'. Turn the text sideways when the columns are narrow.'),
+    h('div',{style:'display:flex;justify-content:space-between;align-items:center'},h('span',null,'Text size'),rd),sl,h('span',null,'Direction'),seg),
+    [h('button',{class:'btn',onclick:()=>{const q=o();delete q.z;delete q.r;save();m.close()}},'Reset'),h('button',{class:'btn primary',onclick:()=>m.close()},'Done')])}
+/* ===== v82: link boxes to date countdowns (like goals); text size and rotation for selected cells ===== */
+const cdBoxes=c=>Object.values(S.nodes).filter(n=>n.cdk===c.id&&!n.ref&&n.parent&&liveBox(n));
+function cdLinkTxt(c){const b=cdBoxes(c);return b.length?' · '+b.filter(n=>n.st==='d').length+'/'+b.length+' done':''}
+const cdSorted=()=>(S.cds||[]).slice().sort((a,b)=>a.date<b.date?-1:1);
+function cdSel(n){if(!(S.cds||[]).length)return null;const s=h('select',{class:'catsel goalsel','aria-label':'Countdown',title:'Link this box to a countdown',onchange:()=>{n.cdk=s.value||null;dirty();renderStrip()}},h('option',{value:''},'No countdown'),cdSorted().map(c=>h('option',{value:c.id},c.name)));s.value=n.cdk||'';return s}
+function cdOpenBox(n){if(n.contact||!n.parent)openNode(n.id);else openNode(n.parent,n.id)}
+function cdDetail(c){const b=cdBoxes(c).sort((x,y)=>nodeDate(x)<nodeDate(y)?-1:1),d=daysTo(c.date),dn=b.filter(n=>n.st==='d').length,pc=b.length?Math.round(100*dn/b.length):0;
+  const list=h('div',{style:'display:flex;flex-direction:column;gap:6px;max-height:42vh;overflow:auto;flex:none'});
+  if(!b.length)list.append(h('p',{class:'psub',style:'margin:0'},'No boxes linked yet. Open a box and pick this countdown in its Countdown menu, or tick boxes in the tree view and use Link to countdown.'));
+  b.forEach(n=>list.append(h('div',{class:'res crow'},h('button',{class:'rmain',style:'text-align:left;background:none;border:0;color:inherit;min-width:0',onclick:()=>{m.close();cdOpenBox(n)}},h('span',{class:'cname'},(n.st==='d'?'✓ ':'')+nodeLabel(n)),h('small',null,dateLabel(nodeDate(n)))),
+    h('button',{class:'btn','aria-label':'Unlink',title:'Unlink this box',onclick:()=>{snap();n.cdk=null;dirty();m.close();cdDetail(c);renderStrip()}},'✕'))));
+  const m=modal(c.name,h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('p',{style:'margin:0;font-size:20px;font-weight:700'},d===0?'Today':d>0?d+' day'+(d===1?'':'s')+' to go':Math.abs(d)+' day'+(d===-1?'':'s')+' ago'),h('p',{class:'psub',style:'margin:0'},dateLabel(c.date)),
+    b.length?h('div',null,h('span',{class:'mbar'},h('i',{style:'width:'+pc+'%'})),h('span',{class:'psub'},dn+' of '+b.length+' done')):null,list),
+    [h('button',{class:'btn',onclick:()=>{m.close();cdDlg()}},'All countdowns'),h('button',{class:'btn primary',onclick:()=>m.close()},'Close')])}
+function cdLinkDlg(ids){const ns=ids.map(N).filter(n=>n&&n.parent&&!n.ref&&!n.contact);if(!ns.length){toast('Pick the boxes first');return}if(!(S.cds||[]).length){toast('Add a countdown first: Plan, Countdowns');return}
+  const s=h('select',{class:'cin','aria-label':'Countdown',style:'height:42px;flex:none'},h('option',{value:''},'No countdown (unlink)'),cdSorted().map(c=>h('option',{value:c.id},cdText(c))));
+  const m=modal('Link '+ns.length+' box'+(ns.length>1?'es':'')+' to a countdown',h('div',{style:'display:flex;flex-direction:column;gap:10px'},h('p',{class:'psub',style:'margin:0'},'The countdown card above the grid then shows how many of these boxes are done.'),s),
+    [h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',onclick:()=>{snap();ns.forEach(n=>{n.cdk=s.value||null});dirty();m.close();renderStrip();if(ed.node)renderEditor();toast(s.value?'Linked':'Unlinked')}},'Apply')])}
+/* ---- per-cell text size and rotation (selected cells) ---- */
+function cfApply(inn,key){const f=S.cfmt&&S.cfmt[key];if(!f)return;if(f.z)inn.style.zoom=String(f.z/100);if(f.r)inn.classList.add('cf'+f.r)}
+function stFmtApply(ta,t,k){const f=t.fmt&&t.fmt[k];if(!f)return;if(f.z)ta.style.fontSize=(f.z*.14)+'px';if(f.r)ta.classList.add('cf'+f.r)}
+{const _sc=stCell;stCell=function(t,r,c,k,sp){const td=_sc(t,r,c,k,sp),ta=td&&td.querySelector&&td.querySelector('textarea.stc');if(ta)stFmtApply(ta,t,k);return td}}
+function fmtDlg(kind,keys){if(!keys.length){toast('Tick the cells first');return}const t=kind==='st'?stCur():null;if(kind==='st'&&!t)return;
+  const store=()=>kind==='st'?(t.fmt=t.fmt||{}):(S.cfmt=S.cfmt||{}),redraw=()=>{if(kind==='st')stPaint();else renderGrid()};
+  const first=store()[keys[0]]||{};let z=first.z||100,r=first.r||'';
+  const put=()=>{const o=store();keys.forEach(k=>{const f=o[k]=o[k]||{};if(z!==100)f.z=z;else delete f.z;if(r)f.r=r;else delete f.r;if(!f.z&&!f.r)delete o[k]});dirty();redraw()};
+  const sl=h('input',{type:'range',min:'40',max:'130',step:'5',value:String(z),'aria-label':'Text size percent',style:'width:100%'}),rd=h('strong',null,z+'%');
+  sl.oninput=()=>{z=+sl.value;rd.textContent=z+'%';put()};
+  const segs=[['','As table'],['n','Normal'],['u','Turn up'],['d','Turn down']],seg=h('div',{class:'crow2',role:'group','aria-label':'Rotate text'}),paint=()=>{seg.textContent='';segs.forEach(s=>seg.append(h('button',{class:'btn'+(r===s[0]?' primary':''),'aria-pressed':String(r===s[0]),onclick:()=>{r=s[0];put();paint()}},s[1])))};paint();
+  const m=modal('Text in '+keys.length+' selected cell'+(keys.length>1?'s':''),h('div',{style:'display:flex;flex-direction:column;gap:12px'},h('p',{class:'psub',style:'margin:0'},'Shrink or turn the text of just these cells.'),
+    h('div',{style:'display:flex;justify-content:space-between;align-items:center'},h('span',null,'Text size'),rd),sl,h('span',null,'Direction'),seg),
+    [h('button',{class:'btn',onclick:()=>{z=100;r='';put();m.close()}},'Reset'),h('button',{class:'btn primary',onclick:()=>m.close()},'Done')])}
+/* ===== v83: menu inside every box; text size and rotation per box ===== */
+const bfCls=n=>n&&n.fr?' bf'+n.fr:'';
+const zs=z=>z&&z!==100?String(z/100):'';
+const bfSty=(n,grid)=>{const z=grid&&n.name?(n.nz||n.fz):(n.tz||n.fz);return z&&z!==100?'zoom:'+(z/100)+';':''};
+function bfApplyTa(ta,n){if(!ta)return;ta.classList.remove('bfu','bfd');if(n.fr)ta.classList.add('bf'+n.fr);ta.style.zoom=zs(n.tz||n.fz);autoGrow(ta)}
+function bfLive(n){document.querySelectorAll('[data-id="'+n.id+'"]').forEach(bx=>{if(!bx.classList.contains('box'))return;
+  const nm=bx.querySelector('.bname');if(nm){nm.style.zoom=zs(n.nz||n.fz);grow1(nm)}
+  bfApplyTa(bx.querySelector('textarea.bt'),n);
+  (n.lists||[]).forEach(g=>{const b=bx.querySelector('[data-g="'+g.id+'"]');if(b){const zz=zs(g.z||n.fz);b.querySelectorAll('textarea').forEach(t=>{t.style.zoom=zz;if(t.classList.contains('autoname'))grow1(t);else autoGrow(t)})}})})}
+function boxFmtDlg(ids){const ns=ids.map(N).filter(n=>n&&n.parent&&!n.ref);if(!ns.length){toast('Pick the boxes first');return}
+  const one=ns.length===1?ns[0]:null;let z=ns[0].fz||100,r=ns[0].fr||'';
+  const put=()=>{ns.forEach(n=>{if(z!==100)n.fz=z;else delete n.fz;if(r)n.fr=r;else delete n.fr;bfLive(n)});dirty()};
+  const mkSl=(get,set,onClear)=>{const sl=h('input',{type:'range',min:'40',max:'130',step:'5',value:String(get()),'aria-label':'Text size percent',style:'flex:1;min-width:0'}),rd=h('strong',{style:'width:3.2em;text-align:right'},get()+'%');
+    sl.oninput=()=>{rd.textContent=sl.value+'%';set(+sl.value)};return{sl,rd,reset:()=>{sl.value=String(get());rd.textContent=get()+'%'}}};
+  const whole=mkSl(()=>z,v=>{z=v;put();parts.forEach(p=>p.reset())});
+  const segs=[['','Normal'],['u','Turn up'],['d','Turn down']],seg=h('div',{class:'crow2',role:'group','aria-label':'Rotate text'}),paint=()=>{seg.textContent='';segs.forEach(s=>seg.append(h('button',{class:'btn'+(r===s[0]?' primary':''),'aria-pressed':String(r===s[0]),onclick:()=>{r=s[0];put();paint()}},s[1])))};paint();
+  const parts=[],rows=[];
+  if(one){const add=(label,key,obj)=>{const cur=()=>obj[key]||z,o=mkSl(cur,v=>{obj[key]=v;dirty();bfLive(one)});
+      const row=h('div',{style:'display:flex;flex-direction:column;gap:2px;flex:none'},h('div',{style:'display:flex;justify-content:space-between;gap:8px;align-items:center'},h('span',{style:'min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px'},label),h('button',{class:'btn',style:'min-height:30px;padding:2px 10px;font-size:12px',onclick:()=>{delete obj[key];dirty();bfLive(one);o.reset()}},'Same as box')),h('div',{style:'display:flex;gap:8px;align-items:center'},o.sl,o.rd));
+      parts.push(o);rows.push(row)};
+    if(!one.contact)add('Box name','nz',one);add('Text in the box','tz',one);
+    (one.lists||[]).forEach(g=>add((g.k==='s'?'Steps: ':'Checklist: ')+((g.text||'').trim()||'(no name)'),'z',g))}
+  const fin=()=>{m.close();renderGrid();if(ed.node&&!$('#sheet').hidden){const y=($('#emain')||{}).scrollTop;renderEditor();if($('#emain'))$('#emain').scrollTop=y}};
+  const m=modal('Text in '+(ns.length>1?ns.length+' boxes':'this box'),h('div',{style:'display:flex;flex-direction:column;gap:12px'},h('p',{class:'psub',style:'margin:0'},'Shrink the text, or turn it sideways. Rotation applies to the text of the box and its grid line.'),
+    h('div',{style:'display:flex;justify-content:space-between;align-items:center'},h('b',null,'Whole box'),whole.rd),whole.sl,h('span',null,'Direction of the text'),seg,
+    rows.length?h('p',{class:'sect',style:'margin:6px 2px 0'},'Each part on its own'):null,rows.length?h('div',{style:'display:flex;flex-direction:column;gap:10px;max-height:34vh;overflow:auto;flex:none'},rows):null),
+    [h('button',{class:'btn',onclick:()=>{ns.forEach(n=>{['fz','fr','nz','tz'].forEach(k=>delete n[k]);(n.lists||[]).forEach(g=>delete g.z);bfLive(n)});dirty();fin()}},'Reset'),h('button',{class:'btn primary',onclick:fin},'Done')])}
+function boxMenu(n,ta,pick,ents){
+  const it=(l,sub,fn)=>h('button',{class:'res',onclick:()=>{m.close();fn()}},h('span',null,l),h('small',null,sub)),sc=x=>h('p',{class:'sect',style:'margin:8px 2px 0'},x);
+  const rp=typeof recOf==='function'?recOf(n):null;
+  const m=modal('Box menu',h('div',{class:'rlist',style:'padding:0;max-height:66vh'},
+    sc('Add to this box'),
+    it('Attach files','Photos, documents, anything',()=>pick.click()),
+    it('Checklist','A list to tick off',()=>addList(n,ents)),
+    it('Steps','Numbered steps',()=>addStep(n,ents)),
+    it('Scribble pad','Draw or write by hand',()=>scribble(n)),
+    it('Record voice','Audio note',()=>recordDlg(n,'audio')),
+    it('Record video','Video note',()=>recordDlg(n,'video')),
+    it('Link','To a day or another box',()=>linkDlg(n)),
+    it('Hyperlink','Insert a web address into the text',()=>hrefDlg(n,ta)),
+    it('Contacts','People for this box',()=>peopleDlg(n)),
+    sc('Time'),
+    it('Alarm',n.alarm&&!mcdOn(n)?'Set for '+new Date(n.alarm).toLocaleString([],{dateStyle:'medium',timeStyle:'short'}):'Ring at a time',()=>alarmDlg(n)),
+    it('Countdown timer',mcdOn(n)?mcdText(n):'Count down from minutes',()=>mcdActions(n)),
+    it('Pomodoro','Focus timer for this box',()=>pomoOpen(n.id)),
+    it('Start and end','Even over several days',()=>spanDlg(n)),
+    it('Repeat',rp?'Repeats: '+recText(rp):'On a schedule',()=>recDlg(n)),
+    it('Location reminder','Remind me when I arrive',()=>geoDlg(n)),
+    it('Schedule a call or message','Ring someone at a set time',()=>actDlg(n)),
+    sc('This box'),
+    it('Text size and rotation…','Smaller text, or turn it sideways',()=>boxFmtDlg([n.id])),
+    it('Copy or move','To another day',()=>copyDlg(n)),
+    it('Share','WhatsApp, mail or any app',()=>shareBoxDlg(n)),
+    it('Copy text','To the clipboard',()=>copyText(n.text||'')),
+    it('Search Google','For the first line of this text',()=>openGoogle(firstLine(ta.value)||'')),
+    it('Open an app','With this text',()=>appsDlg(n,ta))),
+    [h('button',{class:'btn primary',onclick:()=>m.close()},'Close')])}
 /* ===== Android app bridge: keeps the phone's alarm clock in step with the page (no effect in a browser) ===== */
 const NB=window.AndroidBridge;
 let nsT=0,nsLast='';
