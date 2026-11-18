@@ -477,6 +477,42 @@ body:has(#sheet.dock:not([hidden])) .gridwrap{padding-bottom:48vh}
 .tools .tbmenu{min-height:36px}
 .bt.bfu,.bt.bfd{writing-mode:vertical-rl;height:160px!important;min-height:160px;overflow:auto}.bt.bfu{transform:rotate(180deg)}
 p.cl.bfu,p.cl.bfd{display:inline-block;writing-mode:vertical-rl;max-height:84px;overflow:hidden;vertical-align:top;margin-right:3px}p.cl.bfu{transform:rotate(180deg)}
+/* v85 month view */
+.gmonth{display:flex;flex-direction:column;gap:6px;flex:none}.gcal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.gch{text-align:center;font-size:11px;color:var(--muted)}
+.gcd{position:relative;min-height:38px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);font:inherit;font-size:14px;padding:0}
+.gcd.has::after{content:"";position:absolute;left:50%;bottom:4px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--accent)}
+.gcd.tod{border-color:var(--accent);font-weight:700}.gcd.sel{background:var(--accent);color:var(--accent-ink)}.gcd.sel::after{background:var(--accent-ink)}
+/* v88 month in Plan: grid on top scrolls by itself, day tree below scrolls by itself */
+#month .mwrap{flex:none;max-height:46vh;overflow:auto}#month .mgrid{min-width:0;grid-template-columns:repeat(7,minmax(0,1fr))}#month .mc{min-height:58px;padding:4px}
+.mc.sel{outline:2px solid var(--accent);outline-offset:-2px}.mvday{flex:1 1 0;min-height:120px;overflow:auto;padding:6px 4px 12px;border-top:1px solid var(--line);margin-top:6px}
+.gcd{min-height:32px}.gmonth{touch-action:pan-y}#gtree .rlist{min-height:140px}
+/* v89 bottom tabs */
+:root{--tabh:calc(58px + env(safe-area-inset-bottom,0px))}
+body{padding-bottom:var(--tabh)}
+#tabbar{position:fixed;left:0;right:0;bottom:0;z-index:68;display:flex;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -4px 14px rgba(0,0,0,.12)}
+#tabbar.kbd{display:none}
+.tabb{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;height:58px;border:0;background:transparent;color:var(--muted);font:inherit;padding:4px 2px}
+.tabb .tgl2{font-size:19px;line-height:1}.tabb .tlb{font-size:11.5px;font-weight:600;white-space:nowrap}
+.tabb.on{color:var(--accent)}.tabb.on::before{content:"";position:absolute;top:0;left:22%;right:22%;height:3px;border-radius:0 0 3px 3px;background:var(--accent)}
+.tbadge{position:absolute;top:5px;left:calc(50% + 8px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--hi);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}.tbadge[hidden]{display:none}
+.sheet,.srch{padding-bottom:var(--tabh)}
+#stent:not(.float):not(.dock):not(.min){padding-bottom:calc(var(--tabh) + 8px)}
+#pend{z-index:63}
+.sheet.dock,.sheet.min,#gtree.dock,#gtree.min,#stbl.dock,#stbl.min,#stent.dock,#stent.min{bottom:var(--tabh);padding-bottom:6px}
+.toast{bottom:calc(18px + var(--tabh))}.msbar,.gtre{bottom:calc(14px + var(--tabh))}
+body:has(#sheet.dock:not([hidden])) .gridwrap{padding-bottom:calc(48vh - var(--tabh) + 6px)}
+.pbodyl{display:flex;flex-direction:column;gap:6px;padding:4px 0 20px}.pst{margin:10px 2px 0!important;font-weight:700}
+.prow{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:6px 8px}
+.prow.pdone .ptt{text-decoration:line-through;opacity:.6}
+.pchk{flex:none;width:34px;height:34px;border-radius:9px;border:2px solid var(--accent);background:transparent;color:var(--accent-ink);font-weight:700;font-size:18px;padding:0}.pchk.on{background:var(--accent)}
+.pmain{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:0;background:transparent;color:inherit;padding:2px 0;font:inherit}
+.pmain .ptt{font-weight:600;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pmain small{color:var(--muted);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ptree{display:flex;flex-direction:column;gap:6px}.pkids{display:flex;flex-direction:column;gap:6px;margin-left:16px;padding-left:8px;border-left:2px solid var(--accent-soft)}
+.ptg{flex:none;width:26px;height:34px;border:0;background:transparent;color:var(--muted);font-size:16px;padding:0}.pchild .pchk{width:30px;height:30px}
+.pxr{margin-top:0;padding:6px 8px;border-radius:8px;background:var(--surface);border:1px solid var(--line);font-size:13px}
+@keyframes stfl{0%,60%{box-shadow:inset 0 0 0 3px var(--accent)}100%{box-shadow:inset 0 0 0 0 transparent}}.stflash{animation:stfl 2.4s ease-out}
+.pxr{display:flex;align-items:center;gap:8px}.pxr.xd span{text-decoration:line-through;opacity:.65}.pchk.sm{width:26px;height:26px;font-size:15px;border-width:2px;border-radius:7px}
 </style>
 <div id="app">
   <header class="top">
@@ -1485,20 +1521,21 @@ function fillDayTree(box,date){if(!box)return;box.textContent='';
   const els=dayBlock(date,'',id=>{ui.hist=[];openNode(id)},ed.node,()=>fillDayTree(box,date));
   if(els)els.forEach(e=>box.append(e));else box.append(h('p',{class:'psub'},'No boxes on this day yet.'))}
 function gridTree(mode){
-  if(mode)GT.mode=mode;
+  if(mode)GT.mode=mode;if(!GT.month)GT.month=(GT.date||iso(new Date())).slice(0,7);
   let p=$('#gtree');if(!p){p=h('div',{id:'gtree',class:'srch'});document.body.append(p)}
-  p.hidden=false;p.textContent='';gtApply(p);gtReopen(false);
+  p.hidden=false;p.textContent='';p.classList.toggle('gtmo',GT.mode==='month');gtApply(p);gtReopen(false);
   const list=h('div',{class:'rlist'}),q=h('input',{class:'q',type:'search',placeholder:'Filter boxes','aria-label':'Filter boxes'});
   const pick=id=>{ui.hist=[];gtKeep();openNode(id)};
   const paint=()=>{list.textContent='';const f=q.value.trim().toLowerCase();let dates;
-    if(GT.mode==='day')dates=[GT.date];else if(GT.mode==='all')dates=[...new Set(Object.keys(S.cells).filter(k=>/^\d{4}-/.test(k)).map(k=>k.split('|')[0]).filter(d=>!isXd(d)))].sort();else dates=dayList().map(iso);
+    if(GT.mode==='day')dates=[GT.date];else if(GT.mode==='month'){const y=+GT.month.slice(0,4),mo=+GT.month.slice(5,7),nd=new Date(y,mo,0).getDate();dates=Array.from({length:nd},(_,i)=>GT.month+'-'+pad(i+1))}else if(GT.mode==='all')dates=[...new Set(Object.keys(S.cells).filter(k=>/^\d{4}-/.test(k)).map(k=>k.split('|')[0]).filter(d=>!isXd(d)))].sort();else dates=dayList().map(iso);
     let any=0;for(const dt of dates){const els=dayBlock(dt,f,pick,null,paint);if(!els)continue;any++;list.append(h('div',{class:'gday'},dateLabel(dt),dayProgText(dt)));els.forEach(e=>list.append(e))}
     if(!any)list.append(h('p',{class:'psub'},f?'No boxes match.':'No boxes for this selection yet.'))};
-  const seg=h('div',{class:'gseg'},[['day','One day'],['week','Visible days'],['all','All days']].map(a=>h('button',{class:'btn'+(GT.mode===a[0]?' primary':''),onclick:()=>gridTree(a[0])},a[1])));
+  const seg=h('div',{class:'gseg'},[['day','One day'],['week','Visible days'],['month','Month'],['all','All days']].map(a=>h('button',{class:'btn'+(GT.mode===a[0]?' primary':''),onclick:()=>gridTree(a[0])},a[1])));
   let nav=null;
   if(GT.mode==='day'){const shift=n=>()=>{const d=parseISO(GT.date);d.setDate(d.getDate()+n);GT.date=iso(d);gridTree()};
     const di=h('input',{type:'date',class:'cin',value:GT.date,'aria-label':'Day',style:'flex:1 1 auto;min-width:0',onchange:e=>{if(e.target.value){GT.date=e.target.value;gridTree()}}});
     nav=h('div',{class:'gseg gnav'},h('button',{class:'btn','aria-label':'Previous day',onclick:shift(-1)},'\u2039'),di,h('button',{class:'btn','aria-label':'Next day',onclick:shift(1)},'\u203a'))}
+  if(GT.mode==='month')nav=gtMonthNav();
   q.oninput=paint;
   p.append(gtHead(p),seg,nav,h('div',{class:'gseg'},h('button',{class:'btn'+(GT.sel?' primary':''),'aria-pressed':String(!!GT.sel),title:'Tick boxes, then copy or move them to another cell',onclick:()=>{GT.sel=GT.sel?null:new Set();gridTree()}},GT.sel?'Done selecting':'Select boxes'),h('button',{class:'btn',onclick:()=>shareTreeDlg()},'Share\u2026'),h('button',{class:'btn'+(GT.hide?' primary':''),'aria-pressed':String(GT.hide),onclick:()=>{GT.hide=!GT.hide;gridTree()}},GT.hide?'Show sub boxes':'Hide sub boxes'),h('button',{class:'btn',onclick:()=>{GT.col.clear();COLN.clear();gridTree()}},'Expand all'),h('button',{class:'btn',onclick:()=>{allIds().forEach(id=>GT.col.add(id));gridTree()}},'Collapse all')),gtSelBar()||"",q,list);
   paint()}
@@ -2048,7 +2085,7 @@ function openReview(tab){
       h('button',{class:'btn',onclick:()=>{p.hidden=true;copyDlg(x.n)}},'Schedule\u2026'))))}}
 
 /* month view */
-const MV={y:new Date().getFullYear(),m:new Date().getMonth()};
+const MV={y:new Date().getFullYear(),m:new Date().getMonth(),sel:null};
 function openMonth(){
   const p=overlay('month'),first=new Date(MV.y,MV.m,1),start=new Date(first);start.setDate(1-((first.getDay()+6)%7));
   const info={};
@@ -2062,10 +2099,15 @@ function openMonth(){
   const g=h('div',{class:'mgrid'});['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(x=>g.append(h('div',{class:'mh'},x)));
   const today=iso(new Date());
   for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);const ds=iso(d),o=info[ds],out=d.getMonth()!==MV.m;
-    g.append(h('button',{class:'mc'+(out?' out':'')+(ds===today?' today':'')+offCls(ds),title:holOf(ds)?holOf(ds).name:null,'aria-label':dateLabel(ds)+(o?', '+o.t+' boxes':''),onclick:()=>{AG.date=ds;p.hidden=true;openAgenda()}},
+    g.append(h('button',{class:'mc'+(out?' out':'')+(ds===today?' today':'')+(ds===MV.sel?' sel':'')+offCls(ds),title:holOf(ds)?holOf(ds).name:null,'aria-label':dateLabel(ds)+(o?', '+o.t+' boxes':''),onclick:ev=>{MV.sel=ds;g.querySelectorAll('.mc.sel').forEach(x=>x.classList.remove('sel'));ev.currentTarget.classList.add('sel');paintDay()}},
       h('span',{class:'mn'},String(d.getDate())),holOf(ds)?h('span',{class:'mh2'},holOf(ds).name):null,o?h('span',{class:'mb'},o.d+'/'+o.t):null,o?h('span',{class:'mbar'},h('i',{style:'width:'+Math.round(100*o.d/o.t)+'%'})):null,
       o&&o.c.size?h('span',{class:'mdots'},[...o.c].slice(0,5).map(c=>h('i',{style:'background:'+c}))):null))}
-  p.append(h('div',{class:'mwrap'},g),h('p',{class:'psub',style:'padding:0 4px'},'Counts are done/total boxes across all timetables. Tap a day to see its agenda.'))}
+  const pane=h('div',{class:'mvday'}),pick=id=>{ui.hist=[];p.hidden=true;openNode(id)};
+  function paintDay(){pane.textContent='';if(!MV.sel){pane.append(h('p',{class:'psub',style:'margin:4px'},'Tap a day to see its boxes here. Swipe sideways to change month. Counts are done/total boxes across all timetables.'));return}
+    const d=MV.sel,els=dayBlock(d,'',pick,null,paintDay);
+    pane.append(h('div',{class:'gday',style:'display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:0'},h('span',{style:'flex:1;min-width:0'},dateLabel(d),dayProgText(d)),h('button',{class:'btn',onclick:()=>{AG.date=d;p.hidden=true;openAgenda()}},'Agenda')));
+    if(!els)pane.append(h('p',{class:'psub',style:'margin:4px'},'No boxes on this day.'));else els.forEach(e=>pane.append(e))}
+  const wrap=h('div',{class:'mwrap'},g);swipeNav(wrap,d=>mv(0,d)());p.append(wrap,pane);paintDay()}
 
 /* daily digest */
 function showDigest(){
@@ -2111,7 +2153,7 @@ function moveToCell(id,key){
 
 /* the Plan menu */
 function planMenu(){
-  const it=(l,sub,fn)=>h('button',{class:'res',onclick:()=>{m.close();fn()}},h('span',null,l),h('small',null,sub));
+  const it=(l,sub,fn)=>h('button',{class:'res',onclick:()=>menuRun(m,fn)},h('span',null,l),h('small',null,sub));
   const sc=t=>h('p',{class:'sect',style:'margin:8px 2px 0'},t);
   const m=modal('Plan',h('div',{class:'rlist',style:'padding:0;max-height:62vh'},
     sc('Today'),
@@ -2152,6 +2194,7 @@ function planMenu(){
     it('Text size and rotation…','Smaller text, or turn it sideways in the grid',()=>txDlg('main')),
     it('Select cells: merge, unmerge, text','Tick cells, then join, split, or shrink and turn their text',mgStart),
     it('Import Excel into the timetable','Bring in an .xlsx or CSV file. Filled cells become boxes',()=>xlImportDlg('main')),
+    it('Print the timetable','Pick the dates, rows and columns to print',mainPrintDlg),
     it('Share days via apps','Pick days, or a date and time range, and send it to WhatsApp, mail and more',shareTreeDlg),
     it('Themes','Change colours: dark, light, forest, ocean and more',themeDlg),
     it('Share a read-only snapshot','Export this timetable as an HTML file',()=>exportDlg('html'))),
@@ -2163,7 +2206,7 @@ $('#planbtn').onclick=planMenu;
   const close=()=>{mn.hidden=true;bt.setAttribute('aria-expanded','false')};
   const place=()=>{const r=bt.getBoundingClientRect(),w=Math.min(240,innerWidth-16);mn.style.minWidth=w+'px';mn.style.left=Math.max(8,Math.min(r.right-w,innerWidth-w-8))+'px';mn.style.top=(r.bottom+6)+'px'};
   bt.addEventListener('click',e=>{e.stopPropagation();mn.hidden=!mn.hidden;if(!mn.hidden)place();bt.setAttribute('aria-expanded',String(!mn.hidden))});
-  mn.addEventListener('click',()=>setTimeout(close,0));document.addEventListener('click',e=>{if(!mn.contains(e.target))close()});
+  mn.addEventListener('click',()=>setTimeout(()=>{if(!document.querySelector('.mback'))close()},160));document.addEventListener('click',e=>{if(!mn.contains(e.target)&&!e.target.closest('.mback'))close()});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!mn.hidden){close()}})})();
 
 /* ---------- revision of completed boxes (spaced review) ---------- */
@@ -3341,16 +3384,16 @@ function extraRows(n,lv,seen,pre,ctr){const o=[];lv=lv||0;seen=seen||new Set();i
   const nx=()=>{ctr.c++;return pre?pre+'.'+ctr.c:String(ctr.c)};
   const sub=(id,l,num)=>{const x=id&&N(id);if(!x)return;let c1=0;
     if(x.ref){const nm=(x.name||'').trim(),tx=(x.text||'').trim().replace(/\s+/g,' ');
-      if(nm||tx){c1=1;o.push({k:'Box',num:num+'.1',t:(nm||tx.slice(0,140))+' \u00b7 '+progTxt(x,progOf(x)),done:x.st==='d',sub:l,go:()=>openNode(x.id)});if(nm&&tx){c1=2;o.push({k:'Note',num:num+'.2',t:tx.slice(0,140),sub:l+1,go:()=>openNode(x.id)})}}}
+      if(nm||tx){c1=1;o.push({k:'Box',num:num+'.1',t:(nm||tx.slice(0,140))+' \u00b7 '+progTxt(x,progOf(x)),done:x.st==='d',tog:()=>{x.st=x.st==='d'?null:'d';autoRev(x);dirty()},sub:l,go:()=>openNode(x.id)});if(nm&&tx){c1=2;o.push({k:'Note',num:num+'.2',t:tx.slice(0,140),sub:l+1,go:()=>openNode(x.id)})}}}
     const c2={c:c1};extraRows(x,l,seen,num,c2).forEach(r=>o.push(r));
     if(x.ref)(x.kids||[]).forEach(k=>{const c=N(k);if(c&&!c.ref&&!c.contact){c2.c++;o.push({box:k,sub:l+1,num:num+'.'+c2.c})}})};
   if(!n.ref&&!n.contact&&n.parent){const full=n.text||'',body=((n.name||'').trim()?full:full.split('\n').slice(1).join('\n')).trim().replace(/\s+/g,' ');
     if(body)o.push({k:'Note',num:nx(),t:body.slice(0,160)+(body.length>160?'\u2026':''),sub:lv,go:()=>openNode(n.id)})}
-  (n.lists||[]).forEach(g=>{const it=g.items||[],d=it.filter(x=>x.done).length,gn=nx();o.push({k:g.k==='s'?'Steps':'Checklist',num:gn,t:(g.text||'')+' \u00b7 '+d+'/'+it.length,done:it.length&&d===it.length,sub:lv,go:()=>openNode(entryNode(n,{k:'l',i:g.id},g).id)});
+  (n.lists||[]).forEach(g=>{const it=g.items||[],d=it.filter(x=>x.done).length,gn=nx();o.push({k:g.k==='s'?'Steps':'Checklist',num:gn,t:(g.text||'')+' \u00b7 '+d+'/'+it.length,done:it.length&&d===it.length,sub:lv,tog:()=>{const all=it.length&&it.every(x=>x.done);it.forEach(x=>{x.done=!all});dirty();subSync(n)},go:()=>openNode(entryNode(n,{k:'l',i:g.id},g).id)});
     sub(g.node,lv+1,gn);
-    it.forEach((x,i)=>{const xn=gn+'.'+(i+1);o.push({k:g.k==='s'?'Step':'Item',num:xn,t:x.text||'(empty)',done:!!x.done,sub:lv+1,go:()=>openNode(entryNode(n,{k:'c',g:g.id,i:x.id},x).id)});sub(x.node,lv+2,xn)})});
-  (n.steps||[]).forEach(x=>{const xn=nx();o.push({k:'Step',num:xn,t:x.text||'(empty)',done:!!x.done,sub:lv,go:()=>openNode(entryNode(n,{k:'s',i:x.id},x).id)});sub(x.node,lv+1,xn)});
-  (n.atts||[]).forEach(a=>{const xn=nx();o.push({k:'File',num:xn,t:a.name||'file',sub:lv,go:()=>openNode(entryNode(n,{k:'a',i:a.id},a).id)});sub(a.node,lv+1,xn)});
+    it.forEach((x,i)=>{const xn=gn+'.'+(i+1);o.push({k:g.k==='s'?'Step':'Item',num:xn,t:x.text||'(empty)',done:!!x.done,sub:lv+1,tog:()=>{x.done=!x.done;dirty();subSync(n)},go:()=>openNode(entryNode(n,{k:'c',g:g.id,i:x.id},x).id)});sub(x.node,lv+2,xn)})});
+  (n.steps||[]).forEach(x=>{const xn=nx();o.push({k:'Step',num:xn,t:x.text||'(empty)',done:!!x.done,sub:lv,tog:()=>{x.done=!x.done;dirty();subSync(n)},go:()=>openNode(entryNode(n,{k:'s',i:x.id},x).id)});sub(x.node,lv+1,xn)});
+  (n.atts||[]).forEach(a=>{const xn=nx();o.push({k:'File',num:xn,t:a.name||'file',done:!!a.done,tog:()=>{a.done=!a.done;dirty()},sub:lv,go:()=>openNode(entryNode(n,{k:'a',i:a.id},a).id)});sub(a.node,lv+1,xn)});
   (n.links||[]).forEach(l=>{let t=l.label;if(!t){try{t=l.url||(l.tt?'Timetable':l.key?l.key.replace('|',' '):l.id?(N(l.id)?nodeLabel(N(l.id)):'box'):'link')}catch(e){t='link'}}o.push({k:'Link',num:nx(),t,sub:lv,go:()=>goLink(l)})});
   (n.people||[]).forEach(id=>{const c=N(id);if(c&&c.contact){const xn=nx();o.push({k:'Contact',num:xn,t:nodeLabel(c),sub:lv,go:()=>openNode(id)});sub(id,lv+1,xn)}});
   (n.pads||[]).forEach((p,i)=>o.push({k:'Pad',num:nx(),t:(p&&p.name)||'Scribble pad '+(i+1),sub:lv,go:()=>openNode(n.id)}));
@@ -3713,7 +3756,7 @@ function stDataEntry(t){const lay=stLayout(t),ds=stCols(t);let f=null;if(STS.sel
 function stDelTable(t){stConfirm('Delete the whole table “'+(t.name||'unnamed')+'”?',()=>{snap();S.simple=stList().filter(x=>x!==t);STS.id=null;STS.sel=STS.sel?new Set():null;dirty();stPaint()})}
 function stTimerSel(t){const ks=stSelKeys(t);if(!ks.length){if(!STS.sel){STS.sel=new Set();stPaint()}toast('Tick the cells that need a timer, then open the menu again or press Timer…');return}stCdDlg(t,ks)}
 /* the table menu: everything that used to crowd the screen */
-function stMenu(t){const ask=stAsk(),it=(l,sub,fn)=>h('button',{class:'res',onclick:()=>{m.close();fn()}},h('span',null,l),h('small',null,sub)),sc=x=>h('p',{class:'sect',style:'margin:8px 2px 0'},x);
+function stMenu(t){const ask=stAsk(),it=(l,sub,fn)=>h('button',{class:'res',onclick:()=>menuRun(m,fn)},h('span',null,l),h('small',null,sub)),sc=x=>h('p',{class:'sect',style:'margin:8px 2px 0'},x);
   const m=modal('Table menu',h('div',{class:'rlist',style:'padding:0;max-height:64vh'},
     sc('This table'),
     it('Rename table',t.name||'Unnamed',()=>stRename(t)),
@@ -4131,7 +4174,7 @@ function shApply(){const p=$('#sheet');if(!p)return;p.classList.remove('dock','f
 {const _on=openNode;openNode=function(id,f){_on(id,f);shTitle()}}
 /* ---- changes show in the grid and goal cards at once ---- */
 let glT=0;
-function gridLive(){clearTimeout(glT);glT=setTimeout(()=>{if(!S)return;try{renderStrip()}catch(e){}const sh=$('#sheet');if(sh&&!sh.hidden&&SHT.view!=='full'){try{renderGrid()}catch(e){}}},200)}
+function gridLive(){PEND.dirty=true;clearTimeout(glT);glT=setTimeout(()=>{if(!S)return;try{renderStrip()}catch(e){}const sh=$('#sheet');if(sh&&!sh.hidden&&SHT.view!=='full'){try{renderGrid()}catch(e){}}},200)}
 setInterval(()=>{if(S)try{renderStrip()}catch(e){}},30000);
 /* ---- countdown timers on boxes in the main table (they reuse the alarm, so they ring even when the app is closed) ---- */
 const mcdOn=n=>!!(n&&n.cd&&(n.alarm||n.cdp));
@@ -4248,7 +4291,7 @@ function boxFmtDlg(ids){const ns=ids.map(N).filter(n=>n&&n.parent&&!n.ref);if(!n
     rows.length?h('p',{class:'sect',style:'margin:6px 2px 0'},'Each part on its own'):null,rows.length?h('div',{style:'display:flex;flex-direction:column;gap:10px;max-height:34vh;overflow:auto;flex:none'},rows):null),
     [h('button',{class:'btn',onclick:()=>{ns.forEach(n=>{['fz','fr','nz','tz'].forEach(k=>delete n[k]);(n.lists||[]).forEach(g=>delete g.z);bfLive(n)});dirty();fin()}},'Reset'),h('button',{class:'btn primary',onclick:fin},'Done')])}
 function boxMenu(n,ta,pick,ents){
-  const it=(l,sub,fn)=>h('button',{class:'res',onclick:()=>{m.close();fn()}},h('span',null,l),h('small',null,sub)),sc=x=>h('p',{class:'sect',style:'margin:8px 2px 0'},x);
+  const it=(l,sub,fn)=>h('button',{class:'res',onclick:()=>menuRun(m,fn)},h('span',null,l),h('small',null,sub)),sc=x=>h('p',{class:'sect',style:'margin:8px 2px 0'},x);
   const rp=typeof recOf==='function'?recOf(n):null;
   const m=modal('Box menu',h('div',{class:'rlist',style:'padding:0;max-height:66vh'},
     sc('Add to this box'),
@@ -4277,6 +4320,154 @@ function boxMenu(n,ta,pick,ents){
     it('Search Google','For the first line of this text',()=>openGoogle(firstLine(ta.value)||'')),
     it('Open an app','With this text',()=>appsDlg(n,ta))),
     [h('button',{class:'btn primary',onclick:()=>m.close()},'Close')])}
+/* ===== v85: print the main table for a date range, chosen rows and columns ===== */
+function prPreview(name,html,css){let pv=$('#sprint');if(pv)pv.remove();
+  pv=h('div',{id:'sprint',class:'sprint'});
+  const bar=h('div',{class:'spbar'},h('strong',null,'Print preview'),h('span',{class:'grow'}),
+    h('button',{class:'btn primary',onclick:()=>{document.body.classList.add('psp');try{if(window.AndroidBridge&&AndroidBridge.printPage)AndroidBridge.printPage(name||'Timetable');else window.print()}catch(e){toast('Printing is not available here.')}}},'Print'),
+    h('button',{class:'btn',onclick:()=>{document.body.classList.remove('psp');pv.remove()}},'Close'));
+  const sheet=h('div',{class:'spsheet'});sheet.innerHTML='<style>'+STCSS.replace(/body\{[^}]*\}/,'')+(css||'')+'</style>'+html;
+  pv.append(bar,sheet);document.body.append(pv);window.addEventListener('afterprint',()=>document.body.classList.remove('psp'),{once:true})}
+function prBoxHtml(n,detail,depth){const nm=boxName(n)||'(empty)',done=n.st==='d';
+  let s='<div class="prb"'+(done?' style="text-decoration:line-through;opacity:.65"':'')+'><b>'+(done?'✓ ':'')+stEsc(nm)+'</b>';
+  if(detail){const lines=(n.text||'').split('\n');const rest=(n.name||'').trim()?lines:lines.slice(1);const tx=rest.join('\n').trim();if(tx)s+='<div class="prt">'+stEsc(tx).replace(/\n/g,'<br>')+'</div>';
+    (n.lists||[]).forEach(g=>{s+='<div class="prt"><i>'+stEsc((g.text||'').trim()||(g.k==='s'?'Steps':'Checklist'))+'</i>'+(g.items||[]).map(e=>'<br>'+(e.done?'☑ ':'☐ ')+stEsc(e.text||'')).join('')+'</div>'})}
+  if(depth<2){const ks=(n.kids||[]).map(N).filter(k=>k&&!k.ref&&!k.contact);if(ks.length)s+='<div class="prk">'+ks.map(k=>prBoxHtml(k,detail,depth+1)).join('')+'</div>'}
+  return s+'</div>'}
+function prCellHtml(key,detail){const rid=S.cells[key];const n=rid&&N(rid);if(!n)return'';return(n.kids||[]).map(N).filter(k=>k&&!k.ref&&!k.contact).map(k=>prBoxHtml(k,detail,0)).join('')}
+function mainPrintDlg(){const days0=dayList().map(iso),t=$('#ttname');
+  const from=h('input',{type:'date',class:'cin',value:iso(new Date()),'aria-label':'From date',style:'height:42px'}),to=h('input',{type:'date',class:'cin',value:addDaysISO(iso(new Date()),6),'aria-label':'To date',style:'height:42px'});
+  const rowSel=new Set(S.slots.map(s=>s.id)),colSel=new Set(),xSel=new Set(xcols().map(x=>x.id));let lastRange='';
+  const chip=(set,id,label)=>{const b=h('button',{class:'btn'+(set.has(id)?' primary':''),'aria-pressed':String(set.has(id)),onclick:()=>{if(set.has(id)){set.delete(id);b.classList.remove('primary');b.setAttribute('aria-pressed','false')}else{set.add(id);b.classList.add('primary');b.setAttribute('aria-pressed','true')}sum()}},label);return b};
+  const wrap=()=>h('div',{style:'display:flex;flex-wrap:wrap;gap:6px;max-height:20vh;overflow:auto;flex:none'});
+  const dayBox=wrap(),rowBox=wrap(),xBox=wrap(),allBtns=(set,ids,after)=>h('div',{style:'display:flex;gap:6px;flex:none'},h('button',{class:'btn',onclick:()=>{ids().forEach(i=>set.add(i));after()}},'All'),h('button',{class:'btn',onclick:()=>{set.clear();after()}},'None'));
+  const detail=h('input',{type:'checkbox',checked:true,'aria-label':'Include the text and checklists of boxes'}),skip=h('input',{type:'checkbox','aria-label':'Leave out empty rows'}),land=h('input',{type:'checkbox',checked:true,'aria-label':'Landscape page'});
+  const rng=()=>{const a=from.value,b=to.value;if(!a||!b||a>b)return[];const out=[];let d=a;while(d<=b&&out.length<62){out.push(d);d=addDaysISO(d,1)}return out};
+  const sumEl=h('p',{class:'psub',style:'margin:0'});
+  const paintDays=()=>{const r=rng(),k=r.join(',');if(k!==lastRange){lastRange=k;colSel.clear();r.forEach(d=>colSel.add(d))}dayBox.textContent='';r.forEach(d=>{const p=parseISO(d);dayBox.append(chip(colSel,d,DOW[p.getDay()]+' '+p.getDate()+' '+MON[p.getMonth()]))});sum()};
+  const paintRows=()=>{rowBox.textContent='';S.slots.forEach(s=>rowBox.append(chip(rowSel,s.id,slotTxt(s))))};
+  const paintX=()=>{xBox.textContent='';xcols().forEach(x=>xBox.append(chip(xSel,x.id,x.title||'Column')))};
+  function sum(){const r=rng();sumEl.textContent=!r.length?'Pick a start date that is not after the end date.':[...colSel].filter(d=>r.includes(d)).length+' day(s), '+rowSel.size+' row(s)'+(xcols().length?', '+xSel.size+' custom column(s)':'')+' will print.'}
+  from.onchange=to.onchange=paintDays;paintRows();paintX();paintDays();
+  const go=()=>{const days=rng().filter(d=>colSel.has(d));const rows=S.slots.filter(s=>rowSel.has(s.id));if(!days.length||!rows.length){toast('Pick at least one day and one row');return}
+    const cols=[];days.forEach(d=>{cols.push({k:d,l:dateLabel(d)});xcols().filter(x=>x.after===d&&xSel.has(x.id)).forEach(x=>cols.push({k:x.date,l:x.title||'Column'}))});
+    const dt=detail.checked,cell=(r,c)=>prCellHtml(c.k+'|'+r.id,dt);let body=rows.map(r=>({r,cs:cols.map(c=>cell(r,c))}));if(skip.checked)body=body.filter(x=>x.cs.some(Boolean));
+    if(!body.length){toast('Nothing to print in that range');return}
+    const nm=(t&&t.value.trim())||'Timetable',sub=dateLabel(days[0])+(days.length>1?' to '+dateLabel(days[days.length-1]):'');
+    const html='<h1>'+stEsc(nm)+'</h1><p style="margin:0 0 8px;color:#555;font-size:12px">'+stEsc(sub)+'</p><table><thead><tr><th>Time</th>'+cols.map(c=>'<th>'+stEsc(c.l)+'</th>').join('')+'</tr></thead><tbody>'+body.map(x=>'<tr><td>'+stEsc(slotTxt(x.r))+'</td>'+x.cs.map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
+    const css='.prb{margin:0 0 4px}.prt{font-size:11px;color:#333;margin-top:1px}.prk{margin-left:3px;padding-left:4px;border-left:2px solid #bbb;margin-top:2px}td{text-align:left!important;overflow-wrap:break-word;word-break:normal}table{min-width:0!important}'+(cols.length>7?'th,td{font-size:10px!important;padding:3px 4px!important}':'')+'td:first-child{width:'+(cols.length>7?'70':'100')+'px!important}@page{size:A4 '+(land.checked?'landscape':'portrait')+';margin:10mm}';
+    m.close();prPreview(nm,html,css)};
+  const lab=(el,x)=>h('label',{style:'display:flex;flex-direction:row;align-items:center;gap:8px;font-size:14px;flex:none'},el,x);
+  const m=modal('Print the timetable',h('div',{style:'display:flex;flex-direction:column;gap:10px'},
+    h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;flex:none'},h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px;flex:1 1 9em'},'From',from),h('label',{style:'display:flex;flex-direction:column;gap:3px;font-size:13px;flex:1 1 9em'},'To',to)),
+    h('b',null,'Days (columns)'),dayBox,allBtns(colSel,()=>rng(),paintDays2),
+    h('b',null,'Rows'),rowBox,allBtns(rowSel,()=>S.slots.map(s=>s.id),()=>{paintRows();sum()}),
+    xcols().length?h('b',null,'Custom columns'):null,xcols().length?xBox:null,
+    lab(detail,'Include the text and checklists of boxes'),lab(skip,'Leave out rows with nothing in them'),lab(land,'Landscape page'),sumEl),
+    [h('button',{class:'btn',onclick:()=>m.close()},'Cancel'),h('button',{class:'btn primary',onclick:go},'Preview')]);
+  function paintDays2(){const k=lastRange;lastRange='';paintDays2b(k)}
+  function paintDays2b(k){const r=rng();/* keep the chosen state: All fills, None clears */dayBox.textContent='';r.forEach(d=>{const p=parseISO(d);dayBox.append(chip(colSel,d,DOW[p.getDay()]+' '+p.getDate()+' '+MON[p.getMonth()]))});lastRange=r.join(',');sum()}}
+/* ---- menus stay open when an option opens a dialog; they close only when the option leaves the menu with nothing on top ---- */
+function menuRun(m,fn){fn();setTimeout(()=>{if(!m.isConnected)return;const all=document.querySelectorAll('.mback');if(all[all.length-1]===m)m.close()},160)}
+/* ---- month view in Tree by day ---- */
+function gtMonthNav(){const y=+GT.month.slice(0,4),mo=+GT.month.slice(5,7),nd=new Date(y,mo,0).getDate(),off=(new Date(y,mo-1,1).getDay()+6)%7;
+  const has=new Set();for(const k in S.cells){const n=N(S.cells[k]);if(n&&n.kids&&n.kids.length&&k.indexOf('|')>0)has.add(k.split('|')[0])}
+  const go=d=>()=>{const x=new Date(y,mo-1+d,1);GT.month=x.getFullYear()+'-'+pad(x.getMonth()+1);gridTree()},today=iso(new Date());
+  const mi=h('input',{type:'month',class:'cin',value:GT.month,'aria-label':'Month',style:'flex:1 1 auto;min-width:0',onchange:e=>{if(e.target.value){GT.month=e.target.value;gridTree()}}});
+  const top=h('div',{class:'gseg gnav'},h('button',{class:'btn','aria-label':'Previous month',onclick:go(-1)},'‹'),mi,h('button',{class:'btn','aria-label':'Next month',onclick:go(1)},'›'));
+  const cal=h('div',{class:'gcal',role:'grid','aria-label':'Month calendar'});
+  ['Mo','Tu','We','Th','Fr','Sa','Su'].forEach(x=>cal.append(h('span',{class:'gch'},x)));
+  for(let i=0;i<off;i++)cal.append(h('span'));
+  for(let d=1;d<=nd;d++){const ds=GT.month+'-'+pad(d);cal.append(h('button',{class:'gcd'+(has.has(ds)?' has':'')+(ds===today?' tod':'')+(ds===GT.date?' sel':''),'aria-label':dateLabel(ds)+(has.has(ds)?', has boxes':''),title:dateLabel(ds),onclick:()=>{GT.date=ds;gridTree('day')}},String(d)))}
+  const box=h('div',{class:'gmonth'},top,cal,h('p',{class:'psub',style:'margin:2px 0 0'},'Tap a day to open it. A dot means it has boxes. Swipe sideways to change month.'));
+  swipeNav(box,d=>go(d)());
+  return box}
+
+function swipeNav(el,fn){el.style.touchAction='pan-y';let x0=0,y0=0,id=null;
+  el.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;id=e.pointerId;x0=e.clientX;y0=e.clientY});
+  const up=e=>{if(id!==e.pointerId)return;id=null;const dx=e.clientX-x0,dy=e.clientY-y0;if(Math.abs(dx)>50&&Math.abs(dx)>1.5*Math.abs(dy))fn(dx<0?1:-1)};
+  el.addEventListener('pointerup',up);el.addEventListener('pointercancel',()=>{id=null})}
+/* ===== v89: three tabs docked at the bottom: Timetable, Simple tables, To do ===== */
+const PEND={dirty:true,f:'all',n:0,day:''};
+/* a box's parts in tree-view order: attachments, checklists, steps, notes, links ... (rows) and the boxes inside it */
+function pendParts(n){const parts=[];extraRows(n).forEach(t=>{if(t.box){if(N(t.box))parts.push({box:t.box})}else parts.push({x:t})});directKids(n).forEach(k=>parts.push({box:k}));return parts}
+const pendOpen=(n,d)=>{d=d||0;return n.st!=='d'||(d<12&&pendParts(n).some(p=>p.box&&N(p.box)&&pendOpen(N(p.box),d+1)))};
+function pendNodeCount(n,d){d=d||0;return(n.st!=='d'?1:0)+(d<12?pendParts(n).reduce((a,p)=>a+(p.box&&N(p.box)?pendNodeCount(N(p.box),d+1):0),0):0)}
+function pendItems(){const today=iso(new Date()),main=[],simple=[],wd=(new Date().getDay()+6)%7;
+  for(const key in S.cells){const bar=key.indexOf('|');if(bar<0)continue;const d=key.slice(0,bar);if(isXd(d)||d>today)continue;const root=N(S.cells[key]);if(!root)continue;
+    const sl=S.slots.find(x=>x.id===key.slice(bar+1));
+    directKids(root).map(N).filter(Boolean).forEach(n=>{if(!((n.name||'').trim()||(n.text||'').trim())&&!pendParts(n).length)return;if(d!==today&&!pendOpen(n))return;
+      main.push({kind:'m',n,date:d,done:n.st==='d',over:d<today,when:sl?slotTxt(sl):''})})}
+  stList().forEach(t=>{stFix(t);(t.rows||[]).forEach(r=>{if(r.x)return;(t.cols||[]).forEach(c=>{if(c.x)return;const k=r.id+'|'+c.id,tx=(t.cells[k]||'').trim();if(!tx)return;
+    const dt=c.date||'',done=stCellDone(t,k);let over=false,isToday=false;
+    if(dt){if(dt>today)return;over=dt<today;isToday=dt===today}else{if(stColDay(c)!==wd)return;isToday=true}
+    if(done&&!isToday)return;simple.push({kind:'s',t,r,c,k,date:dt||today,done,over,text:tx})})})});
+  return{main,simple}}
+function pendCount(){const p=pendItems();return p.main.reduce((a,x)=>a+pendNodeCount(x.n),0)+p.simple.filter(x=>!x.done).length}
+function pendRow(it,repaint,node,depth){const n=node||it.n,sub1=!!node&&depth>0,done=it.kind==='m'?n.st==='d':it.done;
+  const chk=h('button',{class:'pchk'+(done?' on':''),'aria-label':done?'Mark as not done':'Mark as done','aria-pressed':String(done),onclick:()=>{
+    if(it.kind==='m'){snap();n.st=done?null:'d';autoRev(n);dirty();renderGrid()}else{stToggleDone(it.t,it.k);if($('#stbl')&&!$('#stbl').hidden)stPaint()}
+    PEND.dirty=true;repaint();tabPaint()}},done?'\u2713':'');
+  const title=it.kind==='m'?(boxName(n)||'(empty)'):it.text.split('\n')[0];
+  const f2=x=>x.slice(0,10)===it.date?x.slice(11):dtTxt(x),own=it.kind==='m'&&n.start?' \u00b7 '+f2(n.start)+(n.end?' \u2192 '+f2(n.end):''):'',sub=it.kind==='m'?(sub1?'Sub-box \u00b7 ':'Timetable \u00b7 ')+dateLabel(it.date)+(it.when?' \u00b7 '+it.when:'')+own:'Simple table \u00b7 '+it.t.name+' \u00b7 '+stColLbl(it.c,false)+' '+stRange(it.r);
+  const open=()=>pendOpenItem(it,n);
+  return h('div',{class:'prow'+(done?' pdone':'')},chk,h('button',{class:'pmain',onclick:open},h('span',{class:'ptt'},it.kind==='m'?[h('b',{class:'cn'},numOf(n.id)),' '+title]:title),h('small',null,sub)))}
+function pendXGo(t){const pd=$('#pend');if(pd)pd.hidden=true;PEND.ret={kind:'m',armed:true};t.go();tabPaint()}
+function pendTree(it,repaint,n,depth,out,over){const parts=pendParts(n).filter(p=>!p.box||!over||pendOpen(N(p.box)));
+  const wrap=h('div',{class:'ptree'+(depth?' pchild':'')}),row=pendRow(it,repaint,n,depth);
+  if(parts.length){const key=n.id,fold=PEND.fold&&PEND.fold[key],tg=h('button',{class:'ptg','aria-label':'Show or hide what is inside','aria-expanded':String(!fold),onclick:()=>{PEND.fold=PEND.fold||{};PEND.fold[key]=!PEND.fold[key];repaint()}},fold?'\u25b8':'\u25be');row.prepend(tg)}
+  wrap.append(row);
+  if(parts.length&&!(PEND.fold&&PEND.fold[n.id])){const box=h('div',{class:'pkids'});
+    parts.forEach(p=>{if(p.box)pendTree(it,repaint,N(p.box),depth+1,box,over);else{const t=p.x;const cb=t.tog?h('button',{class:'pchk sm'+(t.done?' on':''),'aria-label':t.done?'Mark as not done':'Mark as done','aria-pressed':String(!!t.done),onclick:e=>{e.stopPropagation();snap();t.tog();PEND.dirty=true;renderGrid();repaint();tabPaint()}},t.done?'\u2713':''):null;
+      box.append(h('div',{class:'xrow pxr go'+(t.done?' xd':''),role:'button',tabindex:'0',title:'Open',style:'margin-left:'+((t.sub||0)*14)+'px',onclick:()=>pendXGo(t)},cb,h('span',{style:'flex:1;min-width:0'},t.num?h('b',{class:'cn'},t.num):null,h('b',null,' '+t.k),' '+t.t)))}});
+    wrap.append(box)}
+  out.append(wrap)}
+function pendOpenItem(it,n){const pd=$('#pend');if(pd)pd.hidden=true;const sb=$('#stbl');
+  if(it.kind==='m'){PEND.ret={kind:'m'};cdOpenBox(n);PEND.ret.armed=true}
+  else{PEND.ret={kind:'s',wasOpen:!!(sb&&sb.dataset.held)};if(sb)delete sb.dataset.held;STS.id=it.t.id;if(STS.view==='min')STS.view='full';openSimple();
+    if(STE.view==='full'){STE.view='dock';PEND.steWas='full'}stEntry(it.t,it.r,it.c);PEND.ret.armed=true;
+    setTimeout(()=>{const td=document.querySelector('#stbl td[data-k="'+it.k+'"]');if(td){const sc=$('#stbl');if(sc){const r=td.getBoundingClientRect(),r0=sc.getBoundingClientRect();sc.scrollTop+=r.top-(r0.top+Math.min(230,r0.height*.3));sc.scrollLeft+=r.left-(r0.left+60)}td.classList.add('stflash');setTimeout(()=>td.classList.remove('stflash'),2400)}},120)}
+  tabPaint()}
+function pendBack(){const r=PEND.ret;if(!r||!r.armed)return;PEND.ret=null;
+  if(r.kind==='s'){const sb=$('#stbl');if(sb&&STS.view==='full'){sb.hidden=true;if(r.wasOpen)sb.dataset.held='1'}}
+  tabPend();tabPaint()}
+{const _ce=closeEditor;closeEditor=function(){const sh0=$('#sheet');if(sh0)delete sh0.dataset.held;_ce.apply(this,arguments);if(PEND.ret&&PEND.ret.kind==='m')PEND.ret=null}}
+new MutationObserver(()=>{if(PEND.steWas&&!document.getElementById('stent')){if(STE.view==='dock')STE.view=PEND.steWas;PEND.steWas=null}if(PEND.ret&&!document.getElementById('stent'))PEND.ret=null}).observe(document.body,{childList:true});
+function tabPend(){const p0=$('#pend'),y=p0&&!p0.hidden?p0.scrollTop:0,p=overlay('pend');
+  const all=pendItems(),want=x=>PEND.f==='all'||(PEND.f==='main'?x.kind==='m':x.kind==='s'),list=[...all.main,...all.simple].filter(want);
+  const today=list.filter(x=>!x.over),over=list.filter(x=>x.over);
+  const seg=h('div',{class:'gseg'},[['all','All'],['main','Timetable'],['simple','Simple tables']].map(a=>h('button',{class:'btn'+(PEND.f===a[0]?' primary':''),'aria-pressed':String(PEND.f===a[0]),onclick:()=>{PEND.f=a[0];tabPend()}},a[1])));
+  p.append(h('div',{class:'ehead'},h('strong',null,'To do'),h('span',{class:'grow'}),h('span',{class:'psub'},over.length+' overdue · '+today.filter(x=>!x.done).length+' today')),seg);
+  const body=h('div',{class:'pbodyl'});const repaint=()=>tabPend();
+  const sect=(label,arr,grp)=>{body.append(h('p',{class:'sect pst'},label+' ('+arr.length+')'));if(!arr.length){body.append(h('p',{class:'psub',style:'margin:2px 4px 10px'},grp?'Nothing left over from earlier days.':'Nothing planned for today.'));return}
+    let cur='',n=0;arr.sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:0);for(const it of arr){if(grp&&n>=400){body.append(h('p',{class:'psub',style:'margin:6px 4px'},'…and '+(arr.length-n)+' older ones. Finish some to see more.'));break}
+      if(grp&&it.date!==cur){cur=it.date;body.append(h('div',{class:'gday'},dateLabel(cur)))}if(it.kind==='m')pendTree(it,repaint,it.n,0,body,it.over);else body.append(pendRow(it,repaint));n++}};
+  sect('Today',today,false);sect('Overdue, until yesterday',over,true);p.append(body);p.scrollTop=y}
+/* each tab keeps its own open box: a full-screen layer is hidden when you leave its tab and shown again when you come back */
+function tabLayers(){const sh=$('#sheet'),sb=$('#stbl'),se=$('#stent');return{main:[sh&&SHT.view==='full'?sh:null].filter(Boolean),simple:[sb&&STS.view==='full'?sb:null,se?se:null].filter(Boolean)}}
+function tabHold(list){list.forEach(el=>{if(!el.hidden){el.hidden=true;el.dataset.held='1'}})}
+function tabShow(list){list.forEach(el=>{if(el.dataset.held){delete el.dataset.held;el.hidden=false}})}
+function tabGo(w){const L=tabLayers(),pd=$('#pend');PEND.ret=null;
+  ['inbox','trash','revise','review','month','agenda'].forEach(id=>{const o=document.getElementById(id);if(o)o.hidden=true});
+  if(w==='todo'){tabHold(L.main);tabHold(L.simple);const gt=$('#gtree');if(gt&&!gt.hidden&&!/(dock|float|min)/.test(gt.className)){gt.hidden=true;gt.dataset.held='1'}tabPend();tabPaint();return}
+  if(pd)pd.hidden=true;
+  if(w==='main'){tabHold(L.simple);const sb=$('#stbl');if(sb&&STS.view==='full'&&!sb.hidden)tabHold([sb]);tabShow(tabLayers().main);const gt=$('#gtree');if(gt&&gt.dataset.held){delete gt.dataset.held;gt.hidden=false}}
+  else if(w==='simple'){tabHold(L.main);const gt=$('#gtree');if(gt&&!gt.hidden&&!/(dock|float|min)/.test(gt.className)){gt.hidden=true;gt.dataset.held='1'}
+    if(STS.view==='min')STS.view=STS.prev&&STS.prev!=='min'?STS.prev:'full';
+    const sb=$('#stbl');if(sb&&sb.dataset.held)delete sb.dataset.held;openSimple();tabShow(tabLayers().simple)}
+  tabPaint()}
+function tabActive(){const pd=$('#pend'),sb=$('#stbl'),se=$('#stent');if(pd&&!pd.hidden)return'todo';if((se&&!se.hidden)||(sb&&!sb.hidden&&STS.view==='full'))return'simple';return'main'}
+function tabPaint(){const bar=$('#tabbar');if(!bar)return;const a=tabActive();bar.querySelectorAll('.tabb').forEach(b=>{const on=b.dataset.t===a;b.classList.toggle('on',on);b.setAttribute('aria-selected',String(on))});
+  if(typeof S==='undefined'||!S)return;const d=iso(new Date());if(PEND.dirty||PEND.day!==d){PEND.dirty=false;PEND.day=d;try{PEND.n=pendCount()}catch(e){PEND.n=0}}
+  const bd=bar.querySelector('.tbadge');bd.textContent=PEND.n>99?'99+':String(PEND.n);bd.hidden=!PEND.n}
+(function(){if($('#tabbar'))return;
+  const tb=(t,sym,label)=>h('button',{class:'tabb',role:'tab','data-t':t,'aria-label':label,onclick:()=>tabGo(t)},h('span',{class:'tgl2','aria-hidden':'true'},sym),h('span',{class:'tlb'},label),t==='todo'?h('span',{class:'tbadge',hidden:true}):null);
+  const bar=h('nav',{id:'tabbar',role:'tablist','aria-label':'Main sections'},tb('main','▦','Timetable'),tb('simple','☰','Simple tables'),tb('todo','✓','To do'));
+  document.body.append(bar);setInterval(tabPaint,700);
+  if(window.visualViewport)visualViewport.addEventListener('resize',()=>bar.classList.toggle('kbd',visualViewport.height<innerHeight*.78));
+  tabPaint()})();
+{const _on2=openNode;openNode=function(){const sh=$('#sheet');if(sh)delete sh.dataset.held;return _on2.apply(this,arguments)}}
+{const _os=openSimple;openSimple=function(){const sb=$('#stbl');if(sb)delete sb.dataset.held;return _os.apply(this,arguments)}}
 /* ===== Android app bridge: keeps the phone's alarm clock in step with the page (no effect in a browser) ===== */
 const NB=window.AndroidBridge;
 let nsT=0,nsLast='';
