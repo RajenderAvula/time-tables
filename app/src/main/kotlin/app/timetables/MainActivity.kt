@@ -60,6 +60,7 @@ import java.io.FileOutputStream
 class MainActivity : AppCompatActivity() {
 
     private lateinit var web: WebView
+    private var printWeb: WebView? = null
     private var fileCallback: ValueCallback<Array<Uri>>? = null
     private var permResult: ((Map<String, Boolean>) -> Unit)? = null
     private val main = Handler(Looper.getMainLooper())
@@ -457,6 +458,34 @@ class MainActivity : AppCompatActivity() {
                         .setMediaSize(android.print.PrintAttributes.MediaSize.ISO_A4.asLandscape())
                         .build()
                     pm.print(title.ifBlank { "Timetable" }, web.createPrintDocumentAdapter(title.ifBlank { "Timetable" }), attrs)
+                } catch (e: Exception) {
+                    Toast.makeText(this@MainActivity, "Printing is not available on this device", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
+        /** Prints a standalone HTML document from an off-screen WebView, so the spooler gets a small simple page instead of the whole app. */
+        @JavascriptInterface
+        fun printHtml(title: String, html: String) {
+            runOnUiThread {
+                try {
+                    val name = title.ifBlank { "Timetable" }
+                    val pw = WebView(this@MainActivity)
+                    printWeb = pw
+                    pw.webViewClient = object : android.webkit.WebViewClient() {
+                        override fun onPageFinished(view: WebView, url: String?) {
+                            try {
+                                val pm = getSystemService(android.content.Context.PRINT_SERVICE) as android.print.PrintManager
+                                val attrs = android.print.PrintAttributes.Builder()
+                                    .setMediaSize(android.print.PrintAttributes.MediaSize.ISO_A4.asLandscape())
+                                    .build()
+                                pm.print(name, view.createPrintDocumentAdapter(name), attrs)
+                            } catch (e: Exception) {
+                                Toast.makeText(this@MainActivity, "Printing is not available on this device", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
+                    pw.loadDataWithBaseURL(null, html, "text/html", "utf-8", null)
                 } catch (e: Exception) {
                     Toast.makeText(this@MainActivity, "Printing is not available on this device", Toast.LENGTH_LONG).show()
                 }
