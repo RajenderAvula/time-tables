@@ -464,25 +464,35 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /** Prints a standalone HTML document from an off-screen WebView, so the spooler gets a small simple page instead of the whole app. */
+        /** Prints a standalone HTML document from a separate, attached WebView, so the spooler gets a small simple page instead of the whole app. */
         @JavascriptInterface
         fun printHtml(title: String, html: String) {
             runOnUiThread {
                 try {
                     val name = title.ifBlank { "Timetable" }
+                    printWeb?.let { old -> (old.parent as? android.view.ViewGroup)?.removeView(old); old.destroy() }
                     val pw = WebView(this@MainActivity)
                     printWeb = pw
+                    var started = false
+                    pw.settings.javaScriptEnabled = false
+                    pw.layoutParams = android.widget.FrameLayout.LayoutParams(2, 2)
+                    pw.alpha = 0.01f
+                    (window.decorView as android.view.ViewGroup).addView(pw)
                     pw.webViewClient = object : android.webkit.WebViewClient() {
                         override fun onPageFinished(view: WebView, url: String?) {
-                            try {
-                                val pm = getSystemService(android.content.Context.PRINT_SERVICE) as android.print.PrintManager
-                                val attrs = android.print.PrintAttributes.Builder()
-                                    .setMediaSize(android.print.PrintAttributes.MediaSize.ISO_A4.asLandscape())
-                                    .build()
-                                pm.print(name, view.createPrintDocumentAdapter(name), attrs)
-                            } catch (e: Exception) {
-                                Toast.makeText(this@MainActivity, "Printing is not available on this device", Toast.LENGTH_LONG).show()
-                            }
+                            if (started) return
+                            started = true
+                            view.postDelayed({
+                                try {
+                                    val pm = getSystemService(android.content.Context.PRINT_SERVICE) as android.print.PrintManager
+                                    val attrs = android.print.PrintAttributes.Builder()
+                                        .setMediaSize(android.print.PrintAttributes.MediaSize.ISO_A4.asLandscape())
+                                        .build()
+                                    pm.print(name, view.createPrintDocumentAdapter(name), attrs)
+                                } catch (e: Exception) {
+                                    Toast.makeText(this@MainActivity, "Printing is not available on this device", Toast.LENGTH_LONG).show()
+                                }
+                            }, 600)
                         }
                     }
                     pw.loadDataWithBaseURL(null, html, "text/html", "utf-8", null)
