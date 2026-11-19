@@ -4324,7 +4324,7 @@ function boxMenu(n,ta,pick,ents){
 /* ===== v85: print the main table for a date range, chosen rows and columns ===== */
 function prGo(name,pv){const sh=pv.querySelector('.spsheet');
   try{if(window.AndroidBridge&&AndroidBridge.printHtml){const doc='<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>@page{size:A4 landscape;margin:8mm}html,body{margin:0;padding:0;background:#fff;color:#111;font-family:system-ui,sans-serif}</style></head><body>'+(sh?sh.innerHTML:'')+'</body></html>';AndroidBridge.printHtml(name||'Timetable',doc);return}
-    document.body.classList.add('psp');if(window.AndroidBridge&&AndroidBridge.printPage)AndroidBridge.printPage(name||'Timetable');else window.print()}catch(e){toast('Printing is not available here.')}}
+    if(window.AndroidBridge){toast('Printing needs the updated app. Rebuild with the new MainActivity.kt, or use Share \u203a Save web page.');return}document.body.classList.add('psp');window.print()}catch(e){toast('Printing is not available here.')}}
 function prPreview(name,html,css){let pv=$('#sprint');if(pv)pv.remove();
   pv=h('div',{id:'sprint',class:'sprint'});
   const bar=h('div',{class:'spbar'},h('strong',null,'Print preview'),h('span',{class:'grow'}),
