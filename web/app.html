@@ -513,6 +513,7 @@ body:has(#sheet.dock:not([hidden])) .gridwrap{padding-bottom:calc(48vh - var(--t
 .pxr{margin-top:0;padding:6px 8px;border-radius:8px;background:var(--surface);border:1px solid var(--line);font-size:13px}
 @keyframes stfl{0%,60%{box-shadow:inset 0 0 0 3px var(--accent)}100%{box-shadow:inset 0 0 0 0 transparent}}.stflash{animation:stfl 2.4s ease-out}
 .pxr{display:flex;align-items:center;gap:8px}.pxr.xd span{text-decoration:line-through;opacity:.65}.pchk.sm{width:26px;height:26px;font-size:15px;border-width:2px;border-radius:7px}
+.mback[hidden],.sprint[hidden],.qpanel[hidden],.srch[hidden]{display:none!important}
 </style>
 <div id="app">
   <header class="top">
@@ -3507,7 +3508,7 @@ function stShare(t){const sel=new Set(stCols(t).map(c=>c.id));
 function stPrint(t){let pv=$('#sprint');if(pv)pv.remove();
   pv=h('div',{id:'sprint',class:'sprint'});
   const bar=h('div',{class:'spbar'},h('strong',null,'Print preview'),h('span',{class:'grow'}),
-    h('button',{class:'btn primary',onclick:()=>{document.body.classList.add('psp');try{if(window.AndroidBridge&&AndroidBridge.printPage)AndroidBridge.printPage(t.name||'Timetable');else window.print()}catch(e){toast('Printing is not available here. Use Share › Save web page, then print it.')}}},'Print'),
+    h('button',{class:'btn primary',onclick:()=>prGo(t.name,pv)},'Print'),
     h('button',{class:'btn',onclick:()=>{document.body.classList.remove('psp');pv.remove()}},'Close'));
   const sheet=h('div',{class:'spsheet'});sheet.innerHTML='<style>'+STCSS.replace(/body\{[^}]*\}/,'')+'</style>'+stHtmlBody(t);
   pv.append(bar,sheet);document.body.append(pv);
@@ -4321,10 +4322,13 @@ function boxMenu(n,ta,pick,ents){
     it('Open an app','With this text',()=>appsDlg(n,ta))),
     [h('button',{class:'btn primary',onclick:()=>m.close()},'Close')])}
 /* ===== v85: print the main table for a date range, chosen rows and columns ===== */
+function prGo(name,pv){const sh=pv.querySelector('.spsheet');
+  try{if(window.AndroidBridge&&AndroidBridge.printHtml){const doc='<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>@page{size:A4 landscape;margin:8mm}html,body{margin:0;padding:0;background:#fff;color:#111;font-family:system-ui,sans-serif}</style></head><body>'+(sh?sh.innerHTML:'')+'</body></html>';AndroidBridge.printHtml(name||'Timetable',doc);return}
+    document.body.classList.add('psp');if(window.AndroidBridge&&AndroidBridge.printPage)AndroidBridge.printPage(name||'Timetable');else window.print()}catch(e){toast('Printing is not available here.')}}
 function prPreview(name,html,css){let pv=$('#sprint');if(pv)pv.remove();
   pv=h('div',{id:'sprint',class:'sprint'});
   const bar=h('div',{class:'spbar'},h('strong',null,'Print preview'),h('span',{class:'grow'}),
-    h('button',{class:'btn primary',onclick:()=>{document.body.classList.add('psp');try{if(window.AndroidBridge&&AndroidBridge.printPage)AndroidBridge.printPage(name||'Timetable');else window.print()}catch(e){toast('Printing is not available here.')}}},'Print'),
+    h('button',{class:'btn primary',onclick:()=>prGo(name,pv)},'Print'),
     h('button',{class:'btn',onclick:()=>{document.body.classList.remove('psp');pv.remove()}},'Close'));
   const sheet=h('div',{class:'spsheet'});sheet.innerHTML='<style>'+STCSS.replace(/body\{[^}]*\}/,'')+(css||'')+'</style>'+html;
   pv.append(bar,sheet);document.body.append(pv);window.addEventListener('afterprint',()=>document.body.classList.remove('psp'),{once:true})}
@@ -4447,8 +4451,10 @@ function tabPend(){const p0=$('#pend'),y=p0&&!p0.hidden?p0.scrollTop:0,p=overlay
 function tabLayers(){const sh=$('#sheet'),sb=$('#stbl'),se=$('#stent');return{main:[sh&&SHT.view==='full'?sh:null].filter(Boolean),simple:[sb&&STS.view==='full'?sb:null,se?se:null].filter(Boolean)}}
 function tabHold(list){list.forEach(el=>{if(!el.hidden){el.hidden=true;el.dataset.held='1'}})}
 function tabShow(list){list.forEach(el=>{if(el.dataset.held){delete el.dataset.held;el.hidden=false}})}
+function tabPlanEls(){return[...['inbox','trash','revise','review','month','agenda','sprint','qpanel'].map(id=>document.getElementById(id)),...document.querySelectorAll('.mback')].filter(Boolean)}
 function tabGo(w){const L=tabLayers(),pd=$('#pend');PEND.ret=null;
-  ['inbox','trash','revise','review','month','agenda'].forEach(id=>{const o=document.getElementById(id);if(o)o.hidden=true});
+  if(tabActive()==='main'&&w!=='main')tabHold(tabPlanEls().filter(e=>!e.closest('#stent,#stbl')));
+  if(w==='main')tabPlanEls().forEach(e=>{if(e.dataset.held){delete e.dataset.held;e.hidden=false}});
   if(w==='todo'){tabHold(L.main);tabHold(L.simple);const gt=$('#gtree');if(gt&&!gt.hidden&&!/(dock|float|min)/.test(gt.className)){gt.hidden=true;gt.dataset.held='1'}tabPend();tabPaint();return}
   if(pd)pd.hidden=true;
   if(w==='main'){tabHold(L.simple);const sb=$('#stbl');if(sb&&STS.view==='full'&&!sb.hidden)tabHold([sb]);tabShow(tabLayers().main);const gt=$('#gtree');if(gt&&gt.dataset.held){delete gt.dataset.held;gt.hidden=false}}
