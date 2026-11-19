@@ -3508,7 +3508,7 @@ function stShare(t){const sel=new Set(stCols(t).map(c=>c.id));
 function stPrint(t){let pv=$('#sprint');if(pv)pv.remove();
   pv=h('div',{id:'sprint',class:'sprint'});
   const bar=h('div',{class:'spbar'},h('strong',null,'Print preview'),h('span',{class:'grow'}),
-    h('button',{class:'btn primary',onclick:()=>prGo(t.name,pv)},'Print'),
+    h('button',{class:'btn',onclick:()=>prGo(t.name,pv,true)},'Save PDF'),h('button',{class:'btn primary',onclick:()=>prGo(t.name,pv)},'Print'),
     h('button',{class:'btn',onclick:()=>{document.body.classList.remove('psp');pv.remove()}},'Close'));
   const sheet=h('div',{class:'spsheet'});sheet.innerHTML='<style>'+STCSS.replace(/body\{[^}]*\}/,'')+'</style>'+stHtmlBody(t);
   pv.append(bar,sheet);document.body.append(pv);
@@ -4322,13 +4322,16 @@ function boxMenu(n,ta,pick,ents){
     it('Open an app','With this text',()=>appsDlg(n,ta))),
     [h('button',{class:'btn primary',onclick:()=>m.close()},'Close')])}
 /* ===== v85: print the main table for a date range, chosen rows and columns ===== */
-function prGo(name,pv){const sh=pv.querySelector('.spsheet');
-  try{if(window.AndroidBridge&&AndroidBridge.printHtml){const doc='<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>@page{size:A4 landscape;margin:8mm}html,body{margin:0;padding:0;background:#fff;color:#111;font-family:system-ui,sans-serif}</style></head><body>'+(sh?sh.innerHTML:'')+'</body></html>';AndroidBridge.printHtml(name||'Timetable',doc);return}
-    if(window.AndroidBridge){toast('Printing needs the updated app. Rebuild with the new MainActivity.kt, or use Share \u203a Save web page.');return}document.body.classList.add('psp');window.print()}catch(e){toast('Printing is not available here.')}}
+function prDoc(pv){const sh=pv.querySelector('.spsheet');return'<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>@page{size:A4 landscape;margin:8mm}html,body{margin:0;padding:0;background:#fff;color:#111;font-family:system-ui,sans-serif}</style></head><body>'+(sh?sh.innerHTML:'')+'</body></html>'}
+function prGo(name,pv,pdf){
+  try{if(window.AndroidBridge){const f=pdf?AndroidBridge.savePdf:AndroidBridge.printHtml;if(!f){toast('This needs the updated app. Rebuild with the new MainActivity.kt and PdfExporter.java.');return}
+      if(pdf)AndroidBridge.savePdf(name||'Timetable',prDoc(pv));else AndroidBridge.printHtml(name||'Timetable',prDoc(pv));return}
+    if(pdf){toast('Use Print and choose Save as PDF.');return}
+    document.body.classList.add('psp');window.print()}catch(e){toast('Printing is not available here.')}}
 function prPreview(name,html,css){let pv=$('#sprint');if(pv)pv.remove();
   pv=h('div',{id:'sprint',class:'sprint'});
   const bar=h('div',{class:'spbar'},h('strong',null,'Print preview'),h('span',{class:'grow'}),
-    h('button',{class:'btn primary',onclick:()=>prGo(name,pv)},'Print'),
+    h('button',{class:'btn',onclick:()=>prGo(name,pv,true)},'Save PDF'),h('button',{class:'btn primary',onclick:()=>prGo(name,pv)},'Print'),
     h('button',{class:'btn',onclick:()=>{document.body.classList.remove('psp');pv.remove()}},'Close'));
   const sheet=h('div',{class:'spsheet'});sheet.innerHTML='<style>'+STCSS.replace(/body\{[^}]*\}/,'')+(css||'')+'</style>'+html;
   pv.append(bar,sheet);document.body.append(pv);window.addEventListener('afterprint',()=>document.body.classList.remove('psp'),{once:true})}
