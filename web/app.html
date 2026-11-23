@@ -562,6 +562,8 @@ body.psel #pend .pbodyl,body.psel #pday .pdbody,body.psel #pend .mvday{padding-b
 .thide{display:flex;justify-content:center;padding:2px 0;flex:none}.ehidebtn{font-size:12px;padding:2px 12px;min-height:26px}
 .sheet.topoff .ehead,.sheet.topoff #crumbs,.sheet.topoff #cellbar{display:none!important}.sheet.tabmax #thide{display:none}
 #btdock .btab.on{border-color:var(--accent);background:var(--accent);color:#fff}
+.vmbtn{font-size:13px;min-height:34px;white-space:nowrap}.viewonly .vmbtn{border-color:var(--accent)}
+.viewonly #sheet textarea,.viewonly #sheet .ein,.viewonly #zbox textarea,.viewonly #stbl textarea{caret-color:transparent}
 </style>
 <div id="app">
   <header class="top">
@@ -5118,6 +5120,51 @@ function stEnsure(t,date,time){stFix(t);const wd=(parseISO(date).getDay()+6)%7;l
   const bar=h('div',{id:'thide',class:'thide'},b);sheet.prepend(bar);
   const ap=()=>{const x=hd();sheet.classList.toggle('topoff',x);b.textContent=x?'\u25be Show top bars':'\u25b4 Hide top bars';b.setAttribute('aria-expanded',String(!x))};
   b.onclick=()=>{try{localStorage.setItem('tt_ehide',hd()?'0':'1')}catch(e){}ap()};ap();
+})();
+
+/* 13. Edit / View mode for the timetables and the simple tables */
+(function(){
+  const rd=()=>{try{return localStorage.getItem('tt_view')==='1'}catch(e){return false}};
+  ui.view=rd();
+  const btns=[];let lastNote=0;
+  const note=()=>{const t=Date.now();if(t-lastNote>1500){lastNote=t;toast('View mode: switch to Edit to change anything.')}};
+  const label=()=>ui.view?'\u{1F441} View':'✎ Edit';
+  const mk=()=>{const b=h('button',{class:'btn vmbtn viewok','aria-label':'Switch between Edit and View mode',onclick:e=>{e.stopPropagation();set(!ui.view)}});btns.push(b);return b};
+  const paintBtns=()=>btns.forEach(b=>{if(!b.isConnected&&b.dataset.dead){return}b.textContent=label();b.classList.toggle('primary',ui.view);b.setAttribute('aria-pressed',String(ui.view));b.title=ui.view?'View mode: nothing can be changed. Tap to switch to Edit.':'Edit mode. Tap to switch to View (read only).'});
+  const scope='#sheet,#stbl,#stent,#zbox,#sfull,.zbox';
+  const lock=()=>{document.querySelectorAll(scope).forEach(r=>{
+    r.querySelectorAll('input,textarea,select').forEach(x=>{if(x.closest('.mback')||x.classList.contains('viewok')||x.type==='search')return;
+      if(ui.view){if(!x.dataset.vl){x.dataset.vl=x.tagName==='SELECT'?'d'+(x.disabled?1:0):'r'+(x.readOnly?1:0)}if(x.tagName==='SELECT'||x.type==='checkbox'||x.type==='radio'||x.type==='range'||x.type==='color'||x.type==='file')x.disabled=true;else x.readOnly=true}
+      else if(x.dataset.vl){const v=x.dataset.vl;if(v[0]==='d')x.disabled=v[1]==='1';else{x.readOnly=v[1]==='1';x.disabled=false}delete x.dataset.vl}});
+    r.querySelectorAll('[contenteditable]').forEach(x=>{if(ui.view){if(!x.dataset.vce){x.dataset.vce=x.contentEditable;x.contentEditable='false'}}else if(x.dataset.vce){x.contentEditable=x.dataset.vce;delete x.dataset.vce}})})};
+  const set=v=>{ui.view=!!v;try{localStorage.setItem('tt_view',ui.view?'1':'0')}catch(e){}document.body.classList.toggle('viewonly',ui.view);paintBtns();lock();toast(ui.view?'View mode: read only':'Edit mode')};
+  const editRe=/(^|[\s·])(\+|＋|add|new|delete|remove|trash|move|copy|paste|cut|duplicate|clone|clear|reset|rename|colou?r|status|done|complete|mark|star|pin|priority|alarm|schedule|convert|insert|import|upload|attach|save|apply|undo|redo|format|merge|split|reorder|menu|quick|swap|repeat|reminder|rows|columns?)(\s|$|…)/i;
+  const okSel='.viewok,[data-loc],.chip,.btl,.btx,.btmx,#btabs *,#btdock *,#thide *,.crumb,.tl,.xrow,.tpseg,#hgrip *,.undgrip,.mback,.tabrestore';
+  const guard=e=>{if(!ui.view)return;const t=e.target;if(!t||!t.closest)return;if(!t.closest(scope+',#grid,#tbl,td.cell,.stwrap'))return;
+    if(t.closest(okSel)&&!t.closest('input[type=checkbox],.tog'))return;
+    const b=t.closest('button,[role=button],.btn,.ibtn,label,input[type=checkbox],.tog,[draggable=true]');
+    if(!b)return;
+    const tx=((b.getAttribute('aria-label')||'')+' '+(b.title||'')+' '+(b.textContent||'')).replace(/\s+/g,' ').trim();
+    if(b.matches('input[type=checkbox],.tog')||editRe.test(tx)){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();note()}};
+  ['click','dblclick','contextmenu'].forEach(ev=>document.addEventListener(ev,guard,true));
+  ['beforeinput','paste','cut','drop','dragstart','change'].forEach(ev=>document.addEventListener(ev,e=>{if(!ui.view)return;const t=e.target;if(!t||!t.closest||!t.closest(scope+',#grid,#tbl,td.cell,.stwrap'))return;if(t.closest('.mback,.viewok'))return;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();note()},true));
+  /* openers of anything that changes data */
+  /* openers of anything that changes data */
+  if(typeof boxMenu==='function'){const f=boxMenu;boxMenu=function(){if(ui.view){note();return}return f.apply(this,arguments)}}
+  if(typeof copyDlg==='function'){const f=copyDlg;copyDlg=function(){if(ui.view){note();return}return f.apply(this,arguments)}}
+  if(typeof boxFmtDlg==='function'){const f=boxFmtDlg;boxFmtDlg=function(){if(ui.view){note();return}return f.apply(this,arguments)}}
+  if(typeof fmtDlg==='function'){const f=fmtDlg;fmtDlg=function(){if(ui.view){note();return}return f.apply(this,arguments)}}
+  if(typeof mcdDlg==='function'){const f=mcdDlg;mcdDlg=function(){if(ui.view){note();return}return f.apply(this,arguments)}}
+  if(typeof pendCopyDlg==='function'){const f=pendCopyDlg;pendCopyDlg=function(){if(ui.view){note();return}return f.apply(this,arguments)}}
+  if(typeof toSimpleDlg==='function'){const f=toSimpleDlg;toSimpleDlg=function(){if(ui.view){note();return}return f.apply(this,arguments)}}
+  if(typeof qaOpen==='function'){const f=qaOpen;qaOpen=function(){if(ui.view){note();return}return f.apply(this,arguments)}}
+  if(typeof mgStart==='function'){const f=mgStart;mgStart=function(){if(ui.view){note();return}return f.apply(this,arguments)}}
+  /* buttons */
+  const top=document.querySelector('header.top .right');if(top)top.prepend(mk());
+  const tb=$('#thide');if(tb)tb.append(mk());
+  const _sp=stPaint;stPaint=function(){const r=_sp.apply(this,arguments);try{const hd=document.querySelector('#stbl .stthead');if(hd&&!hd.querySelector('.vmbtn')){const b=mk();const g=hd.querySelector('.grow');hd.insertBefore(b,g?g.nextSibling:null)}paintBtns();lock()}catch(e){}return r};
+  let raf=0;new MutationObserver(()=>{if(!ui.view||raf)return;raf=requestAnimationFrame(()=>{raf=0;lock()})}).observe(document.body,{childList:true,subtree:true});
+  document.body.classList.toggle('viewonly',ui.view);paintBtns();lock();
 })();
 /* ===== Android app bridge: keeps the phone's alarm clock in step with the page (no effect in a browser) ===== */
 const NB=window.AndroidBridge;
